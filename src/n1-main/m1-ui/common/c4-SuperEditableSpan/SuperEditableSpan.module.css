@@ -1,0 +1,16 @@
+.spanBlock {
+    display: flex;
+    align-items: center;
+}
+
+.span {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.input {
+    width: 276px;
+    height: 36px;
+}
+
+.pen {}
