@@ -1,0 +1,20 @@
+.select {
+  width: 165px;
+  height: 24px;
+  padding: 2px 5px 2px 5px;
+
+  background-image: url('/src/common/components/SuperSelect/chevron-down.svg');
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  border: 1px solid #c2c2c2;
+  border-radius: 2px;
+  outline: none;
+
+  appearance: none;
+}
+
+.select:focus {
+}
+
+.option:hover {
+}
