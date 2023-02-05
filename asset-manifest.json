@@ -1,18 +1,13 @@
 {
   "files": {
-    "main.css": "/friday-project-cards/static/css/main.8a9a75ed.css",
-    "main.js": "/friday-project-cards/static/js/main.17ddf997.js",
-    "static/media/editIcon.svg": "/friday-project-cards/static/media/editIcon.0a0cefd2190b593b4f76bb1a5afe0c1f.svg",
-    "static/media/checked.svg": "/friday-project-cards/static/media/checked.b75ca55e8759862b4083.svg",
+    "main.css": "/friday-project-cards/static/css/main.4439b6cc.css",
+    "main.js": "/friday-project-cards/static/js/main.a4571529.js",
     "index.html": "/friday-project-cards/index.html",
-    "static/media/noneIcon.svg": "/friday-project-cards/static/media/noneIcon.82be5adb1b751c50d996cd22beed7ded.svg",
-    "static/media/arrowDown.svg": "/friday-project-cards/static/media/arrowDown.84608c11f30550bbfe9dc58dff6d4ddb.svg",
-    "static/media/arrowUp.svg": "/friday-project-cards/static/media/arrowUp.3f53e1ada336d4a2b89dabfb878c65f9.svg",
-    "main.8a9a75ed.css.map": "/friday-project-cards/static/css/main.8a9a75ed.css.map",
-    "main.17ddf997.js.map": "/friday-project-cards/static/js/main.17ddf997.js.map"
+    "main.4439b6cc.css.map": "/friday-project-cards/static/css/main.4439b6cc.css.map",
+    "main.a4571529.js.map": "/friday-project-cards/static/js/main.a4571529.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a9a75ed.css",
-    "static/js/main.17ddf997.js"
+    "static/css/main.4439b6cc.css",
+    "static/js/main.a4571529.js"
   ]
 }
