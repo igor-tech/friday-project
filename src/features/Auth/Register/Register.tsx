@@ -1,17 +1,7 @@
 import React, { useState } from 'react'
 
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-} from '@mui/material'
+import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
@@ -19,9 +9,9 @@ import * as yup from 'yup'
 
 import { PATH, useAppSelector } from '../../../common'
 
-import style from './Login.module.css'
+import style from './Register.module.css'
 
-export const Login = () => {
+export const Register = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const [showPassword, setShowPassword] = useState(false)
@@ -31,7 +21,7 @@ export const Login = () => {
     initialValues: {
       email: '',
       password: '',
-      rememberMe: false,
+      confirmPassword: '',
     },
     validationSchema: yup.object({
       email: yup
@@ -40,6 +30,11 @@ export const Login = () => {
         .required('Почта является обязательной'),
       password: yup
         .string()
+        .min(8, 'Минимальная длина пароля 8 символов')
+        .required('Пароль является обязательным'),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref('password'), null], 'Пароли не совпадают')
         .min(8, 'Минимальная длина пароля 8 символов')
         .required('Пароль является обязательным'),
     }),
@@ -55,7 +50,7 @@ export const Login = () => {
   return (
     <div className={style.wrapper}>
       <form onSubmit={formik.handleSubmit} className={style.form}>
-        <div className={style.title}>Sign in</div>
+        <div className={style.title}>Sign up</div>
 
         <TextField
           id="email"
@@ -95,29 +90,37 @@ export const Login = () => {
           </div>
         ) : null}
 
-        <FormGroup style={{ width: '347px' }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formik.values.rememberMe}
-                {...formik.getFieldProps('rememberMe')}
-              />
+        <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
+          <InputLabel htmlFor="confirm-password">Password</InputLabel>
+          <Input
+            id="confirm-password"
+            type={showPassword ? 'text' : 'password'}
+            {...formik.getFieldProps('confirmPassword')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
             }
-            label="Remember me"
           />
-        </FormGroup>
+        </FormControl>
 
-        <div style={{ width: '347px' }}>
-          <NavLink to={PATH.PASSWORD_RECOVERY} className={style.blackLink}>
-            Forgot Password?
-          </NavLink>
-        </div>
+        {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
+            {formik.errors.confirmPassword}
+          </div>
+        ) : null}
 
         <Button
           variant="contained"
           type="submit"
           className={style.btn}
           style={{
+            marginTop: '60px',
             width: '347px',
             borderRadius: '30px',
             background: '#366EFF',
@@ -126,13 +129,13 @@ export const Login = () => {
               '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
           }}
         >
-          Sign In
+          Sign Up
         </Button>
 
-        <div className={style.text}>{`Don't have an account yet?`}</div>
+        <div className={style.text}>{`Already have an account?`}</div>
 
         <NavLink className={style.blueLink} to={PATH.REGISTRATION}>
-          Sign Up
+          Sign In
         </NavLink>
       </form>
     </div>
