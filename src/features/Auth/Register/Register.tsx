@@ -7,13 +7,14 @@ import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { PATH, useAppSelector } from '../../../common'
+import { PATH, useAppDispatch, useAppSelector } from '../../../common'
+import { RegisterTC } from '../AuthThunk'
 
 import style from './Register.module.css'
 
 export const Register = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-
+  const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const handleClickShowPassword = () => setShowPassword(show => !show)
 
@@ -39,7 +40,8 @@ export const Register = () => {
         .required('Пароль является обязательным'),
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(RegisterTC(values))
+      formik.resetForm()
     },
   })
 
@@ -68,7 +70,7 @@ export const Register = () => {
         <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
-            id="password"
+            id={'password'}
             type={showPassword ? 'text' : 'password'}
             {...formik.getFieldProps('password')}
             endAdornment={
@@ -91,9 +93,9 @@ export const Register = () => {
         ) : null}
 
         <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
-          <InputLabel htmlFor="confirm-password">Password</InputLabel>
+          <InputLabel htmlFor="password">Confirm password</InputLabel>
           <Input
-            id="confirm-password"
+            id={'confirmPassword'}
             type={showPassword ? 'text' : 'password'}
             {...formik.getFieldProps('confirmPassword')}
             endAdornment={
@@ -119,12 +121,12 @@ export const Register = () => {
           variant="contained"
           type="submit"
           className={style.btn}
-          style={{
+          sx={{
             marginTop: '60px',
             width: '347px',
-            borderRadius: '30px',
-            background: '#366EFF',
+            borderRadius: 30,
             textTransform: 'none',
+            background: '#366EFF',
             boxShadow:
               '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
           }}
@@ -134,7 +136,7 @@ export const Register = () => {
 
         <div className={style.text}>{`Already have an account?`}</div>
 
-        <NavLink className={style.blueLink} to={PATH.REGISTRATION}>
+        <NavLink className={style.blueLink} to={PATH.LOGIN}>
           Sign In
         </NavLink>
       </form>

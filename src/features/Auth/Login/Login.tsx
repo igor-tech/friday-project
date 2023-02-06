@@ -17,13 +17,14 @@ import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { PATH, useAppSelector } from '../../../common'
+import { PATH, useAppDispatch, useAppSelector } from '../../../common'
+import { LoginTC } from '../AuthThunk'
 
 import style from './Login.module.css'
 
 export const Login = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-
+  const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const handleClickShowPassword = () => setShowPassword(show => !show)
 
@@ -44,7 +45,8 @@ export const Login = () => {
         .required('Пароль является обязательным'),
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(LoginTC(values))
+      formik.resetForm()
     },
   })
 
