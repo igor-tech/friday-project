@@ -11,6 +11,7 @@ import {
   InputLabel,
   Paper,
   Typography,
+  FormControl,
 } from '@mui/material'
 
 import { PATH, useShowPassword } from '../../../../common'
@@ -18,6 +19,7 @@ import {
   BtnSubmit2Sx,
   cardContainerSx,
   contentContainerSx,
+  error,
   formSx,
   newPassDescribeSx,
   titleSx,
@@ -28,10 +30,10 @@ import { isSetNewPassword } from './newPassword-slice'
 
 export const NewPassword = () => {
   const { showPassword, handleClickShowPassword, handleMouseDownPassword } = useShowPassword()
-  const { handleSubmit, SetNewPassword, dispatch, navigate, errors, getFieldProps } =
+  const { handleSubmit, isNewPassword, dispatch, navigate, errors, getFieldProps } =
     useNewPasswordForm()
 
-  if (SetNewPassword) {
+  if (isNewPassword) {
     dispatch(isSetNewPassword(false))
     navigate(`${PATH.LOGIN}`)
   }
@@ -45,26 +47,31 @@ export const NewPassword = () => {
           </Typography>
 
           <Box component="form" noValidate autoComplete="off" sx={formSx} onSubmit={handleSubmit}>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              fullWidth
-              error={!!errors.password}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              {...getFieldProps('password')}
-            />
-            {errors.password && errors.password}
+            <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                fullWidth
+                error={!!errors.password}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                {...getFieldProps('password')}
+              />
+              <Typography component="span" sx={error}>
+                {errors.password && errors.password}
+              </Typography>
+            </FormControl>
+
             <Typography component="p" sx={newPassDescribeSx}>
               Create new password and we will send you further instructions to email
             </Typography>

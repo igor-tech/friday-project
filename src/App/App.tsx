@@ -1,9 +1,14 @@
 import React from 'react'
 
 import './App.css'
+import { Pages } from './route-pages/Pages'
 
 function App() {
-  return <></>
+  return (
+    <>
+      <Pages />
+    </>
+  )
 }
 
 export default App

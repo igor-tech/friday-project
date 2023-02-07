@@ -28,14 +28,11 @@ export const resetPassword = createAsyncThunk(
     }
 
     try {
-      const {
-        data: { info, success },
-      } = await AUTH_RESET.forgotPassword(request)
+      const { data } = await AUTH_RESET.forgotPassword(request)
 
-      if (success) {
+      if (data.info.success) {
         dispatch(isRecoveryPassword(true))
       }
-      console.log('info', info)
 
       return email
     } catch (err: any) {

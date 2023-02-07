@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { AUTH_RESET } from '../../auth-api'
+import { AUTH_RESET, SetNewPasswordReqType } from '../../auth-api'
 
 interface initialStateType {
   isSetNewPassword: boolean
@@ -12,13 +12,10 @@ const initialState: initialStateType = {
 
 export const setNewPassword = createAsyncThunk(
   'setNewPassword',
-  async (request: any, { dispatch }) => {
+  async (request: SetNewPasswordReqType, { dispatch }) => {
     try {
-      const {
-        data: { info },
-      } = await AUTH_RESET.setNewPassword(request)
+      const { data } = await AUTH_RESET.setNewPassword(request)
 
-      console.log(info)
       dispatch(isSetNewPassword(true))
     } catch (err: any) {
       dispatch(isSetNewPassword(false))

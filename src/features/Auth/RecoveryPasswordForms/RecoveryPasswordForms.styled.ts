@@ -111,3 +111,10 @@ export const newPassDescribeSx = {
   color: '#000000',
   opacity: '0.5',
 }
+export const error = {
+  marginTop: '3px',
+  fontWeight: '400',
+  lineHeight: ' 1.66',
+  color: '#d32f2f',
+  fontSize: '0.75rem',
+}

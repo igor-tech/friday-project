@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../../common'
 import { setNewPassword } from '../newPassword-slice'
 
 export const useNewPasswordForm = () => {
-  const SetNewPassword = useAppSelector(state => state.setNewPassword.isSetNewPassword)
+  const isNewPassword = useAppSelector(state => state.setNewPassword.isSetNewPassword)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
@@ -22,7 +22,7 @@ export const useNewPasswordForm = () => {
       dispatch(
         setNewPassword({
           password: data.password,
-          resetPasswordToken: token,
+          resetPasswordToken: token!,
         })
       )
       resetForm()
@@ -30,7 +30,7 @@ export const useNewPasswordForm = () => {
   })
 
   return {
-    SetNewPassword,
+    isNewPassword,
     dispatch,
     navigate,
     handleSubmit,
