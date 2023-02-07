@@ -34,7 +34,7 @@ export const PasswordRecoveryForm = () => {
 
   if (isRecoveryPass) {
     dispatch(isRecoveryPassword(false))
-    navigate(`${PATH.CHECK_EMAIL}`)
+    navigate(PATH.CHECK_EMAIL)
   }
 
   return (

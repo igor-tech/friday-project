@@ -6,10 +6,7 @@ interface ForgotPasswordReqType {
   message: string
 }
 interface ForgotPasswordResType {
-  info: {
-    answer: boolean
-    html: boolean
-    info: string
+  data: {
     success: boolean
   }
   error?: string
@@ -27,7 +24,7 @@ export interface SetNewPasswordReqType {
 
 export const AUTH_RESET = {
   forgotPassword(request: ForgotPasswordReqType) {
-    return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', request)
+    return instanceHeroku.post('/auth/forgot', request)
   },
   setNewPassword(request: SetNewPasswordReqType) {
     return instanceHeroku.post<SetNewPasswordResType>('/auth/set-new-password', request)

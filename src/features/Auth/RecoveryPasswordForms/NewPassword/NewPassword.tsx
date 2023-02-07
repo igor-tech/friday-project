@@ -35,7 +35,7 @@ export const NewPassword = () => {
 
   if (isNewPassword) {
     dispatch(isSetNewPassword(false))
-    navigate(`${PATH.LOGIN}`)
+    navigate(PATH.LOGIN)
   }
 
   return (
