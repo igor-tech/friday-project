@@ -1,16 +1,19 @@
+import React from 'react'
+
 import { Routes, Route } from 'react-router-dom'
 
 import { PATH } from '../../common'
+import { Login } from '../../features/Auth/login/Login'
 import { CheckEmail } from '../../features/Auth/RecoveryPasswordForms/CheckEmail/CheckEmail'
 import { NewPassword } from '../../features/Auth/RecoveryPasswordForms/NewPassword/NewPassword'
 import { PasswordRecoveryForm } from '../../features/Auth/RecoveryPasswordForms/RecoveryPassword/PasswordRecoveryForm'
-import { Login } from '../../features/Auth/Login/Login'
 import { Register } from '../../features/Auth/Register/Register'
+import { Profile } from '../../features/Profile/Profile'
 
 export const Pages = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<h1>Profile</h1>} />
+      <Route path={'/'} element={<Profile />} />
       <Route path={PATH.LOGIN} element={<Login />} />
       <Route path={PATH.REGISTRATION} element={<Register />} />
       <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecoveryForm />} />

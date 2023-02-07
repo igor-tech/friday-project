@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { PATH, useAppDispatch, useAppSelector } from '../../../common'
+import { PATH, useAppDispatch, useAppSelector, useShowPassword } from '../../../common'
 import { RegisterTC } from '../AuthThunk'
 
 import style from './Register.module.css'
@@ -15,8 +15,8 @@ import style from './Register.module.css'
 export const Register = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
-  const [showPassword, setShowPassword] = useState(false)
-  const handleClickShowPassword = () => setShowPassword(show => !show)
+
+  const { showPassword, handleClickShowPassword } = useShowPassword()
 
   const formik = useFormik({
     initialValues: {

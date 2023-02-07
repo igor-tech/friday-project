@@ -1,3 +1,4 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
 import { AppDispatch } from '../../App/store'
@@ -23,6 +24,15 @@ export const LoginTC = (data: LoginType) => (dispatch: AppDispatch) => {
       handleServerNetworkError({ message: error }, dispatch)
     })
 }
+
+// const LoginTC1 = createAsyncThunk('auth/login', async (request, { dispatch }) => {
+//   try {
+//     // @ts-ignore
+//     const data = await authAPI.login(request)
+//
+//     dispatch(setStatusLogged({ value: true }))
+//   } catch (err: any) {}
+// })
 
 export const RegisterTC = (data: RegisterType) => (dispatch: AppDispatch) => {
   authAPI
