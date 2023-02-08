@@ -1,18 +1,9 @@
 import React from 'react'
 
-import {
-  Box,
-  Button,
-  Container,
-  InputLabel,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Container, InputLabel, Link, Paper, TextField, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
-import { PATH } from '../../../../common'
+import { GeneralButton, PATH } from '../../../../common'
 import {
   BtnSubmitSx,
   cardContainerSx,
@@ -60,9 +51,7 @@ export const PasswordRecoveryForm = () => {
             <Typography component="p" sx={describeSx}>
               Enter your email address and we will send you further instructions
             </Typography>
-            <Button type="submit" variant="contained" sx={BtnSubmitSx} fullWidth>
-              Send Instructions
-            </Button>
+            <GeneralButton name="Send Instructions" type="submit" fullWidth sx={BtnSubmitSx} />
           </Box>
 
           <Typography component="p" sx={rememberPassSx}>

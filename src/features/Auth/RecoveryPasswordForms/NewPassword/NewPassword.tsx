@@ -1,25 +1,12 @@
 import React from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { Box, Container, Paper, Typography } from '@mui/material'
 
-import { PATH, useShowPassword } from '../../../../common'
+import { GeneralButton, PATH, ShowPasswordInput } from '../../../../common'
 import {
-  BtnSubmit2Sx,
+  BtnSubmitNpSx,
   cardContainerSx,
   contentContainerSx,
-  error,
   formSx,
   newPassDescribeSx,
   titleSx,
@@ -29,7 +16,6 @@ import { useNewPasswordForm } from './hooks/useNewPasswordForm'
 import { isSetNewPassword } from './newPassword-slice'
 
 export const NewPassword = () => {
-  const { showPassword, handleClickShowPassword, handleMouseDownPassword } = useShowPassword()
   const { handleSubmit, isNewPassword, dispatch, navigate, errors, getFieldProps, touched } =
     useNewPasswordForm()
 
@@ -47,37 +33,18 @@ export const NewPassword = () => {
           </Typography>
 
           <Box component="form" noValidate autoComplete="off" sx={formSx} onSubmit={handleSubmit}>
-            <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                fullWidth
-                error={!!errors.password}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                {...getFieldProps('password')}
-              />
-              <Typography component="span" sx={error}>
-                {touched.password && errors.password && errors.password}
-              </Typography>
-            </FormControl>
-
+            <ShowPasswordInput
+              errors={errors.password}
+              touched={touched.password}
+              id="password"
+              getFieldProps={getFieldProps}
+              nameLabel={'Password'}
+            />
             <Typography component="p" sx={newPassDescribeSx}>
               Create new password and we will send you further instructions to email
             </Typography>
-            <Button type="submit" variant="contained" sx={BtnSubmit2Sx} fullWidth>
-              Create new password
-            </Button>
+
+            <GeneralButton type="submit" name="Create new password" fullWidth sx={BtnSubmitNpSx} />
           </Box>
         </Container>
       </Paper>
