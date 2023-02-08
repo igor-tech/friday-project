@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 
 import './App.css'
-import { CircularProgress, LinearProgress } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '../common'
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
+import { AppStatusLoader } from '../common/components/Preloader/AppStatusLoader/AppStatusLoader'
+import { InitializedLoader } from '../common/components/Preloader/InitializedLoader/InitializedLoader'
 import { AppBar } from '../features/AppBar/AppBar'
 import { getMeAuthTC } from '../features/Profile/profile-slice'
 
@@ -20,17 +21,13 @@ function App() {
   }, [])
 
   if (!isInitialized) {
-    return (
-      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
-        <CircularProgress />
-      </div>
-    )
+    return <InitializedLoader />
   }
 
   return (
     <>
       <AppBar />
-      {status === 'loading' && <LinearProgress />}
+      {status === 'loading' && <AppStatusLoader />}
       <Pages />
       <ErrorSnackbar />
     </>
