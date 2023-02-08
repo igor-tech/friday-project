@@ -7,28 +7,42 @@ import { useNavigate } from 'react-router-dom'
 import { PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
 
 import iconBack from './Img/iconBack.png'
-import { getMeAuthTC, upDateNameTC, UserType } from './profile-slice'
+import {
+  getMeAuthTC,
+  logOutAccountTC,
+  setStatusLoggedAC,
+  upDateNameTC,
+  UserType,
+} from './profile-slice'
 import s from './Profile.module.css'
 
 export const Profile = () => {
   let [editMode, setEditMode] = useState(false)
-  let [title, setTitle] = useState('Name')
+  let [title, setTitle] = useState('')
 
-  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
-  const user = useAppSelector<UserType>(state => state.profile.user)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const user = useAppSelector(state => state.profile.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  // вопрос по типизации getMeAuth({}) и диспача внутри, если убрать request: {}
   useEffect(() => {
-    if (!isLoggedIn) return
-    dispatch(getMeAuthTC({}))
+    if (isLoggedIn) {
+      return
+    }
+    dispatch(getMeAuthTC())
   }, [])
 
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
   const backHandler = () => {
+    // потом нужно дописать логику предыдущей страницы или другую
+    navigate(PATH.LOGIN)
+  }
+
+  const logOut = () => {
+    // потом нужно дописать логику предыдущей страницы или другую
+    dispatch(logOutAccountTC())
     navigate(PATH.LOGIN)
   }
 
@@ -37,15 +51,13 @@ export const Profile = () => {
   }
 
   const activateViewMode = () => {
-    upDateNameTC(title)
-
+    dispatch(upDateNameTC(title))
+    setTitle('')
     // dispatch(UpdateUserData({ name, avatar: photo }))
     setEditMode(false)
   }
 
-  if (isLoggedIn) {
-    navigate(PATH.LOGIN)
-  }
+  if (!isLoggedIn) navigate(PATH.LOGIN)
 
   return (
     <div className={s.background}>
@@ -60,11 +72,11 @@ export const Profile = () => {
           <p>Personal Information</p>
           <div className={s.photoProfile}>
             <img
-              src={
+              src=/*{
                 user.avatar != null
                   ? user.avatar
                   : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
-              }
+              }*/ "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
               alt="Avatar"
             />
           </div>
@@ -82,7 +94,7 @@ export const Profile = () => {
             <p>{user.email}</p>
           </div>
           <div>
-            <SuperButton onClick={backHandler}>Log Out</SuperButton>
+            <SuperButton onClick={logOut}>Log Out</SuperButton>
           </div>
         </div>
       </div>
