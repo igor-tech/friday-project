@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
+import { handleServerNetworkError } from '../../../../common/utils'
 import { AUTH_RESET } from '../../auth-api'
 
 interface initialStateType {
@@ -27,20 +29,20 @@ export const resetPassword = createAsyncThunk(
       message: requestEmailMessage,
     }
 
+    dispatch(setAppStatus('loading'))
     try {
       const { data } = await AUTH_RESET.forgotPassword(request)
 
-      console.log(data)
-
       if (data.success) {
         dispatch(isRecoveryPassword(true))
+        dispatch(setAppStatus('success'))
+        dispatch(setAppMessage('Reset Password Success'))
       }
 
       return email
     } catch (err: any) {
       dispatch(isRecoveryPassword(false))
-      console.log(err.message)
-      console.log(err.response.data.error)
+      handleServerNetworkError(err, dispatch)
     }
   }
 )
