@@ -58,10 +58,9 @@ interface ForgotPasswordReqType {
 }
 
 interface ForgotPasswordResType {
-  data: {
-    success: boolean
-  }
+  success: boolean
   error?: string
+  info: string
 }
 
 interface SetNewPasswordResType {
@@ -76,9 +75,9 @@ export interface SetNewPasswordReqType {
 
 export const AUTH_RESET = {
   forgotPassword(request: ForgotPasswordReqType) {
-    return instance.post('/auth/forgot', request)
+    return instance1.post<ForgotPasswordResType>('/auth/forgot', request)
   },
   setNewPassword(request: SetNewPasswordReqType) {
-    return instance.post<SetNewPasswordResType>('/auth/set-new-password', request)
+    return instance1.post<SetNewPasswordResType>('/auth/set-new-password', request)
   },
 }
