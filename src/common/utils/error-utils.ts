@@ -1,14 +1,17 @@
-import { setAppError } from '../../App/root-reducer'
-import { AppDispatch } from '../../App/store'
+import { Dispatch } from '@reduxjs/toolkit'
+import axios, { AxiosError } from 'axios'
 
-export const handleServerAppError = (error: any, dispatch: AppDispatch) => {
-  if (error) {
-    dispatch(setAppError(error.response.data.error))
+import { setAppMessage, setAppStatus } from '../../App/app-slice'
+
+export const handleServerNetworkError = (e: any, dispatch: Dispatch) => {
+  const err = e as Error | AxiosError<{ error: string }>
+
+  if (axios.isAxiosError(err)) {
+    const error = err.response?.data.error || err.message
+
+    dispatch(setAppMessage(error))
   } else {
-    dispatch(setAppError('some error occurred'))
+    dispatch(setAppMessage(err.message))
   }
-}
-
-export const handleServerNetworkError = (error: any, dispatch: AppDispatch) => {
-  dispatch(setAppError(error ? error.response.data.error : 'Some error occurred'))
+  dispatch(setAppStatus('failed'))
 }
