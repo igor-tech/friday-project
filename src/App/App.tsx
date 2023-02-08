@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import './App.css'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, LinearProgress } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '../common'
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
@@ -30,8 +30,8 @@ function App() {
   return (
     <>
       <AppBar />
+      {status === 'loading' && <LinearProgress />}
       <Pages />
-      {status === 'loading' && <div>Loading</div>}
       <ErrorSnackbar />
     </>
   )

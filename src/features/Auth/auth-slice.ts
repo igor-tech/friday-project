@@ -3,6 +3,7 @@ import { AxiosError } from 'axios'
 
 import { AppDispatch } from '../../App/store'
 import { handleServerNetworkError } from '../../common/utils/error-utils'
+import { setData } from '../Profile/profile-slice'
 
 import { authAPI, LoginType, RegisterType } from './auth-api'
 
@@ -18,11 +19,12 @@ export const loginAT = createAsyncThunk('auth/login', async (data: LoginType, { 
   try {
     const response = await authAPI.login(data)
 
-    // dispatch(setData({ UserData: res.data }))
+    dispatch(setData(response.data))
     dispatch(setStatusLogged({ value: true }))
   } catch (e) {
     const err = e as Error | AxiosError<{ error: string }>
 
+    console.log(err)
     handleServerNetworkError(err, dispatch as AppDispatch)
   }
 })
@@ -33,7 +35,6 @@ export const RegisterAT = createAsyncThunk(
     try {
       const response = await authAPI.register(data)
 
-      // dispatch(setData({ UserData: res.data }))
       dispatch(setStatusLogged({ value: true }))
     } catch (e) {
       const err = e as Error | AxiosError<{ error: string }>

@@ -35,8 +35,17 @@ export type ResponseLogoutType = {
 }
 export type ResponseRegisterType = {
   addedUser: {
-    // не важные данные, просто для проверки
-    // чтобы посмотреть как выглядит созданный юзер
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number // количество колод
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean // подтвердил ли почту
+    rememberMe: boolean
+    error?: string
   }
   error?: string
 }

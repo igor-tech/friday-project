@@ -20,7 +20,7 @@ export const getMeAuthTC = createAsyncThunk(
       dispatch(setAppStatus('loading'))
       const { data } = await profileAPI.me()
 
-      dispatch(setInitializedAC(true)) // чиспачу в profile-slice пока не выбрали где будет
+      // dispatch(setInitializedAC(true)) // чиспачу в profile-slice пока не выбрали где будет
       dispatch(setStatusLogged({ value: true })) // чиспачу в auth-slice пока не выбрали где будет
 
       dispatch(upDateNameAC(data))
@@ -29,6 +29,8 @@ export const getMeAuthTC = createAsyncThunk(
       console.log(err.message)
       console.log(err.response.data.error)
       dispatch(setAppStatus('failed'))
+    } finally {
+      dispatch(setInitializedAC(true))
     }
   }
 )
@@ -83,10 +85,13 @@ export const profileSlice = createSlice({
       state.user = {} as UserType
       state.isInitialized = false
     },
+    setData(state, action: PayloadAction<UserType>) {
+      state.user = action.payload
+    },
   },
 })
 
-export const { upDateNameAC, setInitializedAC, logOutAccountAC } = profileSlice.actions
+export const { upDateNameAC, setInitializedAC, logOutAccountAC, setData } = profileSlice.actions
 export const profileReducer = profileSlice.reducer
 
 export type UserType = {
