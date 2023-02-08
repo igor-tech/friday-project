@@ -1,145 +1,82 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material'
+import { Box, Container, Link, Paper, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
-import * as yup from 'yup'
+import { NavLink } from 'react-router-dom'
 
-import { PATH, useAppDispatch, useAppSelector, useShowPassword } from '../../../common'
-import { RegisterTC } from '../AuthThunk'
+import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
+import { maxWidth, text } from '../Login/Login.styled'
+import {
+  cardContainerSx,
+  contentContainerSx,
+  linkContentSx,
+  linkSx,
+  titleSx,
+} from '../RecoveryPasswordForms/RecoveryPasswordForms.styled'
 
-import style from './Register.module.css'
+import { useRegisterForm } from './hooks/useRegisterForm'
 
 export const Register = () => {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const dispatch = useAppDispatch()
-
-  const { showPassword, handleClickShowPassword } = useShowPassword()
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationSchema: yup.object({
-      email: yup
-        .string()
-        .email('Введенное значение не является почтой')
-        .required('Почта является обязательной'),
-      password: yup
-        .string()
-        .min(8, 'Минимальная длина пароля 8 символов')
-        .required('Пароль является обязательным'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'Пароли не совпадают')
-        .min(8, 'Минимальная длина пароля 8 символов')
-        .required('Пароль является обязательным'),
-    }),
-    onSubmit: values => {
-      dispatch(RegisterTC(values))
-      formik.resetForm()
-    },
-  })
+  const { isLoggedIn, handleSubmit, navigate, getFieldProps, errors, touched } = useRegisterForm()
 
   if (isLoggedIn) {
-    return <Navigate to={'/profile'} />
+    navigate(PATH.PROFILE)
   }
 
   return (
-    <div className={style.wrapper}>
-      <form onSubmit={formik.handleSubmit} className={style.form}>
-        <div className={style.title}>Sign up</div>
+    <form onSubmit={handleSubmit}>
+      <Box sx={cardContainerSx}>
+        <Paper elevation={3}>
+          <Container sx={contentContainerSx}>
+            <Typography sx={titleSx} component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <TextField
+              id="email"
+              label="Email"
+              variant="standard"
+              fullWidth
+              {...getFieldProps('email')}
+              helperText={touched.email && errors.email}
+              error={touched.email && !!errors.email}
+            />
 
-        <TextField
-          id="email"
-          label="Email"
-          variant="standard"
-          style={{ width: '347px' }}
-          {...formik.getFieldProps('email')}
-        />
-        {formik.touched.email && formik.errors.email ? (
-          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
-            {formik.errors.email}
-          </div>
-        ) : null}
+            <ShowPasswordInput
+              touched={touched.password}
+              nameLabel={'Password'}
+              errors={errors.password}
+              getFieldProps={getFieldProps}
+              id={'password'}
+            />
 
-        <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id={'password'}
-            type={showPassword ? 'text' : 'password'}
-            {...formik.getFieldProps('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+            <ShowPasswordInput
+              touched={touched.confirmPassword}
+              nameLabel={'Confirm password'}
+              errors={errors.confirmPassword}
+              getFieldProps={getFieldProps}
+              id={'confirmPassword'}
+            />
 
-        {formik.touched.password && formik.errors.password ? (
-          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
-            {formik.errors.password}
-          </div>
-        ) : null}
+            <GeneralButton
+              name={'Sign Up'}
+              type={'submit'}
+              variant={'contained'}
+              fullWidth
+              sx={maxWidth}
+            />
 
-        <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
-          <InputLabel htmlFor="password">Confirm password</InputLabel>
-          <Input
-            id={'confirmPassword'}
-            type={showPassword ? 'text' : 'password'}
-            {...formik.getFieldProps('confirmPassword')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+            <Typography sx={text} component="h1" variant="h5">
+              {`Already have an account?`}
+            </Typography>
 
-        {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
-            {formik.errors.confirmPassword}
-          </div>
-        ) : null}
-
-        <Button
-          variant="contained"
-          type="submit"
-          className={style.btn}
-          sx={{
-            marginTop: '60px',
-            width: '347px',
-            borderRadius: 30,
-            textTransform: 'none',
-            background: '#366EFF',
-            boxShadow:
-              '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
-          }}
-        >
-          Sign Up
-        </Button>
-
-        <div className={style.text}>{`Already have an account?`}</div>
-
-        <NavLink className={style.blueLink} to={PATH.LOGIN}>
-          Sign In
-        </NavLink>
-      </form>
-    </div>
+            <Typography component="div" sx={linkContentSx}>
+              <Link component={NavLink} to={PATH.LOGIN} sx={linkSx}>
+                Sign In
+              </Link>
+            </Typography>
+          </Container>
+        </Paper>
+      </Box>
+    </form>
   )
 }

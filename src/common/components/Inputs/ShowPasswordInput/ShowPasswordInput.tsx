@@ -41,6 +41,8 @@ export const ShowPasswordInput: FC<ShowPasswordInputType> = ({
 
   const { showPassword, handleClickShowPassword, handleMouseDownPassword } = useShowPassword()
 
+  console.log(errors)
+
   return (
     <FormControl sx={formBasicStylesSx} variant="standard">
       <InputLabel htmlFor={id}>{nameLabel}</InputLabel>
@@ -48,7 +50,7 @@ export const ShowPasswordInput: FC<ShowPasswordInputType> = ({
         id={id}
         type={showPassword ? 'text' : 'password'}
         fullWidth
-        error={!!errors}
+        error={touched && !!errors}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -63,7 +65,7 @@ export const ShowPasswordInput: FC<ShowPasswordInputType> = ({
         {...getFieldProps(id)}
       />
       <Typography component="span" sx={error}>
-        {touched && errors && errors}
+        {touched && errors}
       </Typography>
     </FormControl>
   )

@@ -1,146 +1,92 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
-  Button,
+  Box,
   Checkbox,
-  FormControl,
+  Container,
   FormControlLabel,
   FormGroup,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
+  Link,
+  Paper,
+  Typography,
 } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { useFormik } from 'formik'
-import { Navigate, NavLink, useNavigate } from 'react-router-dom'
-import * as yup from 'yup'
+import { NavLink } from 'react-router-dom'
 
-import { PATH, useAppDispatch, useAppSelector } from '../../../common'
-import { LoginTC } from '../AuthThunk'
+import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
+import {
+  cardContainerSx,
+  contentContainerSx,
+  linkContentSx,
+  linkSx,
+  titleSx,
+} from '../RecoveryPasswordForms/RecoveryPasswordForms.styled'
 
-import style from './Login.module.css'
+import { useLoginForm } from './hooks/useLoginForm'
+import { Left, rightLink, text } from './Login.styled'
 
 export const Login = () => {
-  const navigate = useNavigate()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const dispatch = useAppDispatch()
-  const [showPassword, setShowPassword] = useState(false)
-  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const { navigate, getFieldProps, errors, touched, isLoggedIn, values, handleSubmit } =
+    useLoginForm()
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
-    validationSchema: yup.object({
-      email: yup
-        .string()
-        .email('Введенное значение не является почтой')
-        .required('Почта является обязательной'),
-      password: yup
-        .string()
-        .min(8, 'Минимальная длина пароля 8 символов')
-        .required('Пароль является обязательным'),
-    }),
-    onSubmit: values => {
-      dispatch(LoginTC(values))
-      formik.resetForm()
-      navigate(PATH.PROFILE) // добавил что бы был редирект сразу после отправки формы, нужно доработать, что бы данные в профайле сразу подгружались до загрузки страницы.
-    },
-  })
-
-  /*  if (isLoggedIn) {
-    return <Navigate to={'/profile'} />
-  }*/
-  // заменил так как так удоблее
-  if (isLoggedIn) navigate(PATH.PROFILE)
+  if (isLoggedIn) {
+    navigate(PATH.PROFILE)
+  }
 
   return (
-    <div className={style.wrapper}>
-      <form onSubmit={formik.handleSubmit} className={style.form}>
-        <div className={style.title}>Sign in</div>
+    <form onSubmit={handleSubmit}>
+      <Box sx={cardContainerSx}>
+        <Paper elevation={3}>
+          <Container sx={contentContainerSx}>
+            <Typography sx={titleSx} component="h1" variant="h5">
+              Sign In
+            </Typography>
 
-        <TextField
-          id="email"
-          label="Email"
-          variant="standard"
-          style={{ width: '347px' }}
-          {...formik.getFieldProps('email')}
-        />
-        {formik.touched.email && formik.errors.email ? (
-          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
-            {formik.errors.email}
-          </div>
-        ) : null}
+            <TextField
+              id="email"
+              label="Email"
+              variant="standard"
+              fullWidth
+              {...getFieldProps('email')}
+              helperText={touched.email && errors.email}
+              error={touched.email && !!errors.email}
+            />
 
-        <FormControl sx={{ m: 1, width: '347px', marginTop: '24px' }} variant="standard">
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            {...formik.getFieldProps('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+            <ShowPasswordInput
+              id={'password'}
+              getFieldProps={getFieldProps}
+              errors={errors.password}
+              touched={touched.password}
+              nameLabel={'Password'}
+            />
 
-        {formik.touched.password && formik.errors.password ? (
-          <div style={{ width: '347px', color: 'red', marginTop: '3px' }}>
-            {formik.errors.password}
-          </div>
-        ) : null}
-
-        <FormGroup style={{ width: '347px' }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formik.values.rememberMe}
-                {...formik.getFieldProps('rememberMe')}
+            <FormGroup sx={Left}>
+              <FormControlLabel
+                control={<Checkbox checked={values.rememberMe} {...getFieldProps('rememberMe')} />}
+                label="Remember me"
               />
-            }
-            label="Remember me"
-          />
-        </FormGroup>
+            </FormGroup>
 
-        <div style={{ width: '347px' }}>
-          <NavLink to={PATH.PASSWORD_RECOVERY} className={style.blackLink}>
-            Forgot Password?
-          </NavLink>
-        </div>
+            <Typography component="div">
+              <Link component={NavLink} to={PATH.PASSWORD_RECOVERY} sx={rightLink}>
+                Forgot Password?
+              </Link>
+            </Typography>
 
-        <Button
-          variant="contained"
-          type="submit"
-          className={style.btn}
-          style={{
-            width: '347px',
-            borderRadius: '30px',
-            background: '#366EFF',
-            textTransform: 'none',
-            boxShadow:
-              '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
-          }}
-        >
-          Sign In
-        </Button>
+            <GeneralButton name={'Sign In'} type={'submit'} variant={'contained'} fullWidth />
 
-        <div className={style.text}>{`Don't have an account yet?`}</div>
+            <Typography sx={text} component="h1" variant="h5">
+              {`Don't have an account yet?`}
+            </Typography>
 
-        <NavLink className={style.blueLink} to={PATH.REGISTRATION}>
-          Sign Up
-        </NavLink>
-      </form>
-    </div>
+            <Typography component="div" sx={linkContentSx}>
+              <Link component={NavLink} to={PATH.REGISTRATION} sx={linkSx}>
+                Sign Up
+              </Link>
+            </Typography>
+          </Container>
+        </Paper>
+      </Box>
+    </form>
   )
 }

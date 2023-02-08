@@ -2,18 +2,12 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
 
 import iconBack from './Img/iconBack.png'
-import {
-  getMeAuthTC,
-  logOutAccountTC,
-  setStatusLoggedAC,
-  upDateNameTC,
-  UserType,
-} from './profile-slice'
+import { getMeAuthTC, logOutAccountTC, upDateNameTC } from './profile-slice'
 import s from './Profile.module.css'
 
 export const Profile = () => {
@@ -57,7 +51,10 @@ export const Profile = () => {
     setEditMode(false)
   }
 
-  if (!isLoggedIn) navigate(PATH.LOGIN)
+  // if (!isLoggedIn) navigate(PATH.LOGIN)
+  if (!isLoggedIn) {
+    return <Navigate to={PATH.LOGIN} />
+  }
 
   return (
     <div className={s.background}>

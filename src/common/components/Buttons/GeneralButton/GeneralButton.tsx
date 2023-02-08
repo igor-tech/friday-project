@@ -20,6 +20,7 @@ export const GeneralButton: FC<ButtonProps> = ({
     textAlign: 'center',
     letterSpacing: '0.01em',
     color: '#FFFFFF',
+    textTransform: 'none',
     ...(sx as any),
   }
 

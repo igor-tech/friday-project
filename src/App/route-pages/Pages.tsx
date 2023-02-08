@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { PATH } from '../../common'
 import { Login } from '../../features/Auth/Login/Login'
