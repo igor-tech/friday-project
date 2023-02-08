@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AxiosError } from 'axios'
 
 import { AppDispatch } from '../../App/store'
-import { handleServerNetworkError } from '../../common/utils/error-utils'
+import { handleServerNetworkError } from '../../common/utils'
 import { setData } from '../Profile/profile-slice'
 
 import { authAPI, LoginType, RegisterType } from './auth-api'
@@ -22,10 +21,7 @@ export const loginAT = createAsyncThunk('auth/login', async (data: LoginType, { 
     dispatch(setData(response.data))
     dispatch(setStatusLogged({ value: true }))
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>
-
-    console.log(err)
-    handleServerNetworkError(err, dispatch as AppDispatch)
+    handleServerNetworkError(e, dispatch as AppDispatch)
   }
 })
 
@@ -37,9 +33,7 @@ export const RegisterAT = createAsyncThunk(
 
       dispatch(setStatusLogged({ value: true }))
     } catch (e) {
-      const err = e as Error | AxiosError<{ error: string }>
-
-      handleServerNetworkError(err, dispatch as AppDispatch)
+      handleServerNetworkError(e, dispatch as AppDispatch)
     }
   }
 )
@@ -51,9 +45,7 @@ export const LogoutAT = createAsyncThunk('auth/logout', async (thunkAPI, { dispa
     // dispatch(setData({ UserData: res.data }))
     dispatch(setStatusLogged({ value: false }))
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>
-
-    handleServerNetworkError(err, dispatch as AppDispatch)
+    handleServerNetworkError(e, dispatch as AppDispatch)
   }
 })
 
@@ -63,9 +55,7 @@ export const PingAT = createAsyncThunk('auth/ping', async (time: number, { dispa
 
     console.log(response)
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>
-
-    handleServerNetworkError(err, dispatch as AppDispatch)
+    handleServerNetworkError(e, dispatch as AppDispatch)
   }
 })
 
