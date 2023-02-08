@@ -1,3 +1,5 @@
+import { GeneralButton } from './Buttons/GeneralButton/GeneralButton'
+import { ShowPasswordInput } from './Inputs/ShowPasswordInput/ShowPasswordInput'
 import { SuperButton } from './SuperButton/SuperButton'
 import { SuperCheckbox } from './SuperCheckbox/SuperCheckbox'
 import { SuperDebouncedInput } from './SuperDebouncedInput/SuperDebouncedInput'
@@ -14,4 +16,6 @@ export {
   SuperDebouncedInput,
   SuperEditableSpan,
   SuperInputText,
+  GeneralButton,
+  ShowPasswordInput,
 }
