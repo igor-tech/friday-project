@@ -6,12 +6,15 @@ import { setNewPasswordReducer } from '../features/Auth/RecoveryPasswordForms/Ne
 import { recoveryPasswordReducer } from '../features/Auth/RecoveryPasswordForms/RecoveryPassword/recovery-password-slice'
 import { profileReducer } from '../features/Profile/profile-slice'
 
+import { appReducer } from './root-reducer'
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     recoveryPassword: recoveryPasswordReducer,
     setNewPassword: setNewPasswordReducer,
     profile: profileReducer,
+    app: appReducer,
   },
   devTools: true,
   middleware: getDefaultMiddleware => getDefaultMiddleware(),

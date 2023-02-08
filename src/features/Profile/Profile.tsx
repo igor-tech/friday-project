@@ -1,13 +1,14 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
+import { LogoutAT } from '../Auth/auth-slice'
 
 import iconBack from './Img/iconBack.png'
-import { getMeAuthTC, logOutAccountTC, upDateNameTC } from './profile-slice'
+import { upDateNameTC } from './profile-slice'
 import s from './Profile.module.css'
 
 export const Profile = () => {
@@ -19,13 +20,6 @@ export const Profile = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      return
-    }
-    dispatch(getMeAuthTC())
-  }, [])
-
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
@@ -36,7 +30,7 @@ export const Profile = () => {
 
   const logOut = () => {
     // потом нужно дописать логику предыдущей страницы или другую
-    dispatch(logOutAccountTC())
+    dispatch(LogoutAT())
     navigate(PATH.LOGIN)
   }
 

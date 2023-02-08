@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { setAppStatus } from '../../App/root-reducer'
 import { authAPI } from '../Auth/auth-api'
 import { setStatusLogged } from '../Auth/auth-slice'
 
-import { profileAPI, ResponseLoginType } from './profile-api'
+import { profileAPI } from './profile-api'
 
 export type InitialStateAuthType = {
-  isLoggedIn: boolean
+  isInitialized: boolean
   userId: string
   user: UserType
 }
@@ -16,15 +17,18 @@ export const getMeAuthTC = createAsyncThunk(
   // вопрос по типизации getMeAuth({}) и диспача внутри, если убрать request: {}
   async (_, { dispatch }) => {
     try {
+      dispatch(setAppStatus('loading'))
       const { data } = await profileAPI.me()
 
+      dispatch(setInitializedAC(true)) // чиспачу в profile-slice пока не выбрали где будет
       dispatch(setStatusLogged({ value: true })) // чиспачу в auth-slice пока не выбрали где будет
-      dispatch(setStatusLoggedAC(true)) // чиспачу в profile-slice пока не выбрали где будет
 
       dispatch(upDateNameAC(data))
+      dispatch(setAppStatus('success'))
     } catch (err: any) {
       console.log(err.message)
       console.log(err.response.data.error)
+      dispatch(setAppStatus('failed'))
     }
   }
 )
@@ -48,11 +52,11 @@ export const upDateNameTC = createAsyncThunk(
 
 export const logOutAccountTC = createAsyncThunk('profile/setNewName', async (_, { dispatch }) => {
   try {
-    const { data } = await authAPI.logout()
+    await authAPI.logout()
 
     dispatch(logOutAccountAC(_))
     dispatch(setStatusLogged({ value: false })) // чиспачу в auth-slice пока не выбрали где будет
-    dispatch(setStatusLoggedAC(false)) // чиспачу в profile-slice пока не выбрали где будет
+    dispatch(setInitializedAC(false)) // чиспачу в profile-slice пока не выбрали где будет
   } catch (err: any) {
     console.log(err.message)
     console.log(err.response.data.error)
@@ -60,7 +64,7 @@ export const logOutAccountTC = createAsyncThunk('profile/setNewName', async (_, 
 })
 
 const initialState: InitialStateAuthType = {
-  isLoggedIn: false,
+  isInitialized: false,
   userId: '',
   user: {} as UserType,
 }
@@ -72,17 +76,17 @@ export const profileSlice = createSlice({
     upDateNameAC: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload
     },
-    setStatusLoggedAC: (state, action: PayloadAction<boolean>) => {
-      state.isLoggedIn = action.payload
+    setInitializedAC: (state, action: PayloadAction<boolean>) => {
+      state.isInitialized = action.payload
     },
-    logOutAccountAC: (state, action) => {
+    logOutAccountAC: state => {
       state.user = {} as UserType
-      state.isLoggedIn = false
+      state.isInitialized = false
     },
   },
 })
 
-export const { upDateNameAC, setStatusLoggedAC, logOutAccountAC } = profileSlice.actions
+export const { upDateNameAC, setInitializedAC, logOutAccountAC } = profileSlice.actions
 export const profileReducer = profileSlice.reducer
 
 export type UserType = {

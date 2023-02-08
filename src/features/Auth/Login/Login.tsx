@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
 import {
@@ -26,11 +26,10 @@ import { useLoginForm } from './hooks/useLoginForm'
 import { Left, rightLink, text } from './Login.styled'
 
 export const Login = () => {
-  const { navigate, getFieldProps, errors, touched, isLoggedIn, values, handleSubmit } =
-    useLoginForm()
+  const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit } = useLoginForm()
 
   if (isLoggedIn) {
-    navigate(PATH.PROFILE)
+    return <Navigate to={PATH.PROFILE} />
   }
 
   return (

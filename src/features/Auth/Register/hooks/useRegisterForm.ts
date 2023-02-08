@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { useAppDispatch, useAppSelector } from '../../../../common'
-import { RegisterTC } from '../../AuthThunk'
+import { RegisterAT } from '../../auth-slice'
 
 export const useRegisterForm = () => {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ export const useRegisterForm = () => {
         .required('Пароль является обязательным'),
     }),
     onSubmit: values => {
-      dispatch(RegisterTC(values))
+      dispatch(RegisterAT(values))
       resetForm()
     },
   })

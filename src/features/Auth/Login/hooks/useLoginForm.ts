@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { PATH, useAppDispatch, useAppSelector } from '../../../../common'
-import { LoginTC } from '../../AuthThunk'
+import { loginAT } from '../../auth-slice'
 
 export const useLoginForm = () => {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ export const useLoginForm = () => {
       password: yup.string().min(8).required(),
     }),
     onSubmit: values => {
-      dispatch(LoginTC(values))
+      dispatch(loginAT(values))
       resetForm()
       navigate(PATH.PROFILE) // добавил что бы был редирект сразу после отправки формы, нужно доработать, что бы данные в профайле сразу подгружались до загрузки страницы.
     },

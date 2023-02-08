@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Box, Container, Link, Paper, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
 import { maxWidth, text } from '../Login/Login.styled'
@@ -17,10 +17,10 @@ import {
 import { useRegisterForm } from './hooks/useRegisterForm'
 
 export const Register = () => {
-  const { isLoggedIn, handleSubmit, navigate, getFieldProps, errors, touched } = useRegisterForm()
+  const { isLoggedIn, handleSubmit, getFieldProps, errors, touched } = useRegisterForm()
 
   if (isLoggedIn) {
-    navigate(PATH.PROFILE)
+    return <Navigate to={PATH.PROFILE} />
   }
 
   return (
