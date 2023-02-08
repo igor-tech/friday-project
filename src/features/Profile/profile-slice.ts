@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../App/root-reducer'
+import { setAppStatus } from '../../App/app-slice'
 import { authAPI } from '../Auth/auth-api'
 import { setStatusLogged } from '../Auth/auth-slice'
 

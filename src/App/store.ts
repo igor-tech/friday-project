@@ -6,7 +6,7 @@ import { setNewPasswordReducer } from '../features/Auth/RecoveryPasswordForms/Ne
 import { recoveryPasswordReducer } from '../features/Auth/RecoveryPasswordForms/RecoveryPassword/recovery-password-slice'
 import { profileReducer } from '../features/Profile/profile-slice'
 
-import { appReducer } from './root-reducer'
+import { appReducer } from './app-slice'
 
 export const store = configureStore({
   reducer: {
