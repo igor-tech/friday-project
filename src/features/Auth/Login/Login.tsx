@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { PATH, useAppDispatch, useAppSelector } from '../../../common'
@@ -23,6 +23,7 @@ import { LoginTC } from '../AuthThunk'
 import style from './Login.module.css'
 
 export const Login = () => {
+  const navigate = useNavigate()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
@@ -47,12 +48,15 @@ export const Login = () => {
     onSubmit: values => {
       dispatch(LoginTC(values))
       formik.resetForm()
+      navigate(PATH.PROFILE) // добавил что бы был редирект сразу после отправки формы, нужно доработать, что бы данные в профайле сразу подгружались до загрузки страницы.
     },
   })
 
-  if (isLoggedIn) {
+  /*  if (isLoggedIn) {
     return <Navigate to={'/profile'} />
-  }
+  }*/
+  // заменил так как так удоблее
+  if (isLoggedIn) navigate(PATH.PROFILE)
 
   return (
     <div className={style.wrapper}>
