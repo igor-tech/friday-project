@@ -11,7 +11,7 @@ export const useNewPasswordForm = () => {
   const navigate = useNavigate()
   const { token } = useParams()
 
-  const { resetForm, handleSubmit, errors, getFieldProps } = useFormik({
+  const { resetForm, handleSubmit, errors, getFieldProps, touched } = useFormik({
     initialValues: {
       password: '',
     },
@@ -36,5 +36,6 @@ export const useNewPasswordForm = () => {
     handleSubmit,
     errors,
     getFieldProps,
+    touched,
   }
 }

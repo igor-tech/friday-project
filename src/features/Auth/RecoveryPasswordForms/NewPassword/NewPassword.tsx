@@ -5,13 +5,13 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
   IconButton,
   Input,
   InputAdornment,
   InputLabel,
   Paper,
   Typography,
-  FormControl,
 } from '@mui/material'
 
 import { PATH, useShowPassword } from '../../../../common'
@@ -30,7 +30,7 @@ import { isSetNewPassword } from './newPassword-slice'
 
 export const NewPassword = () => {
   const { showPassword, handleClickShowPassword, handleMouseDownPassword } = useShowPassword()
-  const { handleSubmit, isNewPassword, dispatch, navigate, errors, getFieldProps } =
+  const { handleSubmit, isNewPassword, dispatch, navigate, errors, getFieldProps, touched } =
     useNewPasswordForm()
 
   if (isNewPassword) {
@@ -68,7 +68,7 @@ export const NewPassword = () => {
                 {...getFieldProps('password')}
               />
               <Typography component="span" sx={error}>
-                {errors.password && errors.password}
+                {touched.password && errors.password && errors.password}
               </Typography>
             </FormControl>
 
