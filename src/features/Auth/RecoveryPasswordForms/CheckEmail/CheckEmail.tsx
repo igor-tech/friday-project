@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Box, Button, Container, Paper, Typography } from '@mui/material'
+import { Box, Container, Paper, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH, useAppSelector } from '../../../../common'
+import { GeneralButton, PATH, useAppSelector } from '../../../../common'
 import {
-  BtnSubmit2Sx,
+  BtnSubmitEmailSx,
   cardContainerSx,
   contentContainerSx,
   imgSx,
@@ -32,15 +32,12 @@ export const CheckEmail = () => {
             We’ve sent an Email with instructions to {email}
           </Typography>
 
-          <Button
-            onClick={() => navigate(`${PATH.LOGIN}`)}
-            type="button"
-            variant="contained"
-            sx={BtnSubmit2Sx}
+          <GeneralButton
+            name="Back to login"
+            sx={BtnSubmitEmailSx}
+            onClick={() => navigate(PATH.LOGIN)}
             fullWidth
-          >
-            Back to login
-          </Button>
+          />
         </Container>
       </Paper>
     </Box>
