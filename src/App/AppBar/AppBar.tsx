@@ -1,28 +1,18 @@
 import React from 'react'
 
-import { Avatar, Box, Icon, Link, Toolbar, Typography } from '@mui/material'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Avatar, Box, Icon, Toolbar, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
+import incubatorIcon from '../../assets/img/It-incubator.png'
 import { GeneralButton, PATH, useAppSelector } from '../../common'
-import {
-  linkContentSx,
-  linkSx,
-} from '../../features/Auth/RecoveryPasswordForms/RecoveryPasswordForms.styled'
-import { logOutAccountTC } from '../../features/Profile/profile-slice'
-import editIcon from '../../img/Edit.png'
-import incubatorIcon from '../../img/It-incubator.png'
 
 import { appBarSx, appSx, iconItSx } from './appBar.styled'
 
 export const AppBar = () => {
   const user = useAppSelector(state => state.profile.user)
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const statusLoad = useAppSelector(state => state.app.status)
   const navigate = useNavigate()
-
-  const logInHandler = () => {
-    navigate(PATH.LOGIN)
-  }
 
   const avatarUser =
     user.avatar != null
@@ -34,7 +24,7 @@ export const AppBar = () => {
       <Toolbar color="inherit" sx={appBarSx}>
         <Box sx={appSx}>
           <Icon sx={iconItSx}>
-            <img src={incubatorIcon} />
+            <Typography component="img" src={incubatorIcon} alt="IT INCUBATOR" />
           </Icon>
         </Box>
 
@@ -46,10 +36,9 @@ export const AppBar = () => {
             <Avatar alt="Remy Sharp" src={avatarUser} />
           ) : (
             <GeneralButton
-              name={'Sign In'}
-              type={'submit'}
-              variant={'contained'}
-              onClick={logInHandler}
+              name="Sign In"
+              sx={{ width: '133px' }}
+              onClick={() => navigate(PATH.LOGIN)}
               disabled={statusLoad === 'loading'}
             />
           )}

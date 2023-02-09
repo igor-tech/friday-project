@@ -1,20 +1,17 @@
 import React, { ChangeEvent, useState } from 'react'
 
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
-import { Avatar, Icon, InputLabel, Typography } from '@mui/material'
+import { Avatar, Icon, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { GeneralButton, PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
-import editIcon from '../../img/Edit.png'
-import logOutIcon from '../../img/logout.png'
-import iconBack from '../../img/logout.png'
+import editIcon from '../../assets/img/Edit.png'
+import { GeneralButton, PATH, useAppDispatch, useAppSelector } from '../../common'
+import { LogoutAT } from '../Auth/auth-slice'
 
-import { logOutAccountTC, upDateNameTC } from './profile-slice'
+import { upDateNameTC } from './profile-slice'
 import {
   avatarSx,
   backBlockSx,
@@ -30,7 +27,7 @@ import {
 } from './profile.styled'
 
 export const Profile = () => {
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const user = useAppSelector(state => state.profile.user)
   const statusLoad = useAppSelector(state => state.app.status)
 
@@ -49,7 +46,7 @@ export const Profile = () => {
   }
 
   const logOut = () => {
-    dispatch(logOutAccountTC())
+    dispatch(LogoutAT())
     navigate(PATH.LOGIN)
   }
 
@@ -58,8 +55,10 @@ export const Profile = () => {
   }
 
   const activateViewMode = () => {
-    dispatch(upDateNameTC(title))
-    setEditMode(false)
+    if (title.trim() !== '') {
+      dispatch(upDateNameTC(title))
+      setEditMode(false)
+    }
   }
 
   const avatarUser =
@@ -89,7 +88,7 @@ export const Profile = () => {
             <Box>
               <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
               <Button
-                disabled={statusLoad === 'loading'}
+                disabled={title === ''}
                 onClick={activateViewMode}
                 variant="contained"
                 size="small"
@@ -102,7 +101,7 @@ export const Profile = () => {
             <Typography component="p" sx={describeNameSx} onDoubleClick={activateEditMode}>
               {user.name}
               <Icon sx={iconNameSx}>
-                <img src={editIcon} />
+                <Typography component="img" src={editIcon} alt={user.name} />
               </Icon>
             </Typography>
           )}

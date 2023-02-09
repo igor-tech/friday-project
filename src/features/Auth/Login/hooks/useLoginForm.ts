@@ -2,12 +2,12 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { PATH, useAppDispatch, useAppSelector } from '../../../../common'
+import { useAppDispatch, useAppSelector } from '../../../../common'
 import { loginAT } from '../../auth-slice'
 
 export const useLoginForm = () => {
   const navigate = useNavigate()
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
 
   const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
@@ -23,7 +23,6 @@ export const useLoginForm = () => {
     onSubmit: values => {
       dispatch(loginAT(values))
       resetForm()
-      navigate(PATH.PROFILE) // добавил что бы был редирект сразу после отправки формы, нужно доработать, что бы данные в профайле сразу подгружались до загрузки страницы.
     },
   })
 

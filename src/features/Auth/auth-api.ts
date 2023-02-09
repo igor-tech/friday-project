@@ -1,18 +1,19 @@
 import { instance } from '../../common'
-import { instance1 } from '../../common/constants/instance'
+import { instanceHeroku } from '../../common/constants/instance'
 
 export const authAPI = {
   login: (data: LoginType) => instance.post<ResponseLoginType>(`/auth/login`, data),
   logout: () => instance.delete<ResponseLogoutType>('/auth/me'),
-  register: (data: RegisterType) => instance1.post<ResponseRegisterType>(`/auth/register`, data),
+  register: (data: RegisterType) =>
+    instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data),
   ping: (time: number) => instance.get<ResponsePingType>(`ping?frontTime=${time}`),
 }
 export const AUTH_RESET = {
   forgotPassword(request: ForgotPasswordReqType) {
-    return instance1.post<ForgotPasswordResType>('/auth/forgot', request)
+    return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', request)
   },
   setNewPassword(request: SetNewPasswordReqType) {
-    return instance1.post<SetNewPasswordResType>('/auth/set-new-password', request)
+    return instanceHeroku.post<SetNewPasswordResType>('/auth/set-new-password', request)
   },
 }
 

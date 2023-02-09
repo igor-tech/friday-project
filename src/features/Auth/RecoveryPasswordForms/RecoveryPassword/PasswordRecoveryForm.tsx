@@ -42,7 +42,7 @@ export const PasswordRecoveryForm = () => {
       <Paper elevation={3}>
         <Container sx={contentContainerSx}>
           <Typography sx={titleSx} component="h1" variant="h5">
-            Create new password
+            Forgot your password?
           </Typography>
 
           <Box component="form" noValidate autoComplete="off" sx={formSx} onSubmit={handleSubmit}>
