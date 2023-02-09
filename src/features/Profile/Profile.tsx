@@ -3,17 +3,18 @@ import React, { ChangeEvent, useState } from 'react'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
-import { Avatar, InputLabel, Typography } from '@mui/material'
+import { Avatar, Icon, InputLabel, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { GeneralButton, PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
-import { LogoutAT } from '../Auth/auth-slice'
+import editIcon from '../../img/Edit.png'
+import logOutIcon from '../../img/logout.png'
+import iconBack from '../../img/logout.png'
 
-import iconBack from './Img/iconBack.png'
-import { upDateNameTC } from './profile-slice'
+import { logOutAccountTC, upDateNameTC } from './profile-slice'
 import {
   avatarSx,
   backBlockSx,
@@ -22,19 +23,22 @@ import {
   describeNameSx,
   describeSx,
   describeTitleSx,
+  iconNameSx,
   profileContainerSx,
   profileSx,
   titleSx,
 } from './profile.styled'
 
 export const Profile = () => {
-  let [editMode, setEditMode] = useState(false)
-  let [title, setTitle] = useState('')
-
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const user = useAppSelector(state => state.profile.user)
+  const statusLoad = useAppSelector(state => state.app.status)
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
+  let [editMode, setEditMode] = useState(false)
+  let [title, setTitle] = useState(user.name)
 
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
@@ -42,12 +46,10 @@ export const Profile = () => {
   const backHandler = () => {
     // потом нужно дописать логику предыдущей страницы или другую
     alert('навигация пока не работает')
-    // navigate(PATH.)
   }
 
   const logOut = () => {
-    // потом нужно дописать логику предыдущей страницы или другую
-    dispatch(LogoutAT())
+    dispatch(logOutAccountTC())
     navigate(PATH.LOGIN)
   }
 
@@ -57,8 +59,6 @@ export const Profile = () => {
 
   const activateViewMode = () => {
     dispatch(upDateNameTC(title))
-    setTitle('')
-    // dispatch(UpdateUserData({ name, avatar: photo }))
     setEditMode(false)
   }
 
@@ -88,23 +88,31 @@ export const Profile = () => {
           {editMode ? (
             <Box>
               <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-              <Button onClick={activateViewMode} variant="contained" size="small" sx={buttonSaveSx}>
+              <Button
+                disabled={statusLoad === 'loading'}
+                onClick={activateViewMode}
+                variant="contained"
+                size="small"
+                sx={buttonSaveSx}
+              >
                 Save
               </Button>
             </Box>
           ) : (
             <Typography component="p" sx={describeNameSx} onDoubleClick={activateEditMode}>
               {user.name}
-              <BorderColorOutlinedIcon />
+              <Icon sx={iconNameSx}>
+                <img src={editIcon} />
+              </Icon>
             </Typography>
           )}
           <Typography component="p" sx={describeSx}>
             {user.email}
           </Typography>
           <GeneralButton
+            disabled={statusLoad === 'loading'}
             name="Log Out"
             type="submit"
-            fullWidth
             sx={BtnLogOutSubmitSx}
             onClick={logOut}
           />

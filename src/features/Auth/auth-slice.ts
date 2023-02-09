@@ -6,22 +6,24 @@ import { setData } from '../Profile/profile-slice'
 
 import { authAPI, LoginType, RegisterType } from './auth-api'
 
+import { setAppStatus, setStatusLoggedAC } from 'App/app-slice'
+
 export type InitialStateAuthType = {
-  isLoggedIn: boolean
   isRegistered: boolean
 }
 
 const initialState: InitialStateAuthType = {
-  isLoggedIn: false,
   isRegistered: false,
 }
 
 export const loginAT = createAsyncThunk('auth/login', async (data: LoginType, { dispatch }) => {
+  dispatch(setAppStatus('loading'))
   try {
     const response = await authAPI.login(data)
 
     dispatch(setData(response.data))
-    dispatch(setStatusLogged({ value: true }))
+    dispatch(setStatusLoggedAC(true))
+    dispatch(setAppStatus('success'))
   } catch (e) {
     handleServerNetworkError(e, dispatch as AppDispatch)
   }
@@ -46,7 +48,7 @@ export const LogoutAT = createAsyncThunk('auth/logout', async (thunkAPI, { dispa
     const response = await authAPI.logout()
 
     // dispatch(setData({ UserData: res.data }))
-    dispatch(setStatusLogged({ value: false }))
+    dispatch(setStatusLoggedAC(false))
   } catch (e) {
     handleServerNetworkError(e, dispatch as AppDispatch)
   }
@@ -66,14 +68,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setStatusLogged(state, action: PayloadAction<{ value: boolean }>) {
-      state.isLoggedIn = action.payload.value
-    },
     setRegistered: (state, action) => {
       state.isRegistered = action.payload
     },
   },
 })
 
-export const { setStatusLogged, setRegistered } = authSlice.actions
+export const { setRegistered } = authSlice.actions
 export const authReducer = authSlice.reducer

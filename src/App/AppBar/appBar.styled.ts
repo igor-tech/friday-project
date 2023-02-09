@@ -16,3 +16,10 @@ export const appSx = {
     margin: '0px 10px',
   },
 }
+
+export const iconItSx = {
+  display: 'flex',
+  alignItems: 'center',
+  width: 250,
+  height: 80,
+}

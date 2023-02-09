@@ -6,13 +6,13 @@ import { useAppDispatch, useAppSelector } from '../common'
 import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 import { AppStatusLoader } from '../common/components/Preloader/AppStatusLoader/AppStatusLoader'
 import { InitializedLoader } from '../common/components/Preloader/InitializedLoader/InitializedLoader'
-import { AppBar } from '../features/AppBar/AppBar'
-import { getMeAuthTC } from '../features/Profile/profile-slice'
 
+import { getMeAuthTC } from './app-slice'
+import { AppBar } from './AppBar/AppBar'
 import { Pages } from './route-pages/Pages'
 
 function App() {
-  const isInitialized = useAppSelector(state => state.profile.isInitialized)
+  const isInitialized = useAppSelector(state => state.app.isLoggedIn)
   const status = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
 
@@ -20,9 +20,10 @@ function App() {
     dispatch(getMeAuthTC())
   }, [])
 
-  if (!isInitialized) {
+  // я не понял смысл этой проверки давайте потом обсудим.
+  /*  if (!isInitialized) {
     return <InitializedLoader />
-  }
+  }*/
 
   return (
     <>

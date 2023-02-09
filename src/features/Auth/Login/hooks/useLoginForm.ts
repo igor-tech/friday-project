@@ -7,7 +7,7 @@ import { loginAT } from '../../auth-slice'
 
 export const useLoginForm = () => {
   const navigate = useNavigate()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const dispatch = useAppDispatch()
 
   const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
