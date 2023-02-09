@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Container, InputLabel, Link, Paper, TextField, Typography } from '@mui/material'
+import { Box, Container, Link, Paper, TextField, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH } from '../../../../common'
@@ -20,8 +20,17 @@ import { useRecoveryForm } from './hooks/useRecoveryForm'
 import { isRecoveryPassword } from './recovery-password-slice'
 
 export const PasswordRecoveryForm = () => {
-  const { isRecoveryPass, errors, touched, handleSubmit, navigate, getFieldProps, dispatch } =
-    useRecoveryForm()
+  const {
+    isRecoveryPass,
+    errors,
+    touched,
+    handleSubmit,
+    navigate,
+    getFieldProps,
+    dispatch,
+    appStatus,
+  } = useRecoveryForm()
+  const disabled = appStatus === 'loading'
 
   if (isRecoveryPass) {
     dispatch(isRecoveryPassword(false))
@@ -37,7 +46,6 @@ export const PasswordRecoveryForm = () => {
           </Typography>
 
           <Box component="form" noValidate autoComplete="off" sx={formSx} onSubmit={handleSubmit}>
-            <InputLabel htmlFor="email" />
             <TextField
               fullWidth
               id="email"
@@ -46,12 +54,19 @@ export const PasswordRecoveryForm = () => {
               error={!!errors.email}
               helperText={touched.email && errors.email && errors.email}
               variant="standard"
+              disabled={disabled}
               {...getFieldProps('email')}
             />
             <Typography component="p" sx={describeSx}>
               Enter your email address and we will send you further instructions
             </Typography>
-            <GeneralButton name="Send Instructions" type="submit" fullWidth sx={BtnSubmitSx} />
+            <GeneralButton
+              name="Send Instructions"
+              type="submit"
+              fullWidth
+              sx={BtnSubmitSx}
+              disabled={disabled}
+            />
           </Box>
 
           <Typography component="p" sx={rememberPassSx}>

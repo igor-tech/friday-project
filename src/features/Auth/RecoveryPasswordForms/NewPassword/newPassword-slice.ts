@@ -17,13 +17,12 @@ export const setNewPassword = createAsyncThunk(
   async (request: SetNewPasswordReqType, { dispatch }) => {
     dispatch(setAppStatus('loading'))
     try {
-      const { data } = await AUTH_RESET.setNewPassword(request)
+      await AUTH_RESET.setNewPassword(request)
 
       dispatch(setAppStatus('success'))
       dispatch(setAppMessage('New password successfully created'))
       dispatch(isSetNewPassword(true))
     } catch (err: any) {
-      dispatch(isSetNewPassword(false))
       handleServerNetworkError(err, dispatch)
     }
   }

@@ -16,8 +16,17 @@ import { useNewPasswordForm } from './hooks/useNewPasswordForm'
 import { isSetNewPassword } from './newPassword-slice'
 
 export const NewPassword = () => {
-  const { handleSubmit, isNewPassword, dispatch, navigate, errors, getFieldProps, touched } =
-    useNewPasswordForm()
+  const {
+    handleSubmit,
+    isNewPassword,
+    dispatch,
+    navigate,
+    errors,
+    getFieldProps,
+    touched,
+    appStatus,
+  } = useNewPasswordForm()
+  const disabled = appStatus === 'loading'
 
   if (isNewPassword) {
     dispatch(isSetNewPassword(false))
@@ -44,7 +53,13 @@ export const NewPassword = () => {
               Create new password and we will send you further instructions to email
             </Typography>
 
-            <GeneralButton type="submit" name="Create new password" fullWidth sx={BtnSubmitNpSx} />
+            <GeneralButton
+              type="submit"
+              name="Create new password"
+              fullWidth
+              sx={BtnSubmitNpSx}
+              disabled={disabled}
+            />
           </Box>
         </Container>
       </Paper>

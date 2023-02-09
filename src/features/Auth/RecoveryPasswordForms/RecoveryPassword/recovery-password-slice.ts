@@ -41,7 +41,6 @@ export const resetPassword = createAsyncThunk(
 
       return email
     } catch (err: any) {
-      dispatch(isRecoveryPassword(false))
       handleServerNetworkError(err, dispatch)
     }
   }

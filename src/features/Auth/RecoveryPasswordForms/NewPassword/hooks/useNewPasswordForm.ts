@@ -7,6 +7,7 @@ import { setNewPassword } from '../newPassword-slice'
 
 export const useNewPasswordForm = () => {
   const isNewPassword = useAppSelector(state => state.setNewPassword.isSetNewPassword)
+  const appStatus = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
@@ -37,5 +38,6 @@ export const useNewPasswordForm = () => {
     errors,
     getFieldProps,
     touched,
+    appStatus,
   }
 }

@@ -8,6 +8,7 @@ import { resetPassword } from '../recovery-password-slice'
 export const useRecoveryForm = () => {
   const dispatch = useAppDispatch()
   const isRecoveryPass = useAppSelector(state => state.recoveryPassword.isRecovery)
+  const appStatus = useAppSelector(state => state.app.status)
   const navigate = useNavigate()
   const { touched, resetForm, handleSubmit, errors, getFieldProps } = useFormik({
     initialValues: {
@@ -26,10 +27,10 @@ export const useRecoveryForm = () => {
     dispatch,
     isRecoveryPass,
     navigate,
-    resetForm,
     handleSubmit,
     errors,
     getFieldProps,
     touched,
+    appStatus,
   }
 }
