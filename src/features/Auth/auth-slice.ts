@@ -8,10 +8,12 @@ import { authAPI, LoginType, RegisterType } from './auth-api'
 
 export type InitialStateAuthType = {
   isLoggedIn: boolean
+  isRegistered: boolean
 }
 
 const initialState: InitialStateAuthType = {
   isLoggedIn: false,
+  isRegistered: false,
 }
 
 export const loginAT = createAsyncThunk('auth/login', async (data: LoginType, { dispatch }) => {
@@ -31,7 +33,8 @@ export const RegisterAT = createAsyncThunk(
     try {
       const response = await authAPI.register(data)
 
-      dispatch(setStatusLogged({ value: true }))
+      // dispatch(setStatusLogged({ value: true }))
+      dispatch(setRegistered(true))
     } catch (e) {
       handleServerNetworkError(e, dispatch as AppDispatch)
     }
@@ -66,8 +69,11 @@ export const authSlice = createSlice({
     setStatusLogged(state, action: PayloadAction<{ value: boolean }>) {
       state.isLoggedIn = action.payload.value
     },
+    setRegistered: (state, action) => {
+      state.isRegistered = action.payload
+    },
   },
 })
 
-export const { setStatusLogged } = authSlice.actions
+export const { setStatusLogged, setRegistered } = authSlice.actions
 export const authReducer = authSlice.reducer

@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField'
 import { Navigate, NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
+import { setRegistered } from '../auth-slice'
 import { maxWidth, text } from '../Login/Login.styled'
 import {
   cardContainerSx,
@@ -17,10 +18,12 @@ import {
 import { useRegisterForm } from './hooks/useRegisterForm'
 
 export const Register = () => {
-  const { isLoggedIn, handleSubmit, getFieldProps, errors, touched } = useRegisterForm()
+  const { isRegistered, handleSubmit, getFieldProps, errors, touched, dispatch } = useRegisterForm()
 
-  if (isLoggedIn) {
-    return <Navigate to={PATH.PROFILE} />
+  if (isRegistered) {
+    dispatch(setRegistered(false))
+
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (
