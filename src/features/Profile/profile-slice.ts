@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus, setStatusLoggedAC } from '../../App/app-slice'
-import { AppDispatch } from '../../App/store'
+import { setAppMessage, setAppStatus } from '../../App/app-slice'
 import { handleServerNetworkError } from '../../common/utils'
-import { authAPI } from '../Auth/auth-api'
 
 import { profileAPI } from './profile-api'
 
@@ -24,24 +22,12 @@ export const upDateNameTC = createAsyncThunk(
 
       dispatch(upDateNameAC(data.updatedUser))
       dispatch(setAppStatus('success'))
+      dispatch(setAppMessage('Profile updated'))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }
   }
 )
-
-export const logOutAccountTC = createAsyncThunk('profile/setNewName', async (_, { dispatch }) => {
-  dispatch(setAppStatus('loading'))
-  try {
-    await authAPI.logout()
-
-    dispatch(logOutAccountAC())
-    dispatch(setStatusLoggedAC(false))
-    dispatch(setAppStatus('success'))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-  }
-})
 
 const initialState: InitialStateAuthType = {
   userId: '',
@@ -55,16 +41,13 @@ export const profileSlice = createSlice({
     upDateNameAC: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload
     },
-    logOutAccountAC: state => {
-      state.user = {} as UserType
-    },
     setData(state, action: PayloadAction<UserType>) {
       state.user = action.payload
     },
   },
 })
 
-export const { upDateNameAC, logOutAccountAC, setData } = profileSlice.actions
+export const { upDateNameAC, setData } = profileSlice.actions
 export const profileReducer = profileSlice.reducer
 
 export type UserType = {
