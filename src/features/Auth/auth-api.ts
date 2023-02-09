@@ -7,6 +7,14 @@ export const authAPI = {
   register: (data: RegisterType) => instance1.post<ResponseRegisterType>(`/auth/register`, data),
   ping: (time: number) => instance.get<ResponsePingType>(`ping?frontTime=${time}`),
 }
+export const AUTH_RESET = {
+  forgotPassword(request: ForgotPasswordReqType) {
+    return instance1.post<ForgotPasswordResType>('/auth/forgot', request)
+  },
+  setNewPassword(request: SetNewPasswordReqType) {
+    return instance1.post<SetNewPasswordResType>('/auth/set-new-password', request)
+  },
+}
 
 //types
 export type LoginType = RegisterType & {
@@ -80,13 +88,4 @@ interface SetNewPasswordResType {
 export interface SetNewPasswordReqType {
   password: string
   resetPasswordToken: string
-}
-
-export const AUTH_RESET = {
-  forgotPassword(request: ForgotPasswordReqType) {
-    return instance1.post<ForgotPasswordResType>('/auth/forgot', request)
-  },
-  setNewPassword(request: SetNewPasswordReqType) {
-    return instance1.post<SetNewPasswordResType>('/auth/set-new-password', request)
-  },
 }
