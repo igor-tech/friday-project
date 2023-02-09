@@ -1,15 +1,31 @@
 import React, { ChangeEvent, useState } from 'react'
 
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
+import { Avatar, InputLabel, Typography } from '@mui/material'
+import Box from '@mui/material/Box/Box'
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
+import { GeneralButton, PATH, SuperButton, useAppDispatch, useAppSelector } from '../../common'
 import { LogoutAT } from '../Auth/auth-slice'
 
 import iconBack from './Img/iconBack.png'
 import { upDateNameTC } from './profile-slice'
-import s from './Profile.module.css'
+import {
+  avatarSx,
+  backBlockSx,
+  BtnLogOutSubmitSx,
+  buttonSaveSx,
+  describeNameSx,
+  describeSx,
+  describeTitleSx,
+  profileContainerSx,
+  profileSx,
+  titleSx,
+} from './profile.styled'
 
 export const Profile = () => {
   let [editMode, setEditMode] = useState(false)
@@ -25,7 +41,8 @@ export const Profile = () => {
   }
   const backHandler = () => {
     // потом нужно дописать логику предыдущей страницы или другую
-    navigate(PATH.LOGIN)
+    alert('навигация пока не работает')
+    // navigate(PATH.)
   }
 
   const logOut = () => {
@@ -45,50 +62,54 @@ export const Profile = () => {
     setEditMode(false)
   }
 
-  // if (!isLoggedIn) navigate(PATH.LOGIN)
+  const avatarUser =
+    user.avatar != null
+      ? user.avatar
+      : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
+
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
   }
 
   return (
-    <div className={s.background}>
-      <div className={s.backBlock}>
-        <div className={s.backBlock} onClick={backHandler}>
-          <img src={iconBack} alt="icon back" />
-          <p>Back to Packs List</p>
-        </div>
-      </div>
-      <div className={s.profile}>
-        <div className={s.profileBlock}>
-          <p>Personal Information</p>
-          <div className={s.photoProfile}>
-            <img
-              src=/*{
-                user.avatar != null
-                  ? user.avatar
-                  : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
-              }*/ "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
-              alt="Avatar"
-            />
-          </div>
+    <Box>
+      <Box sx={backBlockSx} onClick={backHandler}>
+        <ArrowBackOutlinedIcon sx={titleSx} />
+        <Typography sx={titleSx} component="h1" variant="h5">
+          Back to Packs List
+        </Typography>
+      </Box>
+      <Box sx={profileContainerSx}>
+        <Box sx={profileSx}>
+          <Typography component="h1" variant="h5" sx={describeTitleSx}>
+            Personal Information
+          </Typography>
+          <Avatar alt="Remy Sharp" src={avatarUser} sx={avatarSx} />
           {editMode ? (
-            <div className={s.changeNameBlock}>
+            <Box>
               <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-              <Button onClick={activateViewMode} variant="contained" size="small">
+              <Button onClick={activateViewMode} variant="contained" size="small" sx={buttonSaveSx}>
                 Save
               </Button>
-            </div>
+            </Box>
           ) : (
-            <span onDoubleClick={activateEditMode}>{user.name}</span>
+            <Typography component="p" sx={describeNameSx} onDoubleClick={activateEditMode}>
+              {user.name}
+              <BorderColorOutlinedIcon />
+            </Typography>
           )}
-          <div>
-            <p>{user.email}</p>
-          </div>
-          <div>
-            <SuperButton onClick={logOut}>Log Out</SuperButton>
-          </div>
-        </div>
-      </div>
-    </div>
+          <Typography component="p" sx={describeSx}>
+            {user.email}
+          </Typography>
+          <GeneralButton
+            name="Log Out"
+            type="submit"
+            fullWidth
+            sx={BtnLogOutSubmitSx}
+            onClick={logOut}
+          />
+        </Box>
+      </Box>
+    </Box>
   )
 }

@@ -5,7 +5,6 @@ import { instance } from '../../common'
 export const profileAPI = {
   me: () => {
     return instance.post<ResponseLoginType>(`auth/me`, {})
-    //return axios.post<ResponseLoginType>(`https://neko-back.herokuapp.com/2.0/auth/me`, {})
   },
   updateUserInfo: (updatedUserData: updatedUserDataType) => {
     return instance.put(`auth/me`, updatedUserData)
