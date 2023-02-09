@@ -64,6 +64,8 @@ export const describeTitleSx = {
   opacity: '1',
 }
 export const describeNameSx = {
+  display: 'flex',
+  alignItems: 'center',
   marginTop: '25px',
   fontWeight: '400',
   fontSize: '20px',
