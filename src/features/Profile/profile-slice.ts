@@ -1,43 +1,21 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { setAppStatus } from '../../App/app-slice'
+import { setAppStatus, setStatusLoggedAC } from '../../App/app-slice'
+import { AppDispatch } from '../../App/store'
+import { handleServerNetworkError } from '../../common/utils'
 import { authAPI } from '../Auth/auth-api'
-import { setStatusLogged } from '../Auth/auth-slice'
 
 import { profileAPI } from './profile-api'
 
 export type InitialStateAuthType = {
-  isInitialized: boolean
   userId: string
   user: UserType
 }
 
-export const getMeAuthTC = createAsyncThunk(
-  'profile/getMeAuth',
-  // вопрос по типизации getMeAuth({}) и диспача внутри, если убрать request: {}
-  async (_, { dispatch }) => {
-    try {
-      dispatch(setAppStatus('loading'))
-      const { data } = await profileAPI.me()
-
-      // dispatch(setInitializedAC(true)) // чиспачу в profile-slice пока не выбрали где будет
-      dispatch(setStatusLogged({ value: true })) // чиспачу в auth-slice пока не выбрали где будет
-
-      dispatch(upDateNameAC(data))
-      dispatch(setAppStatus('success'))
-    } catch (err: any) {
-      console.log(err.message)
-      console.log(err.response.data.error)
-      dispatch(setAppStatus('failed'))
-    } finally {
-      dispatch(setInitializedAC(true))
-    }
-  }
-)
-
 export const upDateNameTC = createAsyncThunk(
   'profile/setNewName',
   async (newName: string, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
     try {
       const { data } = await profileAPI.updateUserInfo({
         name: newName,
@@ -45,28 +23,27 @@ export const upDateNameTC = createAsyncThunk(
       })
 
       dispatch(upDateNameAC(data.updatedUser))
-    } catch (err: any) {
-      console.log(err.message)
-      console.log(err.response.data.error)
+      dispatch(setAppStatus('success'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
     }
   }
 )
 
 export const logOutAccountTC = createAsyncThunk('profile/setNewName', async (_, { dispatch }) => {
+  dispatch(setAppStatus('loading'))
   try {
     await authAPI.logout()
 
-    dispatch(logOutAccountAC(_))
-    dispatch(setStatusLogged({ value: false })) // чиспачу в auth-slice пока не выбрали где будет
-    dispatch(setInitializedAC(false)) // чиспачу в profile-slice пока не выбрали где будет
-  } catch (err: any) {
-    console.log(err.message)
-    console.log(err.response.data.error)
+    dispatch(logOutAccountAC())
+    dispatch(setStatusLoggedAC(false))
+    dispatch(setAppStatus('success'))
+  } catch (e) {
+    handleServerNetworkError(e, dispatch)
   }
 })
 
 const initialState: InitialStateAuthType = {
-  isInitialized: false,
   userId: '',
   user: {} as UserType,
 }
@@ -78,12 +55,8 @@ export const profileSlice = createSlice({
     upDateNameAC: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload
     },
-    setInitializedAC: (state, action: PayloadAction<boolean>) => {
-      state.isInitialized = action.payload
-    },
     logOutAccountAC: state => {
       state.user = {} as UserType
-      state.isInitialized = false
     },
     setData(state, action: PayloadAction<UserType>) {
       state.user = action.payload
@@ -91,7 +64,7 @@ export const profileSlice = createSlice({
   },
 })
 
-export const { upDateNameAC, setInitializedAC, logOutAccountAC, setData } = profileSlice.actions
+export const { upDateNameAC, logOutAccountAC, setData } = profileSlice.actions
 export const profileReducer = profileSlice.reducer
 
 export type UserType = {

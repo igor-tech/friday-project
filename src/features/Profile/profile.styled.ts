@@ -64,13 +64,17 @@ export const describeTitleSx = {
   opacity: '1',
 }
 export const describeNameSx = {
-  fontFamily: 'Montserrat',
   marginTop: '25px',
   fontWeight: '400',
   fontSize: '20px',
   lineHeight: ' 24px',
   color: '#000000',
   opacity: '1',
+  margin: '0px 100px 0px 0px',
+}
+export const iconNameSx = {
+  fontSize: '20px',
+  margin: '0px 0px 0px 10px',
 }
 
 export const BtnLogOutSubmitSx = {
