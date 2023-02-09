@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
+import { requestEmailMessage } from '../../../../common'
 import { handleServerNetworkError } from '../../../../common/utils'
 import { AUTH_RESET } from '../../auth-api'
 
@@ -13,12 +14,6 @@ const initialState: initialStateType = {
   email: '',
   isRecovery: false,
 }
-
-const requestEmailMessage = `<div style="background-color: lime; padding: 15px">
-     password recovery link:
-    <a href='http://localhost:3000/#/set-new-password/$token$'>
-   link</a>
-     </div>`
 
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
