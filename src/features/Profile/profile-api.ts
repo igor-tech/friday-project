@@ -1,11 +1,6 @@
-import axios from 'axios'
-
 import { instance } from '../../common'
 
 export const profileAPI = {
-  me: () => {
-    return instance.post<ResponseLoginType>(`auth/me`, {})
-  },
   updateUserInfo: (updatedUserData: updatedUserDataType) => {
     return instance.put(`auth/me`, updatedUserData)
   },

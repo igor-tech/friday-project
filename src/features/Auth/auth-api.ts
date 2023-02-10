@@ -7,6 +7,9 @@ export const authAPI = {
   register: (data: RegisterType) =>
     instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data),
   ping: (time: number) => instance.get<ResponsePingType>(`ping?frontTime=${time}`),
+  me: () => {
+    return instance.post<ResponseLoginType>(`auth/me`, {})
+  },
 }
 export const AUTH_RESET = {
   forgotPassword(request: ForgotPasswordReqType) {

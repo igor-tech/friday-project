@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { authAPI } from '../features/Auth/auth-api'
 import { setStatusLogged } from '../features/Auth/auth-slice'
-import { profileAPI } from '../features/Profile/profile-api'
 import { setData } from '../features/Profile/profile-slice'
 
 type StatusType = 'idle' | 'loading' | 'failed' | 'success'
@@ -21,7 +21,7 @@ const initialState: InitialStateType = {
 export const getMeAuthTC = createAsyncThunk('app/getMeAuth', async (_, { dispatch }) => {
   dispatch(setAppStatus('loading'))
   try {
-    const { data } = await profileAPI.me()
+    const { data } = await authAPI.me()
 
     dispatch(setStatusLogged(true))
 
