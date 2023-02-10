@@ -2,8 +2,13 @@ import React, { useEffect } from 'react'
 
 import './App.css'
 
-import { useAppDispatch, useAppSelector, AppStatusLoader, InitializedLoader } from '../common'
-import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
+import {
+  useAppDispatch,
+  useAppSelector,
+  AppStatusLoader,
+  InitializedLoader,
+  ErrorSnackbar,
+} from '../common'
 
 import { getMeAuthTC } from './app-slice'
 import { AppBar } from './AppBar/AppBar'

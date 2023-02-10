@@ -3,12 +3,14 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { PATH } from '../../common'
-import { Login } from '../../features/Auth/Login/Login'
-import { CheckEmail } from '../../features/Auth/RecoveryPasswordForms/CheckEmail/CheckEmail'
-import { NewPassword } from '../../features/Auth/RecoveryPasswordForms/NewPassword/NewPassword'
-import { PasswordRecoveryForm } from '../../features/Auth/RecoveryPasswordForms/RecoveryPassword/PasswordRecoveryForm'
-import { Register } from '../../features/Auth/Register/Register'
-import { Profile } from '../../features/Profile/Profile'
+import {
+  PasswordRecoveryForm,
+  Login,
+  CheckEmail,
+  NewPassword,
+  Register,
+  Profile,
+} from '../../features'
 
 export const Pages = () => {
   return (

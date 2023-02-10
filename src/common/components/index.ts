@@ -1,4 +1,5 @@
 import { GeneralButton } from './Buttons/GeneralButton/GeneralButton'
+import { ErrorSnackbar } from './ErrorSnackbar/ErrorSnackbar'
 import { ShowPasswordInput } from './Inputs/ShowPasswordInput/ShowPasswordInput'
 import { AppStatusLoader } from './Preloader/AppStatusLoader/AppStatusLoader'
 import { InitializedLoader } from './Preloader/InitializedLoader/InitializedLoader'
@@ -21,4 +22,5 @@ export {
   ShowPasswordInput,
   AppStatusLoader,
   InitializedLoader,
+  ErrorSnackbar,
 }
