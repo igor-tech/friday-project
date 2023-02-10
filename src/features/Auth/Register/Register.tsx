@@ -18,7 +18,9 @@ import {
 import { useRegisterForm } from './hooks/useRegisterForm'
 
 export const Register = () => {
-  const { isRegistered, handleSubmit, getFieldProps, errors, touched, dispatch } = useRegisterForm()
+  const { isRegistered, handleSubmit, getFieldProps, errors, touched, dispatch, appStatus } =
+    useRegisterForm()
+  const disabled = appStatus === 'loading'
 
   if (isRegistered) {
     dispatch(setRegistered(false))
@@ -66,6 +68,7 @@ export const Register = () => {
               variant={'contained'}
               fullWidth
               sx={maxWidth}
+              disabled={disabled}
             />
 
             <Typography sx={text} component="h1" variant="h5">

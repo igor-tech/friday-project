@@ -8,6 +8,7 @@ import { RegisterAT } from '../../auth-slice'
 export const useRegisterForm = () => {
   const navigate = useNavigate()
   const isRegistered = useAppSelector(state => state.auth.isRegistered)
+  const appStatus = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
 
   const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
@@ -47,5 +48,6 @@ export const useRegisterForm = () => {
     getFieldProps,
     handleSubmit,
     values,
+    appStatus,
   }
 }

@@ -26,7 +26,9 @@ import { useLoginForm } from './hooks/useLoginForm'
 import { Left, rightLink, text } from './Login.styled'
 
 export const Login = () => {
-  const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit } = useLoginForm()
+  const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit, appStatus } =
+    useLoginForm()
+  const disabled = appStatus === 'loading'
 
   if (isLoggedIn) {
     return <Navigate to={PATH.PROFILE} />
@@ -72,7 +74,13 @@ export const Login = () => {
               </Link>
             </Typography>
 
-            <GeneralButton name={'Sign In'} type={'submit'} variant={'contained'} fullWidth />
+            <GeneralButton
+              name={'Sign In'}
+              type={'submit'}
+              variant={'contained'}
+              fullWidth
+              disabled={disabled}
+            />
 
             <Typography sx={text} component="h1" variant="h5">
               {`Don't have an account yet?`}

@@ -8,6 +8,7 @@ import { loginAT } from '../../auth-slice'
 export const useLoginForm = () => {
   const navigate = useNavigate()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const appStatus = useAppSelector(state => state.app.status)
   const dispatch = useAppDispatch()
 
   const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
@@ -36,5 +37,6 @@ export const useLoginForm = () => {
     getFieldProps,
     handleSubmit,
     values,
+    appStatus,
   }
 }
