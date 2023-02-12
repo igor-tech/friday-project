@@ -3,7 +3,6 @@ import React from 'react'
 import { Box, Container, Paper, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { GeneralButton, PATH, useAppSelector } from '../../../../common'
 import {
   BtnSubmitEmailSx,
   cardContainerSx,
@@ -11,12 +10,13 @@ import {
   imgSx,
   instructionSx,
   titleSx,
-} from '../RecoveryPasswordForms.styled'
+} from '../RecoveryPasswordForms.muiSx'
 
 import IEmail from 'assets/img/IEmail.svg'
+import { emailSelector, GeneralButton, PATH, useAppSelector } from 'common'
 
 export const CheckEmail = () => {
-  const email = useAppSelector(state => state.recoveryPassword.email)
+  const email = useAppSelector(emailSelector)
   const navigate = useNavigate()
 
   return (

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { AppDispatch } from '../../App/store'
-import { handleServerNetworkError } from '../../common/utils'
+import { handleServerNetworkError } from '../../common'
 import { setData, UserType } from '../Profile/profile-slice'
 
 import { authAPI, LoginType, RegisterType } from './auth-api'
@@ -28,7 +27,7 @@ export const loginAT = createAsyncThunk('auth/login', async (data: LoginType, { 
     dispatch(setAppStatus('success'))
     dispatch(setAppMessage('You are successfully Logged in'))
   } catch (e) {
-    handleServerNetworkError(e, dispatch as AppDispatch)
+    handleServerNetworkError(e, dispatch)
   }
 })
 
@@ -47,7 +46,7 @@ export const RegisterAT = createAsyncThunk(
   }
 )
 
-export const LogoutAT = createAsyncThunk('auth/logout', async (thunkAPI, { dispatch }) => {
+export const LogoutAT = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
   dispatch(setAppStatus('loading'))
   try {
     await authAPI.logout()
@@ -56,16 +55,6 @@ export const LogoutAT = createAsyncThunk('auth/logout', async (thunkAPI, { dispa
     dispatch(setStatusLogged(false))
     dispatch(setAppStatus('success'))
     dispatch(setAppMessage('Good Bye :)'))
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-  }
-})
-
-export const PingAT = createAsyncThunk('auth/ping', async (time: number, { dispatch }) => {
-  try {
-    const response = authAPI.ping(time)
-
-    console.log(response)
   } catch (e) {
     handleServerNetworkError(e, dispatch)
   }

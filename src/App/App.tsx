@@ -8,6 +8,8 @@ import {
   AppStatusLoader,
   InitializedLoader,
   ErrorSnackbar,
+  isInitializedSelector,
+  appStatusSelector,
 } from '../common'
 
 import { getMeAuthTC } from './app-slice'
@@ -15,8 +17,8 @@ import { AppBar } from './AppBar/AppBar'
 import { Pages } from './route-pages/Pages'
 
 function App() {
-  const isInitialized = useAppSelector(state => state.app.isInitialized)
-  const status = useAppSelector(state => state.app.status)
+  const isInitialized = useAppSelector(isInitializedSelector)
+  const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {

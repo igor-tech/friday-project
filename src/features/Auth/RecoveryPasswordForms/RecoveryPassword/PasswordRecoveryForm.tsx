@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Container, Link, Paper, TextField, Typography } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH } from '../../../../common'
 import {
@@ -14,27 +14,20 @@ import {
   linkSx,
   rememberPassSx,
   titleSx,
-} from '../RecoveryPasswordForms.styled'
+} from '../RecoveryPasswordForms.muiSx'
 
 import { useRecoveryForm } from './hooks/useRecoveryForm'
 import { isRecoveryPassword } from './recovery-password-slice'
 
 export const PasswordRecoveryForm = () => {
-  const {
-    isRecoveryPass,
-    errors,
-    touched,
-    handleSubmit,
-    navigate,
-    getFieldProps,
-    dispatch,
-    appStatus,
-  } = useRecoveryForm()
+  const { isRecoveryPass, errors, touched, handleSubmit, getFieldProps, dispatch, appStatus } =
+    useRecoveryForm()
   const disabled = appStatus === 'loading'
 
   if (isRecoveryPass) {
     dispatch(isRecoveryPassword(false))
-    navigate(PATH.CHECK_EMAIL)
+
+    return <Navigate to={PATH.CHECK_EMAIL} />
   }
 
   return (
@@ -51,7 +44,7 @@ export const PasswordRecoveryForm = () => {
               id="email"
               label="Email"
               type="email"
-              error={!!errors.email}
+              error={touched.email && !!errors.email}
               helperText={touched.email && errors.email && errors.email}
               variant="standard"
               disabled={disabled}

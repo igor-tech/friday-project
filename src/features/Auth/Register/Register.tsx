@@ -6,14 +6,14 @@ import { Navigate, NavLink } from 'react-router-dom'
 
 import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
 import { setRegistered } from '../auth-slice'
-import { maxWidth, text } from '../Login/Login.styled'
+import { maxWidth, text } from '../Login/Login.muiSx'
 import {
   cardContainerSx,
   contentContainerSx,
   linkContentSx,
   linkSx,
   titleSx,
-} from '../RecoveryPasswordForms/RecoveryPasswordForms.styled'
+} from '../RecoveryPasswordForms/RecoveryPasswordForms.muiSx'
 
 import { useRegisterForm } from './hooks/useRegisterForm'
 

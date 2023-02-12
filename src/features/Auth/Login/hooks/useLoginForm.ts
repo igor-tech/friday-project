@@ -1,17 +1,20 @@
 import { useFormik } from 'formik'
-import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { useAppDispatch, useAppSelector } from '../../../../common'
+import {
+  appStatusSelector,
+  isLoggedInSelector,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../common'
 import { loginAT } from '../../auth-slice'
 
 export const useLoginForm = () => {
-  const navigate = useNavigate()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const appStatus = useAppSelector(state => state.app.status)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const appStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
+  const { handleSubmit, errors, getFieldProps, touched, values } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -23,16 +26,13 @@ export const useLoginForm = () => {
     }),
     onSubmit: values => {
       dispatch(loginAT(values))
-      resetForm()
     },
   })
 
   return {
-    navigate,
     isLoggedIn,
     dispatch,
     touched,
-    resetForm,
     errors,
     getFieldProps,
     handleSubmit,

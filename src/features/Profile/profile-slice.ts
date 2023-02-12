@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../App/app-slice'
-import { handleServerNetworkError } from '../../common/utils'
+import { handleServerNetworkError } from '../../common'
 
 import { profileAPI } from './profile-api'
 

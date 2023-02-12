@@ -6,14 +6,15 @@ import Stack from '@mui/material/Stack'
 
 import { setAppMessage } from '../../../App/app-slice'
 import { useAppDispatch, useAppSelector } from '../../hooks'
+import { appMessageSelector, appStatusSelector } from '../../selectors'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
 export function ErrorSnackbar() {
-  const message = useAppSelector(state => state.app.message)
-  const status = useAppSelector(state => state.app.status)
+  const message = useAppSelector(appMessageSelector)
+  const status = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

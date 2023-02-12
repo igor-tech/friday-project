@@ -4,19 +4,28 @@ import { Avatar, Box, Icon, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import incubatorIcon from '../../assets/img/It-incubator.png'
-import { GeneralButton, PATH, useAppSelector } from '../../common'
+import {
+  appStatusSelector,
+  GeneralButton,
+  isLoggedInSelector,
+  PATH,
+  useAppSelector,
+  userAvatarSelector,
+  userNameSelector,
+} from '../../common'
 
-import { appBarSx, appSx, iconItSx } from './appBar.styled'
+import { appBarSx, appSx, iconItSx } from './appBar.muiSx'
 
 export const AppBar = () => {
-  const user = useAppSelector(state => state.profile.user)
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const statusLoad = useAppSelector(state => state.app.status)
+  const userName = useAppSelector(userNameSelector)
+  const userAvatar = useAppSelector(userAvatarSelector)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
 
   const avatarUser =
-    user.avatar != null
-      ? user.avatar
+    userAvatar !== null
+      ? userAvatar
       : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
 
   return (
@@ -30,11 +39,12 @@ export const AppBar = () => {
 
         <Box sx={appSx}>
           <Typography variant="h6" component="div" sx={{ lineHeight: ' 40px' }}>
-            {user.name}
+            {userName}
           </Typography>
-          {isLoggedIn ? (
-            <Avatar alt="Remy Sharp" src={avatarUser} />
-          ) : (
+
+          {isLoggedIn && <Avatar alt="Remy Sharp" src={avatarUser} />}
+
+          {!isLoggedIn && (
             <GeneralButton
               name="Sign In"
               sx={{ width: '133px' }}

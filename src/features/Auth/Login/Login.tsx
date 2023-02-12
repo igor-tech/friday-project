@@ -20,10 +20,10 @@ import {
   linkContentSx,
   linkSx,
   titleSx,
-} from '../RecoveryPasswordForms/RecoveryPasswordForms.styled'
+} from '../RecoveryPasswordForms/RecoveryPasswordForms.muiSx'
 
 import { useLoginForm } from './hooks/useLoginForm'
-import { Left, rightLink, text } from './Login.styled'
+import { Left, rightLink, text } from './Login.muiSx'
 
 export const Login = () => {
   const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit, appStatus } =

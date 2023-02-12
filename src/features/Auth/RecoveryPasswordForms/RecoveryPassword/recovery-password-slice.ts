@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
-import { requestEmailMessage } from '../../../../common'
-import { handleServerNetworkError } from '../../../../common/utils'
+import { requestEmailMessage, handleServerNetworkError } from '../../../../common'
 import { AUTH_RESET } from '../../auth-api'
 
 interface initialStateType {

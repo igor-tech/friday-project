@@ -2,17 +2,22 @@ import { useFormik } from 'formik'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { useAppDispatch, useAppSelector } from '../../../../../common'
+import {
+  appStatusSelector,
+  isSetNewPasswordSelector,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../../common'
 import { setNewPassword } from '../newPassword-slice'
 
 export const useNewPasswordForm = () => {
-  const isNewPassword = useAppSelector(state => state.setNewPassword.isSetNewPassword)
-  const appStatus = useAppSelector(state => state.app.status)
+  const isNewPassword = useAppSelector(isSetNewPasswordSelector)
+  const appStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
 
-  const { resetForm, handleSubmit, errors, getFieldProps, touched } = useFormik({
+  const { handleSubmit, errors, getFieldProps, touched } = useFormik({
     initialValues: {
       password: '',
     },
@@ -26,7 +31,6 @@ export const useNewPasswordForm = () => {
           resetPasswordToken: token!,
         })
       )
-      resetForm()
     },
   })
 

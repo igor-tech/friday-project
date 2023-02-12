@@ -1,22 +1,18 @@
-import { instance } from '../../common'
-import { instanceHeroku } from '../../common/constants/instance'
+import { instance, instanceHeroku } from '../../common'
 
 export const authAPI = {
   login: (data: LoginType) => instance.post<ResponseLoginType>(`/auth/login`, data),
   logout: () => instance.delete<ResponseLogoutType>('/auth/me'),
   register: (data: RegisterType) =>
     instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data),
-  ping: (time: number) => instance.get<ResponsePingType>(`ping?frontTime=${time}`),
-  me: () => {
-    return instance.post<ResponseLoginType>(`auth/me`, {})
-  },
+  me: () => instance.post<ResponseLoginType>(`auth/me`, {}),
 }
 export const AUTH_RESET = {
-  forgotPassword(request: ForgotPasswordReqType) {
-    return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', request)
+  forgotPassword(data: ForgotPasswordReqType) {
+    return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', data)
   },
-  setNewPassword(request: SetNewPasswordReqType) {
-    return instanceHeroku.post<SetNewPasswordResType>('/auth/set-new-password', request)
+  setNewPassword(data: SetNewPasswordReqType) {
+    return instanceHeroku.post<SetNewPasswordResType>('/auth/set-new-password', data)
   },
 }
 
@@ -60,16 +56,6 @@ export type ResponseRegisterType = {
     error?: string
   }
   error?: string
-}
-
-export type ResponsePingType = {
-  ping: number
-  // миллисекунд идёт запрос на бэк
-  backTime: number
-  // время на сервере
-  frontTime: number
-  // присланное время фронта
-  info: string
 }
 
 interface ForgotPasswordReqType {

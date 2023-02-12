@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Box, Container, Paper, Typography } from '@mui/material'
+import { Navigate } from 'react-router-dom'
 
 import { GeneralButton, PATH, ShowPasswordInput } from '../../../../common'
 import {
@@ -10,27 +11,20 @@ import {
   formSx,
   newPassDescribeSx,
   titleSx,
-} from '../RecoveryPasswordForms.styled'
+} from '../RecoveryPasswordForms.muiSx'
 
 import { useNewPasswordForm } from './hooks/useNewPasswordForm'
 import { isSetNewPassword } from './newPassword-slice'
 
 export const NewPassword = () => {
-  const {
-    handleSubmit,
-    isNewPassword,
-    dispatch,
-    navigate,
-    errors,
-    getFieldProps,
-    touched,
-    appStatus,
-  } = useNewPasswordForm()
+  const { handleSubmit, isNewPassword, dispatch, errors, getFieldProps, touched, appStatus } =
+    useNewPasswordForm()
   const disabled = appStatus === 'loading'
 
   if (isNewPassword) {
     dispatch(isSetNewPassword(false))
-    navigate(PATH.LOGIN)
+
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (

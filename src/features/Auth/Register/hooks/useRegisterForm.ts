@@ -2,16 +2,21 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
-import { useAppDispatch, useAppSelector } from '../../../../common'
+import {
+  appStatusSelector,
+  isRegisteredSelector,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../common'
 import { RegisterAT } from '../../auth-slice'
 
 export const useRegisterForm = () => {
   const navigate = useNavigate()
-  const isRegistered = useAppSelector(state => state.auth.isRegistered)
-  const appStatus = useAppSelector(state => state.app.status)
+  const isRegistered = useAppSelector(isRegisteredSelector)
+  const appStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
 
-  const { handleSubmit, resetForm, errors, getFieldProps, touched, values } = useFormik({
+  const { handleSubmit, errors, getFieldProps, touched, values } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -34,7 +39,6 @@ export const useRegisterForm = () => {
     }),
     onSubmit: values => {
       dispatch(RegisterAT(values))
-      resetForm()
     },
   })
 
@@ -43,7 +47,6 @@ export const useRegisterForm = () => {
     isRegistered,
     dispatch,
     touched,
-    resetForm,
     errors,
     getFieldProps,
     handleSubmit,
