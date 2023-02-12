@@ -1,45 +1,52 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
-import { Avatar, Icon, Typography } from '@mui/material'
-import Box from '@mui/material/Box/Box'
-import Button from '@mui/material/Button/Button'
-import TextField from '@mui/material/TextField/TextField'
+import { Avatar, Container, Paper, Typography, Box } from '@mui/material'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import editIcon from '../../assets/img/Edit.png'
-import { GeneralButton, PATH, useAppDispatch, useAppSelector } from '../../common'
+import {
+  appStatusSelector,
+  GeneralButton,
+  isLoggedInSelector,
+  PATH,
+  useAppDispatch,
+  useAppSelector,
+  userAvatarSelector,
+  userEmailSelector,
+  userNameSelector,
+} from '../../common'
 import { LogoutAT } from '../Auth/auth-slice'
 
+import { UpdateProfileName } from './EditableSpanProfileName/EditableSpanProfileName'
 import { upDateNameTC } from './profile-slice'
 import {
   avatarSx,
   backBlockSx,
   BtnLogOutSubmitSx,
-  buttonSaveSx,
-  describeNameSx,
+  contentContainerSx,
   describeSx,
   describeTitleSx,
-  iconNameSx,
   profileContainerSx,
-  profileSx,
   titleSx,
-} from './profile.styled'
+} from './profile.muiSx'
 
 export const Profile = () => {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const user = useAppSelector(state => state.profile.user)
-  const statusLoad = useAppSelector(state => state.app.status)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const userName = useAppSelector(userNameSelector)
+  const userEmail = useAppSelector(userEmailSelector)
+  const userAvatar = useAppSelector(userAvatarSelector)
+  const statusLoad = useAppSelector(appStatusSelector)
+
+  const avatarUser =
+    userAvatar !== null
+      ? userAvatar
+      : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  let [editMode, setEditMode] = useState(false)
-  let [title, setTitle] = useState(user.name)
+  let [newName, setNewName] = useState(userName)
 
-  const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
-  }
   const backHandler = () => {
     // потом нужно дописать логику предыдущей страницы или другую
     alert('навигация пока не работает')
@@ -49,29 +56,21 @@ export const Profile = () => {
     dispatch(LogoutAT())
     navigate(PATH.LOGIN)
   }
-
-  const activateEditMode = () => {
-    setEditMode(true)
+  const onChangeName = (newName: string) => {
+    setNewName(newName)
   }
-
-  const activateViewMode = () => {
-    if (title.trim() !== '') {
-      dispatch(upDateNameTC(title))
-      setEditMode(false)
+  const updateUserName = () => {
+    if (newName.trim() !== '') {
+      dispatch(upDateNameTC(newName))
     }
   }
-
-  const avatarUser =
-    user.avatar != null
-      ? user.avatar
-      : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
   }
 
   return (
-    <Box>
+    <>
       <Box sx={backBlockSx} onClick={backHandler}>
         <ArrowBackOutlinedIcon sx={titleSx} />
         <Typography sx={titleSx} component="h1" variant="h5">
@@ -79,44 +78,32 @@ export const Profile = () => {
         </Typography>
       </Box>
       <Box sx={profileContainerSx}>
-        <Box sx={profileSx}>
-          <Typography component="h1" variant="h5" sx={describeTitleSx}>
-            Personal Information
-          </Typography>
-          <Avatar alt="Remy Sharp" src={avatarUser} sx={avatarSx} />
-          {editMode ? (
-            <Box>
-              <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-              <Button
-                disabled={title === ''}
-                onClick={activateViewMode}
-                variant="contained"
-                size="small"
-                sx={buttonSaveSx}
-              >
-                Save
-              </Button>
-            </Box>
-          ) : (
-            <Typography component="p" sx={describeNameSx} onDoubleClick={activateEditMode}>
-              {user.name}
-              <Icon sx={iconNameSx}>
-                <Typography component="img" src={editIcon} alt={user.name} />
-              </Icon>
+        <Paper elevation={3}>
+          <Container sx={contentContainerSx}>
+            <Typography component="h1" variant="h5" sx={describeTitleSx}>
+              Personal Information
             </Typography>
-          )}
-          <Typography component="p" sx={describeSx}>
-            {user.email}
-          </Typography>
-          <GeneralButton
-            disabled={statusLoad === 'loading'}
-            name="Log Out"
-            type="submit"
-            sx={BtnLogOutSubmitSx}
-            onClick={logOut}
-          />
-        </Box>
+            <Avatar alt="Remy Sharp" src={avatarUser} sx={avatarSx} />
+            <UpdateProfileName
+              value={newName}
+              onEnter={updateUserName}
+              onChangeName={onChangeName}
+              onClick={updateUserName}
+              buttonName="Save"
+            />
+            <Typography component="p" sx={describeSx}>
+              {userEmail}
+            </Typography>
+            <GeneralButton
+              disabled={statusLoad === 'loading'}
+              name="Log Out"
+              type="submit"
+              sx={BtnLogOutSubmitSx}
+              onClick={logOut}
+            />
+          </Container>
+        </Paper>
       </Box>
-    </Box>
+    </>
   )
 }
