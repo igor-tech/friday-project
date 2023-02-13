@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import Packs from '../../features/Tables/Packs'
+
 import { PrivatePages } from './PrivatePages'
 
 import { PATH } from 'common'
@@ -20,6 +22,7 @@ export const Pages = () => {
 
       <Route element={<PrivatePages />}>
         <Route path="/" element={<Profile />} />
+        <Route path="/packs" element={<Packs />} />
       </Route>
     </Routes>
   )

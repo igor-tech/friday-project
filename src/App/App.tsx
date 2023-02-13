@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 import './App.css'
 
 import {
+  AppStatusLoader,
+  appStatusSelector,
+  ErrorSnackbar,
+  InitializedLoader,
+  isInitializedSelector,
   useAppDispatch,
   useAppSelector,
-  AppStatusLoader,
-  InitializedLoader,
-  ErrorSnackbar,
-  isInitializedSelector,
-  appStatusSelector,
 } from '../common'
 
 import { getMeAuthTC } from './app-slice'

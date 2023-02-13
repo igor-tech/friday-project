@@ -17,7 +17,7 @@ export const tableAPI = {
 
 //Response
 export type ResponseGetPacks = {
-  cardPacks: CardPacks[]
+  cardPacks: CardsPack[]
   page: number
   pageCount: number
   cardPacksTotalCount: number
@@ -43,7 +43,7 @@ export type ResponseGetCard = {
   tokenDeathTime: number
 }
 export type ResponsePack = {
-  newCardsPack: NewCardsPack
+  newCardsPack: CardsPack
   token: string
   tokenDeathTime: number
 }
@@ -59,8 +59,8 @@ export type RequestGetParamsPack = {
   min?: number
   max?: number
   sortPacks?: string
-  page?: string
-  pageCount?: string
+  page?: number
+  pageCount?: number
   user_id?: string
   // чьи колоды не обязательно, или придут все
   block?: boolean
@@ -111,7 +111,7 @@ export type RequestUpdateCard = {
 }
 
 // types
-export type NewCardsPack = {
+export type CardsPack = {
   _id: string
   user_id: string
   user_name: string
@@ -120,7 +120,7 @@ export type NewCardsPack = {
   path: string
   grade: number
   shots: number
-  deckCover: string
+  deckCover?: string
   cardsCount: number
   type: string
   rating: number
@@ -128,24 +128,6 @@ export type NewCardsPack = {
   updated: string
   more_id: string
   __v: number
-}
-export type CardPacks = {
-  _id: string
-  user_id: string
-  user_name: string
-  private: boolean
-  name: string
-  path: string
-  grade: number
-  shots: number
-  cardsCount: number
-  type: string
-  rating: number
-  created: string
-  updated: string
-  more_id: string
-  __v: number
-  deckCover?: any
 }
 export interface NewCard {
   _id: string
