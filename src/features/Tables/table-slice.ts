@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { setAppStatus } from '../../App/app-slice'
 import { handleServerNetworkError } from '../../common'
 
-import { RequestGetParamsPack, ResponseGetPacks, tableAPI } from './table-api'
+import { CardsPack, RequestGetParamsPack, ResponseGetPacks, tableAPI } from './table-api'
 
 export const getPacks = createAsyncThunk(
   'packs/getPacks',
@@ -21,25 +21,7 @@ export const getPacks = createAsyncThunk(
 )
 
 const initialState = {
-  cardPacks: [
-    {
-      _id: '',
-      user_id: '',
-      user_name: '',
-      private: false,
-      name: '',
-      path: '',
-      grade: 0,
-      shots: 0,
-      cardsCount: 0,
-      type: '',
-      rating: 0,
-      created: '',
-      updated: '',
-      more_id: '',
-      __v: 0,
-    },
-  ],
+  cardPacks: [] as CardsPack[],
   cardPacksTotalCount: 0,
   maxCardsCount: 0,
   minCardsCount: 0,
@@ -47,13 +29,13 @@ const initialState = {
   pageCount: 0,
 }
 
-type InitialStatePacksType = typeof initialState
+type InitialStateType = typeof initialState
 
 export const packsSlice = createSlice({
   name: 'packs',
-  initialState,
+  initialState: initialState as InitialStateType,
   reducers: {
-    setDataPack: (state, action: PayloadAction<ResponseGetPacks>) => {
+    setDataPack: (state: InitialStateType, action: PayloadAction<ResponseGetPacks>) => {
       state.cardPacks = action.payload.cardPacks
       state.cardPacksTotalCount = action.payload.cardPacksTotalCount
       state.maxCardsCount = action.payload.maxCardsCount

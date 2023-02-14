@@ -11,7 +11,7 @@ export type SuperSortPropsType = {
   onChange: (newSort: string) => void
 }
 
-export const pureChange = (sort: string, down: string, up: string) => {
+const pureChange = (sort: string, down: string, up: string) => {
   let sortArr = sort.split('')
 
   if (sortArr.length === 0 || sortArr[1] !== down.split('')[1]) {

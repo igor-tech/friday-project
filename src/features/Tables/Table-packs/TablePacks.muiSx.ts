@@ -15,3 +15,14 @@ export const actionsIcon = {
   cursor: 'pointer',
   gap: '10px',
 }
+
+export const headCellSx = {
+  fontWeight: '900',
+  fontSize: '14px',
+  lineHeight: '17px',
+}
+
+export const paperPacksSx = {
+  maxWidth: 1008,
+  margin: '0 auto',
+}

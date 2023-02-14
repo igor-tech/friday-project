@@ -120,7 +120,7 @@ export type CardsPack = {
   path: string
   grade: number
   shots: number
-  deckCover?: string
+  deckCover: string
   cardsCount: number
   type: string
   rating: number
