@@ -17,7 +17,7 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 import { visuallyHidden } from '@mui/utils'
 import { NavLink } from 'react-router-dom'
 
-import { PATH, useAppSelector } from '../../../common'
+import { PATH, useAppDispatch, useAppSelector, userIdSelector } from '../../../common'
 import { cardPacksSelector } from '../../../common/selectors/packs-selectors'
 
 import { actionsIcon, headCellSx, paperPacksSx, userLink } from './TablePacks.muiSx'
@@ -57,11 +57,10 @@ type EnhancedTableProps = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void
   order: Order
   orderBy: string
-  onChangeSort: (newSort: string) => void
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort, onChangeSort } = props
+  const { order, orderBy, onRequestSort } = props
   const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property)
   }
@@ -100,14 +99,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     </TableHead>
   )
 }
-type TablePacksType = {
-  onChangeSort: (newSort: string) => void
-}
 
-export const TablePacks = ({ onChangeSort }: TablePacksType) => {
+export const TablePacks = () => {
+  const dispatch = useAppDispatch()
   const cardsPack = useAppSelector(cardPacksSelector)
   const [order, setOrder] = useState<Order>('desc')
   const [orderBy, setOrderBy] = useState<keyof Data>('updated')
+  const myProfileId = useAppSelector(userIdSelector)
+
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc'
@@ -116,24 +115,36 @@ export const TablePacks = ({ onChangeSort }: TablePacksType) => {
     setOrderBy(property)
   }
 
+  const deleteCurrentPack = (idPack: string) => {
+    dispatch(deletePack(idPack))
+  }
+  const updateCurrentPack = (idPack: string) => {
+    const updateCurrentPack = {
+      _id: idPack,
+      name: 'Name Update',
+    }
+
+    dispatch(updatePack(updateCurrentPack))
+  }
+
   return (
     <Paper sx={paperPacksSx}>
       <TableContainer>
         <Table aria-labelledby="tableTitle">
-          <EnhancedTableHead
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            onChangeSort={onChangeSort}
-          />
+          <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
           <TableBody>
             {cardsPack.map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`
+              const isMyPack = myProfileId === row.user_id
 
               return (
                 <TableRow hover key={row._id}>
                   <TableCell id={labelId} padding="normal">
-                    <Link component={NavLink} to={PATH.PACKS} sx={userLink}>
+                    <Link
+                      component={NavLink}
+                      to={PATH.PACKS + PATH.CARDS + '?cardsPackId=' + row._id}
+                      sx={userLink}
+                    >
                       {row.name}
                     </Link>
                   </TableCell>
@@ -151,12 +162,17 @@ export const TablePacks = ({ onChangeSort }: TablePacksType) => {
                     <SvgIcon onClick={() => alert('learn')}>
                       <SchoolOutlinedIcon />
                     </SvgIcon>
-                    <SvgIcon onClick={() => alert('edit')}>
-                      <DriveFileRenameOutlineOutlinedIcon />
-                    </SvgIcon>
-                    <SvgIcon onClick={() => alert('delete')}>
-                      <DeleteOutlinedIcon />
-                    </SvgIcon>
+
+                    {isMyPack && (
+                      <>
+                        <SvgIcon onClick={() => updateCurrentPack(row._id)}>
+                          <DriveFileRenameOutlineOutlinedIcon />
+                        </SvgIcon>
+                        <SvgIcon onClick={() => deleteCurrentPack(row._id)}>
+                          <DeleteOutlinedIcon />
+                        </SvgIcon>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               )
