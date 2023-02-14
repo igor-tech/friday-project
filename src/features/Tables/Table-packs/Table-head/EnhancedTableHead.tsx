@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import { Typography } from '@mui/material'
-import Box from '@mui/material/Box'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
-import { visuallyHidden } from '@mui/utils'
 
 import { useAppDispatch } from '../../../../common'
 import { setSortPacks } from '../../table-slice'
@@ -43,17 +41,21 @@ const headCells: HeadCell[] = [
   },
 ]
 
-type EnhancedTableProps = {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TitlePacksType) => void
-  order: OrderSortType
-  orderBy: string
-}
-export const HeadersPack = (props: EnhancedTableProps) => {
+export const HeadersPack = () => {
   const dispatch = useAppDispatch()
-  const { order, orderBy, onRequestSort } = props
+  const [order, setOrder] = useState<OrderSortType>('desc')
+  const [orderBy, setOrderBy] = useState<keyof TitlePacksType>('updated')
+
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TitlePacksType) => {
+    const isAsc = orderBy === property && order === 'asc'
+
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
+
   const createSortHandler =
     (property: keyof TitlePacksType) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property)
+      handleRequestSort(event, property)
     }
 
   const onChangeCallback = (id: string) => {
@@ -76,12 +78,6 @@ export const HeadersPack = (props: EnhancedTableProps) => {
               IconComponent={ArrowDropDownIcon}
             >
               <Typography sx={headCellSx}>{headCell.label}</Typography>
-
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
