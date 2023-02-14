@@ -12,8 +12,6 @@ export const userLink = {
 
 export const actionsIcon = {
   display: 'flex',
-  cursor: 'pointer',
-  gap: '10px',
 }
 
 export const headCellSx = {
@@ -25,4 +23,8 @@ export const headCellSx = {
 export const paperPacksSx = {
   width: '100%',
   margin: '0 auto',
+}
+
+export const btnIconBlack = {
+  color: 'black',
 }

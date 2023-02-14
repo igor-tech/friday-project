@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import DeleteIcon from '@mui/icons-material/Delete'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined'
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
-import { Link, SvgIcon, Typography } from '@mui/material'
+import { Button, IconButton, Link, SvgIcon, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -21,7 +22,7 @@ import { PATH, useAppDispatch, useAppSelector, userIdSelector } from '../../../c
 import { cardPacksSelector } from '../../../common/selectors/packs-selectors'
 import { deletePack, setSortPacks, updatePack } from '../table-slice'
 
-import { actionsIcon, headCellSx, paperPacksSx, userLink } from './TablePacks.muiSx'
+import { actionsIcon, btnIconBlack, headCellSx, paperPacksSx, userLink } from './TablePacks.muiSx'
 
 type Data = {
   name: string
@@ -161,18 +162,31 @@ export const TablePacks = () => {
                   </TableCell>
                   <TableCell align="left">{row.user_name}</TableCell>
                   <TableCell align="left" sx={actionsIcon}>
-                    <SvgIcon onClick={() => alert('learn')}>
+                    <IconButton
+                      aria-label="delete"
+                      disabled={false}
+                      onClick={() => alert('learn')}
+                      sx={btnIconBlack}
+                    >
                       <SchoolOutlinedIcon />
-                    </SvgIcon>
+                    </IconButton>
 
                     {isMyPack && (
                       <>
-                        <SvgIcon onClick={() => updateCurrentPack(row._id)}>
+                        <IconButton
+                          onClick={() => updateCurrentPack(row._id)}
+                          disabled={false}
+                          sx={btnIconBlack}
+                        >
                           <DriveFileRenameOutlineOutlinedIcon />
-                        </SvgIcon>
-                        <SvgIcon onClick={() => deleteCurrentPack(row._id)}>
+                        </IconButton>
+                        <IconButton
+                          onClick={() => deleteCurrentPack(row._id)}
+                          disabled={false}
+                          sx={btnIconBlack}
+                        >
                           <DeleteOutlinedIcon />
-                        </SvgIcon>
+                        </IconButton>
                       </>
                     )}
                   </TableCell>
