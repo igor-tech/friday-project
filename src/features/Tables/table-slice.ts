@@ -88,8 +88,8 @@ const initialState = {
     min: 0,
     max: 9,
     page: 1,
-    pageCount: 4,
-    user_id: '63e11a6656076d0c1416c2d8',
+    pageCount: 10,
+    user_id: '63e0fba6f1e20a0e885ab9bc',
   },
 }
 

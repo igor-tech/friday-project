@@ -2,13 +2,20 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import {
+  CheckEmail,
+  Login,
+  NewPassword,
+  PasswordRecoveryForm,
+  Profile,
+  Register,
+} from '../../features'
 import Packs from '../../features/Tables/Packs'
 import { TableCards } from '../../features/Tables/Table-cards/TableCards'
 
 import { PrivatePages } from './PrivatePages'
 
 import { PATH } from 'common'
-import { CheckEmail, Login, NewPassword, PasswordRecoveryForm, Profile, Register } from 'features'
 
 export const Pages = () => {
   return (

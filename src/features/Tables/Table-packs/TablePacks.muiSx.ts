@@ -23,6 +23,6 @@ export const headCellSx = {
 }
 
 export const paperPacksSx = {
-  maxWidth: 1008,
+  width: '100%',
   margin: '0 auto',
 }

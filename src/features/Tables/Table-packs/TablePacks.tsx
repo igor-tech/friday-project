@@ -19,6 +19,7 @@ import { NavLink } from 'react-router-dom'
 
 import { PATH, useAppDispatch, useAppSelector, userIdSelector } from '../../../common'
 import { cardPacksSelector } from '../../../common/selectors/packs-selectors'
+import { deletePack, updatePack } from '../table-slice'
 
 import { actionsIcon, headCellSx, paperPacksSx, userLink } from './TablePacks.muiSx'
 
@@ -66,7 +67,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   }
 
   const onChangeCallback = (id: string) => {
-    onChangeSort((order === 'asc' && orderBy === id ? '0' : '1') + id)
+    // onChangeSort((order === 'asc' && orderBy === id ? '0' : '1') + id)
   }
 
   return (
@@ -106,7 +107,6 @@ export const TablePacks = () => {
   const [order, setOrder] = useState<Order>('desc')
   const [orderBy, setOrderBy] = useState<keyof Data>('updated')
   const myProfileId = useAppSelector(userIdSelector)
-
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc'
