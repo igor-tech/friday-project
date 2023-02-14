@@ -48,8 +48,7 @@ export const Profile = () => {
   let [newName, setNewName] = useState(userName)
 
   const backHandler = () => {
-    // потом нужно дописать логику предыдущей страницы или другую
-    alert('навигация пока не работает')
+    navigate(PATH.PACKS)
   }
 
   const logOut = () => {
