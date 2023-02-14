@@ -46,19 +46,14 @@ export const HeadersPack = () => {
   const [order, setOrder] = useState<OrderSortType>('desc')
   const [orderBy, setOrderBy] = useState<keyof TitlePacksType>('updated')
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TitlePacksType) => {
+  const setSortHandler = (property: keyof TitlePacksType) => {
     const isAsc = orderBy === property && order === 'asc'
 
     setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
   }
 
-  const createSortHandler =
-    (property: keyof TitlePacksType) => (event: React.MouseEvent<unknown>) => {
-      handleRequestSort(event, property)
-    }
-
-  const onChangeCallback = (id: string) => {
+  const requestSortHandler = (id: string) => {
     dispatch(setSortPacks((order === 'asc' && orderBy === id ? '0' : '1') + id))
   }
 
@@ -69,12 +64,12 @@ export const HeadersPack = () => {
           <TableCell
             key={headCell.id}
             sortDirection={orderBy === headCell.id ? order : false}
-            onClick={() => onChangeCallback(headCell.id)}
+            onClick={() => requestSortHandler(headCell.id)}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              onClick={() => setSortHandler(headCell.id)}
               IconComponent={ArrowDropDownIcon}
             >
               <Typography sx={headCellSx}>{headCell.label}</Typography>
