@@ -8,4 +8,5 @@ export const PATH = {
   NEW_PASSWORD: '/set-new-password/:token',
   TEST: '/test',
   PACKS: '/packs',
+  CARDS: '/cards',
 } as const

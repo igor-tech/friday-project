@@ -6,4 +6,9 @@ export {
   isRegisteredSelector,
   isSetNewPasswordSelector,
 } from './auth-selectors'
-export { userAvatarSelector, userEmailSelector, userNameSelector } from './profile-selectors'
+export {
+  userAvatarSelector,
+  userEmailSelector,
+  userNameSelector,
+  userIdSelector,
+} from './profile-selectors'

@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import { useSearchParams } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
 
-import { useAppDispatch } from '../../common'
+import { GeneralButton, useAppDispatch } from '../../common'
 
+import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
-import { getPacks } from './table-slice'
+import { createNewPack, getPacks } from './table-slice'
 
 const Packs = () => {
-  const [sort, setSort] = useState('')
-  const [page, setPage] = useState(1)
-  const [count, setCount] = useState(10)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    dispatch(getPacks({ sortPacks: sort, page: page, pageCount: count }))
-  }, [sort, page, count])
+  const addNewPack = () => {
+    const dataParams = {
+      name: `New Pack Name`,
+      deckCover: '',
+      private: false,
+    }
 
-  const onChangeSort = (newSort: string) => {
-    // setSort(newSort)
-    // sendQuery({sort: newSort, count: count, page: page})
-    // setSearchParams({page: page.toString(), count: count.toString(), sort: newSort.toString()})
-    setSort(sort)
-    dispatch(getPacks({ sortPacks: newSort, page: page, pageCount: count }))
+    dispatch(createNewPack(dataParams))
   }
 
-  console.log(sort)
+  useEffect(() => {
+    dispatch(getPacks())
+  }, [])
 
   return (
-    <div>
-      <TablePacks onChangeSort={onChangeSort} />
+    <Box sx={packsContainerSx}>
+      <Box sx={addPackContainerSx}>
+        <Typography component="h1" sx={packTitleSx}>
+          Pack List
+        </Typography>
+        <GeneralButton name="Add new pack" sx={addNewPackBtnSx} onClick={addNewPack} />
+      </Box>
+
+      <TablePacks />
+
       {/*<TableCards />*/}
-    </div>
+    </Box>
   )
 }
 
