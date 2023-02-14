@@ -84,12 +84,12 @@ const initialState = {
   minCardsCount: 0,
   packsQueryParams: {
     packName: '',
-    sortPacks: '0user_name',
+    sortPacks: '0updated',
     min: 0,
     max: 9,
     page: 1,
     pageCount: 10,
-    user_id: '63e0fba6f1e20a0e885ab9bc',
+    user_id: '',
   },
 }
 
@@ -105,8 +105,11 @@ export const packsSlice = createSlice({
       state.maxCardsCount = action.payload.maxCardsCount
       state.minCardsCount = action.payload.minCardsCount
     },
+    setSortPacks: (state, action: PayloadAction<string>) => {
+      state.packsQueryParams.sortPacks = action.payload
+    },
   },
 })
 
-export const { setDataPack } = packsSlice.actions
+export const { setDataPack, setSortPacks } = packsSlice.actions
 export const packsReducer = packsSlice.reducer

@@ -19,7 +19,7 @@ import { NavLink } from 'react-router-dom'
 
 import { PATH, useAppDispatch, useAppSelector, userIdSelector } from '../../../common'
 import { cardPacksSelector } from '../../../common/selectors/packs-selectors'
-import { deletePack, updatePack } from '../table-slice'
+import { deletePack, setSortPacks, updatePack } from '../table-slice'
 
 import { actionsIcon, headCellSx, paperPacksSx, userLink } from './TablePacks.muiSx'
 
@@ -61,13 +61,15 @@ type EnhancedTableProps = {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
+  const dispatch = useAppDispatch()
   const { order, orderBy, onRequestSort } = props
   const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
     onRequestSort(event, property)
   }
 
   const onChangeCallback = (id: string) => {
-    // onChangeSort((order === 'asc' && orderBy === id ? '0' : '1') + id)
+    console.log(id)
+    dispatch(setSortPacks((order === 'asc' && orderBy === id ? '0' : '1') + id))
   }
 
   return (

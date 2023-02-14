@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { Box, Typography } from '@mui/material'
 
-import { GeneralButton, useAppDispatch } from '../../common'
+import { GeneralButton, useAppDispatch, useAppSelector } from '../../common'
 
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
@@ -10,6 +10,7 @@ import { createNewPack, getPacks } from './table-slice'
 
 const Packs = () => {
   const dispatch = useAppDispatch()
+  const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
 
   const addNewPack = () => {
     const dataParams = {
@@ -23,7 +24,7 @@ const Packs = () => {
 
   useEffect(() => {
     dispatch(getPacks())
-  }, [])
+  }, [packsQueryParams])
 
   return (
     <Box sx={packsContainerSx}>
