@@ -4,7 +4,7 @@ export const tableAPI = {
     instance.get<ResponseGetPacks>(`cards/pack`, { params: { ...data } }),
   createPack: (data: RequestCreatePack) =>
     instance.post<ResponsePack>('cards/pack', { cardsPack: data }),
-  deletePack: (data: RequestDeletePack) => instance.delete<ResponsePack>(`cards/pack?id=${data}`),
+  deletePack: (data: string) => instance.delete<ResponsePack>(`cards/pack?id=${data}`),
   updatePack: (data: RequestUpdatePack) =>
     instance.put<RequestDeletePack>('cards/pack', { cardsPack: data }),
   getCards: (data: RequestGetParamsCard) =>
@@ -27,7 +27,7 @@ export type ResponseGetPacks = {
   tokenDeathTime: number
 }
 export type ResponseGetCard = {
-  cards: NewCard[]
+  cards: Cards[]
   packUserId: string
   packName: string
   packPrivate: boolean
@@ -48,7 +48,7 @@ export type ResponsePack = {
   tokenDeathTime: number
 }
 export type ResponseCard = {
-  newCard: NewCard
+  newCard: Cards
   token: string
   tokenDeathTime: number
 }
@@ -78,9 +78,9 @@ export type RequestGetParamsCard = {
 
 //Request pack
 export type RequestCreatePack = {
-  name: string
-  deckCover: string
-  private: boolean
+  name?: string
+  deckCover?: string
+  private?: boolean
 }
 export type RequestDeletePack = {
   id: string
@@ -92,7 +92,6 @@ export type RequestUpdatePack = {
 
 //Request card
 export type RequestCreateCard = {
-  cardsPack_id: string
   question?: string // если не отправить будет таким
   answer?: string // если не отправить будет таким
   grade?: number // 0..5, не обязателен
@@ -120,7 +119,7 @@ export type CardsPack = {
   path: string
   grade: number
   shots: number
-  deckCover?: string
+  deckCover: string
   cardsCount: number
   type: string
   rating: number
@@ -129,7 +128,7 @@ export type CardsPack = {
   more_id: string
   __v: number
 }
-export interface NewCard {
+export interface Cards {
   _id: string
   cardsPack_id: string
   user_id: string
