@@ -17,9 +17,10 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 import { visuallyHidden } from '@mui/utils'
 import { NavLink } from 'react-router-dom'
 
-import { PATH, useAppSelector } from '../../../common'
+import { PATH, useAppDispatch, useAppSelector, userIdSelector } from '../../../common'
 import { cardPacksSelector } from '../../../common/selectors/packs-selectors'
 import { CardsPack } from '../table-api'
+import { deletePack, updatePack } from '../table-slice'
 
 import { actionsIcon, userLink } from './TablePacks.muiSx'
 
@@ -30,42 +31,6 @@ type Data = CardsPack & {
   createBy: string
   actions: { learn: string; edit: string; delete: string }
 }
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-
-  return 0
-}
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
-
-// function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-//   const stabilizedThis = array.map((el, index) => [el, index] as [T, number])
-//
-//   stabilizedThis.sort((a, b) => {
-//     const order = comparator(a[0], b[0])
-//
-//     if (order !== 0) {
-//       return order
-//     }
-//
-//     return a[1] - b[1]
-//   })
-//
-//   return stabilizedThis.map(el => el[0])
-// }
 
 type Order = 'asc' | 'desc'
 type HeadCell = {
@@ -89,16 +54,12 @@ const headCells: HeadCell[] = [
     id: 'createBy',
     label: 'Created by',
   },
-  {
-    id: 'actions',
-    label: 'Actions',
-  },
 ]
 
 type EnhancedTableProps = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void
-  order: Order
-  orderBy: string
+  order: Order //asc decs
+  orderBy: string // id headCells
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -133,32 +94,50 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export const TablePacks = () => {
+  const dispatch = useAppDispatch()
   const cardsPack = useAppSelector(cardPacksSelector)
-
+  const myProfileId = useAppSelector(userIdSelector)
   const [order, setOrder] = useState<Order>('asc')
   const [orderBy, setOrderBy] = useState<keyof Data>('lastUpdate')
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
+    console.log(property)
     const isAsc = orderBy === property && order === 'asc'
 
     setOrder(isAsc ? 'desc' : 'asc')
     setOrderBy(property)
   }
 
+  const deleteCurrentPack = (idPack: string) => {
+    dispatch(deletePack(idPack))
+  }
+  const updateCurrentPack = (idPack: string) => {
+    const updateCurrentPack = {
+      _id: idPack,
+      name: 'Name Update',
+    }
+
+    dispatch(updatePack(updateCurrentPack))
+  }
+
   return (
-    <Paper sx={{ width: 1008, margin: '0 auto' }}>
+    <Paper sx={{ width: '100%' }}>
       <TableContainer>
         <Table aria-labelledby="tableTitle">
           <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
           <TableBody>
-            {/*{stableSort(cardsPack, getComparator(order, orderBy))*/}
             {cardsPack.map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`
+              const isMyPack = myProfileId === row.user_id
 
               return (
                 <TableRow hover key={row._id}>
                   <TableCell id={labelId} padding="normal">
-                    <Link component={NavLink} to={PATH.PACKS} sx={userLink}>
+                    <Link
+                      component={NavLink}
+                      to={PATH.PACKS + PATH.CARDS + '?cardsPackId=' + row._id}
+                      sx={userLink}
+                    >
                       {row.name}
                     </Link>
                   </TableCell>
@@ -172,12 +151,17 @@ export const TablePacks = () => {
                     <SvgIcon onClick={() => alert('learn')}>
                       <SchoolOutlinedIcon />
                     </SvgIcon>
-                    <SvgIcon onClick={() => alert('edit')}>
-                      <DriveFileRenameOutlineOutlinedIcon />
-                    </SvgIcon>
-                    <SvgIcon onClick={() => alert('delete')}>
-                      <DeleteOutlinedIcon />
-                    </SvgIcon>
+
+                    {isMyPack && (
+                      <>
+                        <SvgIcon onClick={() => updateCurrentPack(row._id)}>
+                          <DriveFileRenameOutlineOutlinedIcon />
+                        </SvgIcon>
+                        <SvgIcon onClick={() => deleteCurrentPack(row._id)}>
+                          <DeleteOutlinedIcon />
+                        </SvgIcon>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               )
