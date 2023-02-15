@@ -7,23 +7,19 @@ import TableContainer from '@mui/material/TableContainer'
 import { useSearchParams } from 'react-router-dom'
 
 import arrow from '../../../assets/img/arrow.png'
-import { useAppDispatch, useAppSelector } from '../../../common'
+import { useAppSelector } from '../../../common'
 import { packsContainerSx } from '../Table-packs/Packs.muiSx'
 import { paperPacksSx } from '../Table-packs/TablePacks.muiSx'
 
 import { getCards, setPacksCardId } from './cards-slice'
 import { largeText, smallText, startPositionSx } from './Cards.muiSx'
+import { useTableCards } from './hooks/useTableCards'
 import { TableCardsBody } from './Table-cards-body/TableCardsBody'
 import { HeadersCards } from './Table-cards-head/TableCardsHead'
 import { EmptyPacks } from './Table-empty-packs/EmptyPacks'
 
 export const TableCards = () => {
-  const dispatch = useAppDispatch()
-  const card = useAppSelector(state => state.cards.cards)
-  const myProfileId = useAppSelector(state => state.profile.user._id)
-  const myPackUserId = useAppSelector(state => state.cards.packUserId)
-  const packName = useAppSelector(state => state.cards.packName)
-  const isMy = myProfileId === myPackUserId
+  const { dispatch, card, isMy, packName } = useTableCards()
 
   const { sortCards, cardQuestion, page, pageCount } = useAppSelector(
     state => state.cards.cardsQueryParams
