@@ -5,7 +5,6 @@ import { authReducer } from '../features/Auth/auth-slice'
 import { setNewPasswordReducer } from '../features/Auth/RecoveryPasswordForms/NewPassword/newPassword-slice'
 import { recoveryPasswordReducer } from '../features/Auth/RecoveryPasswordForms/RecoveryPassword/recovery-password-slice'
 import { profileReducer } from '../features/Profile/profile-slice'
-import { filterReducer } from '../features/Tables/Filter/filter-slice'
 import { CardsReducer } from '../features/Tables/Table-cards/cards-slice'
 import { packsReducer } from '../features/Tables/table-slice'
 
@@ -18,7 +17,6 @@ export const store = configureStore({
     setNewPassword: setNewPasswordReducer,
     profile: profileReducer,
     app: appReducer,
-    filter: filterReducer,
     packs: packsReducer,
     cards: CardsReducer,
   },
