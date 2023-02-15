@@ -4,11 +4,9 @@ import { IconButton, InputBase, Paper, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
 import Search from '../../../../../assets/img/Search.png'
-import { useAppDispatch, useAppSelector } from '../../../../../common'
+import { useAppDispatch } from '../../../../../common'
 import useDebounce from '../../../../../common/hooks/useDebounce'
-import { packsSelector } from '../../../../../common/selectors/filter-selectors'
-import { userIdSelector } from '../../../../../common/selectors/packs-selectors'
-import { getNameFilterAC } from '../../filter-slice'
+import { setSearchValueFilter } from '../../../table-slice'
 
 import {
   iconBlockSx,
@@ -21,9 +19,6 @@ import {
 export const SearchFilter = () => {
   const dispatch = useAppDispatch()
 
-  const packs = useAppSelector(packsSelector)
-  const userId = useAppSelector(userIdSelector)
-
   const [inputValue, setInputValue] = useState('')
   const debouncedValue = useDebounce(inputValue, 750)
 
@@ -32,10 +27,8 @@ export const SearchFilter = () => {
   }
 
   useEffect(() => {
-    dispatch(getNameFilterAC({ packName: debouncedValue }))
+    dispatch(setSearchValueFilter({ packName: debouncedValue }))
   }, [debouncedValue])
-
-  console.log(debouncedValue)
 
   return (
     <Box sx={searchContainerSx}>
