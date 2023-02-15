@@ -9,13 +9,12 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import { NavLink } from 'react-router-dom'
 
-import { PATH } from '../../../../common'
+import { PATH, redactorDataTime } from '../../../../common'
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
 import { actionsIcon, btnIconBlack, userLink } from '../TablePacks.muiSx'
 
 export const TableBodyPacks = () => {
-  const { cardsPack, updateCurrentPack, deleteCurrentPack, redactorData, myProfileId } =
-    useTablePacksBody()
+  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId } = useTablePacksBody()
 
   return (
     <TableBody>
@@ -36,10 +35,14 @@ export const TableBodyPacks = () => {
             </TableCell>
 
             <TableCell align="left">{row.cardsCount}</TableCell>
-            <TableCell align="left">{redactorData(row.updated)}</TableCell>
+            <TableCell align="left">{redactorDataTime(row.updated)}</TableCell>
             <TableCell align="left">{row.user_name}</TableCell>
             <TableCell align="left" sx={actionsIcon}>
-              <IconButton disabled={false} onClick={() => alert('learn')} sx={btnIconBlack}>
+              <IconButton
+                disabled={row.cardsCount === 0}
+                onClick={() => alert('learn')}
+                sx={btnIconBlack}
+              >
                 <SchoolOutlinedIcon />
               </IconButton>
 

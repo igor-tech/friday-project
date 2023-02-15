@@ -7,9 +7,28 @@ import {
   RequestCreateCard,
   RequestDeleteCard,
   RequestUpdateCard,
+  RequestUpdatePack,
   ResponseGetCard,
   tableAPI,
 } from '../table-api'
+
+const initialState = {
+  cards: [] as Cards[],
+  packUserId: '',
+  packName: '',
+  packPrivate: false,
+  cardsTotalCount: 2,
+  minGrade: 0,
+  maxGrade: 5,
+  cardsQueryParams: {
+    cardsPack_id: '',
+    cardQuestion: '',
+    sortCards: '0question',
+    page: 1,
+    pageCount: 7,
+  },
+  isCardLoading: false,
+}
 
 export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getState }) => {
   const { cardsPack_id, cardQuestion, sortCards, page, pageCount } = (getState() as RootState).cards
@@ -23,12 +42,15 @@ export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getS
     pageCount,
   }
 
+  dispatch(setLoadingCard(false))
   try {
     const { data } = await tableAPI.getCards(queryParams)
 
     dispatch(setDataCard(data))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+  } finally {
+    dispatch(setLoadingCard(true))
   }
 })
 
@@ -72,22 +94,28 @@ export const updateCard = createAsyncThunk(
     }
   }
 )
-const initialState = {
-  cards: [] as Cards[],
-  packUserId: '',
-  packName: '',
-  packPrivate: false,
-  cardsTotalCount: 2,
-  minGrade: 0,
-  maxGrade: 5,
-  cardsQueryParams: {
-    cardsPack_id: '',
-    cardQuestion: '',
-    sortCards: '0question',
-    page: 1,
-    pageCount: 7,
-  },
-}
+
+export const updateCardPack = createAsyncThunk(
+  'card/updateCardPack',
+  async (updateData: RequestUpdatePack, { dispatch }) => {
+    try {
+      await tableAPI.updatePack(updateData)
+      dispatch(getCards())
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+)
+export const deleteCardPack = createAsyncThunk(
+  'card/deleteCardPack',
+  async (packId: string, { dispatch }) => {
+    try {
+      await tableAPI.deletePack(packId)
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+)
 
 type initialStateType = typeof initialState
 export const cardsSlice = createSlice({
@@ -108,8 +136,11 @@ export const cardsSlice = createSlice({
     setSortCards: (state, action: PayloadAction<string>) => {
       state.cardsQueryParams.sortCards = action.payload
     },
+    setLoadingCard: (state, action) => {
+      state.isCardLoading = action.payload
+    },
   },
 })
 
-export const { setPacksCardId, setDataCard, setSortCards } = cardsSlice.actions
+export const { setPacksCardId, setDataCard, setSortCards, setLoadingCard } = cardsSlice.actions
 export const CardsReducer = cardsSlice.reducer

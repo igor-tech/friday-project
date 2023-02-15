@@ -4,7 +4,8 @@ import { Box, Typography } from '@mui/material'
 
 import { GeneralButton, useAppDispatch, useAppSelector } from '../../common'
 
-import { Filter } from './Filter/Filter'
+import { FilterPanel } from './FilterPanel/FilterPanel'
+import { EmptySearchMessage } from './Table-packs/EmptySearchMessage/EmptySearchMessage'
 import {
   addNewPackBtnSx,
   addPackContainerSx,
@@ -17,7 +18,7 @@ import { createNewPack, getPacks } from './table-slice'
 const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
-
+  const packs = useAppSelector(state => state.packs.cardPacks)
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -40,11 +41,9 @@ const Packs = () => {
         </Typography>
         <GeneralButton name="Add new pack" sx={addNewPackBtnSx} onClick={addNewPack} />
       </Box>
-      <Box>
-        <Filter />
-      </Box>
 
-      <TablePacks />
+      <FilterPanel />
+      {packs.length === 0 ? <EmptySearchMessage /> : <TablePacks />}
     </Box>
   )
 }
