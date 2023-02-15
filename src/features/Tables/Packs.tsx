@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material'
 
 import { GeneralButton, useAppDispatch } from '../../common'
 
+import { Filter } from './Filter/Filter'
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
 import { createNewPack, getPacks } from './table-slice'
@@ -32,6 +33,9 @@ const Packs = () => {
           Pack List
         </Typography>
         <GeneralButton name="Add new pack" sx={addNewPackBtnSx} onClick={addNewPack} />
+      </Box>
+      <Box>
+        <Filter />
       </Box>
 
       <TablePacks />
