@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector, userIdSelector } from '../../../../common'
-import { CardsSelector } from '../../../../common/selectors/packs-selectors'
 import { deleteCard, updateCard } from '../cards-slice'
+
+import { CardsSelector, useAppDispatch, useAppSelector, userIdSelector } from 'common'
 
 export const useTableCardsBody = () => {
   const dispatch = useAppDispatch()
