@@ -2,7 +2,7 @@ export const RemoveFilterContainerSx = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-end',
-  width: '500x',
+  marginLeft: '45px',
 }
 
 export const iconBlockSx = {}
