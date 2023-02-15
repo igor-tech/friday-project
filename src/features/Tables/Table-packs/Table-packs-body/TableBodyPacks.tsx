@@ -39,7 +39,11 @@ export const TableBodyPacks = () => {
             <TableCell align="left">{redactorData(row.updated)}</TableCell>
             <TableCell align="left">{row.user_name}</TableCell>
             <TableCell align="left" sx={actionsIcon}>
-              <IconButton disabled={false} onClick={() => alert('learn')} sx={btnIconBlack}>
+              <IconButton
+                disabled={row.cardsCount === 0}
+                onClick={() => alert('learn')}
+                sx={btnIconBlack}
+              >
                 <SchoolOutlinedIcon />
               </IconButton>
 
