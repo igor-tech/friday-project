@@ -19,10 +19,7 @@ export const useTablePacksBody = () => {
   }
 
   const redactorData = (data: string) => {
-    return data
-      .slice(0, -14)
-      .replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1')
-      .replace(/-/g, '.')
+    return new Intl.DateTimeFormat('ru').format(Date.parse(data))
   }
 
   return { redactorData, updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }

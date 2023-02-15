@@ -18,9 +18,9 @@ export const Filter = () => {
   const { packName, sortPacks, min, max, page, pageCount, user_id } =
     useAppSelector(packsQueryParamsSelector)
 
-  useEffect(() => {
-    dispatch(getPacks())
-  }, [packName, sortPacks, min, max, page, pageCount, user_id])
+  // useEffect(() => {
+  //   dispatch(getPacks())
+  // }, [packName, sortPacks, min, max, page, pageCount, user_id])
 
   return (
     <Box>
