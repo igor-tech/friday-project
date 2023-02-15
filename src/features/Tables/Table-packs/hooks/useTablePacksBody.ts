@@ -1,5 +1,9 @@
-import { useAppDispatch, useAppSelector, userIdSelector } from '../../../../common'
-import { cardPacksSelector } from '../../../../common/selectors/packs-selectors'
+import {
+  useAppDispatch,
+  useAppSelector,
+  userIdSelector,
+  cardPacksSelector,
+} from '../../../../common'
 import { deletePack, updatePack } from '../../table-slice'
 
 export const useTablePacksBody = () => {
@@ -18,12 +22,5 @@ export const useTablePacksBody = () => {
     dispatch(updatePack(updateCurrentPack))
   }
 
-  const redactorData = (data: string) => {
-    return data
-      .slice(0, -14)
-      .replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1')
-      .replace(/-/g, '.')
-  }
-
-  return { redactorData, updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }
+  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }
 }
