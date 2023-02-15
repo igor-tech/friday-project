@@ -19,12 +19,12 @@ export const BetweenFilter = () => {
     setValue(newValue as number[])
   }
 
-  const handleChangeCommitted = (event: object) => {
+  const handleChangeCommitted = () => {
     dispatch(setBetweenValueFilter({ min: value[0], max: value[1] }))
   }
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 300, marginLeft: '48px' }}>
       <Typography component="p">Number of cards</Typography>
 
       <Box sx={sliderBlockSx}>
