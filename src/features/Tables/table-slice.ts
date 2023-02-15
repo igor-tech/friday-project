@@ -107,14 +107,13 @@ const initialState = {
   minCardsCount: 0,
   packsQueryParams: {
     packName: '',
-    sortPacks: '0user_name',
+    sortPacks: '0updated',
     min: 0,
     max: 9,
     page: 1,
     pageCount: 10,
-    user_id: '63e0fba6f1e20a0e885ab9bc',
+    user_id: '',
   },
-  filterValue: 'all',
 }
 
 type InitialStatePacksType = typeof initialState
@@ -139,9 +138,17 @@ export const packsSlice = createSlice({
     setSearchValueFilter: (state, action: PayloadAction<{ packName: string }>) => {
       state.packsQueryParams.packName = action.payload.packName
     },
+    setSortPacks: (state, action: PayloadAction<string>) => {
+      state.packsQueryParams.sortPacks = action.payload
+    },
   },
 })
 
-export const { setDataPack, setValueFilter, setBetweenValueFilter, setSearchValueFilter } =
-  packsSlice.actions
+export const {
+  setDataPack,
+  setSortPacks,
+  setValueFilter,
+  setBetweenValueFilter,
+  setSearchValueFilter,
+} = packsSlice.actions
 export const packsReducer = packsSlice.reducer
