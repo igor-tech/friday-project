@@ -77,6 +77,29 @@ export const updatePack = createAsyncThunk(
   }
 )
 
+export const getDefaultPacks = createAsyncThunk(
+  'packs/getPacks',
+  async (_, { dispatch, getState }) => {
+    dispatch(setAppStatus('loading'))
+    const { pageCount, page, packName, sortPacks, max, min, user_id } = (getState() as RootState)
+      .packs.packsQueryParams
+
+    const queryParams = {
+      pageCount,
+      page,
+    }
+
+    try {
+      const { data } = await tableAPI.getPack(queryParams)
+
+      dispatch(setDataPack(data))
+      dispatch(setAppStatus('success'))
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+)
+
 const initialState = {
   cardPacks: [] as CardsPack[],
   cardPacksTotalCount: 0,
@@ -108,8 +131,24 @@ export const packsSlice = createSlice({
     setSortPacks: (state, action: PayloadAction<string>) => {
       state.packsQueryParams.sortPacks = action.payload
     },
+    setValueFilter: (state, action: PayloadAction<{ userId: string }>) => {
+      state.packsQueryParams.user_id = action.payload.userId
+    },
+    setBetweenValueFilter: (state, action: PayloadAction<{ min: number; max: number }>) => {
+      state.packsQueryParams.max = action.payload.max
+      state.packsQueryParams.min = action.payload.min
+    },
+    setSearchValueFilter: (state, action: PayloadAction<{ packName: string }>) => {
+      state.packsQueryParams.packName = action.payload.packName
+    },
   },
 })
 
-export const { setDataPack, setSortPacks } = packsSlice.actions
+export const {
+  setDataPack,
+  setSortPacks,
+  setValueFilter,
+  setBetweenValueFilter,
+  setSearchValueFilter,
+} = packsSlice.actions
 export const packsReducer = packsSlice.reducer

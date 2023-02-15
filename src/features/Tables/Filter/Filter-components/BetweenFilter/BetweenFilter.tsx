@@ -1,0 +1,54 @@
+import React, { useState } from 'react'
+
+import { Box, Paper, Slider, Typography } from '@mui/material'
+
+import { useAppDispatch, useAppSelector } from '../../../../../common'
+import { packsSelector } from '../../../../../common/selectors/filter-selectors'
+import { setBetweenValueFilter } from '../../../table-slice'
+
+import { numberBlockSx, sliderBlockSx, sliderSx, textPaperBlockSx } from './BetweenFilter.muiSx'
+
+export const BetweenFilter = () => {
+  const dispatch = useAppDispatch()
+
+  const packs = useAppSelector(packsSelector)
+
+  const [value, setValue] = useState<number[]>([packs.minCardsCount, packs.maxCardsCount])
+
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[])
+  }
+
+  const handleChangeCommitted = (event: object) => {
+    dispatch(setBetweenValueFilter({ min: value[0], max: value[1] }))
+  }
+
+  return (
+    <Box sx={{ width: 300 }}>
+      <Typography component="p">Number of cards</Typography>
+
+      <Box sx={sliderBlockSx}>
+        <Paper sx={numberBlockSx}>
+          <Typography sx={textPaperBlockSx} component="p">
+            {value[0]}
+          </Typography>
+        </Paper>
+        <Slider
+          sx={sliderSx}
+          getAriaLabel={() => 'Temperature range'}
+          value={value}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          max={packs.maxCardsCount}
+          min={packs.minCardsCount}
+          onChangeCommitted={handleChangeCommitted}
+        />
+        <Paper sx={numberBlockSx}>
+          <Typography sx={textPaperBlockSx} component="p">
+            {value[1]}
+          </Typography>
+        </Paper>
+      </Box>
+    </Box>
+  )
+}
