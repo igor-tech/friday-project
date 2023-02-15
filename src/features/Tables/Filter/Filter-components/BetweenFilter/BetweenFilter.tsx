@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { Box, Paper, Slider, Typography } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '../../../../../common'
 import { packsSelector } from '../../../../../common/selectors/filter-selectors'
-import { userIdSelector } from '../../../../../common/selectors/packs-selectors'
-import { getBetweenFilterAC } from '../../filter-slice'
+import { setBetweenValueFilter } from '../../../table-slice'
 
 import { numberBlockSx, sliderBlockSx, sliderSx, textPaperBlockSx } from './BetweenFilter.muiSx'
 
@@ -13,8 +12,6 @@ export const BetweenFilter = () => {
   const dispatch = useAppDispatch()
 
   const packs = useAppSelector(packsSelector)
-  const userId = useAppSelector(userIdSelector)
-  const filterValue = useAppSelector(state => state.filter.filter)
 
   const [value, setValue] = useState<number[]>([packs.minCardsCount, packs.maxCardsCount])
 
@@ -23,32 +20,17 @@ export const BetweenFilter = () => {
   }
 
   const handleChangeCommitted = (event: object) => {
-    if (filterValue === 'my') {
-      dispatch(
-        getBetweenFilterAC({
-          min: value[0],
-          max: value[1],
-          user_id: userId,
-        })
-      )
-    } else {
-      dispatch(
-        getBetweenFilterAC({
-          min: value[0],
-          max: value[1],
-        })
-      )
-    }
+    dispatch(setBetweenValueFilter({ min: value[0], max: value[1] }))
   }
 
   return (
-    <Box sx={{ width: 600 }}>
+    <Box sx={{ width: 300 }}>
       <Typography component="p">Number of cards</Typography>
 
       <Box sx={sliderBlockSx}>
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {packs.minCardsCount}
+            {value[0]}
           </Typography>
         </Paper>
         <Slider
@@ -63,7 +45,7 @@ export const BetweenFilter = () => {
         />
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {packs.maxCardsCount}
+            {value[1]}
           </Typography>
         </Paper>
       </Box>
