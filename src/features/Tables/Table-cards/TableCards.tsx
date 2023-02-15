@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react'
 
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { AppStatusLoader, useAppDispatch, useAppSelector } from '../../../common'
+import { GeneralButton, useAppDispatch, useAppSelector } from '../../../common'
 
-import { BackToPackList } from './BackToPackList'
-import { CardHeaderMenu } from './CardMenu/CardHeaderMenu'
-import { createNewCard, getCards, setPacksCardId } from './cards-slice'
-import { EmptyPackMenu } from './EmptyPackMenu'
+import { getCards, setPacksCardId } from './cards-slice'
+import { largeText, smallText, startPositionSx } from './Cards.muiSx'
+import { useTableCards } from './hooks/useTableCards'
+import { TableCardsBody } from './Table-cards-body/TableCardsBody'
+import { HeadersCards } from './Table-cards-head/TableCardsHead'
+import { EmptyPacks } from './Table-empty-packs/EmptyPacks'
 
 export const TableCards = () => {
-  const dispatch = useAppDispatch()
-  const isCardLoading = useAppSelector(state => state.cards.isCardLoading)
-  const card = useAppSelector(state => state.cards.cards)
-  const myProfileId = useAppSelector(state => state.profile.user._id)
-  const myPackUserId = useAppSelector(state => state.cards.packUserId)
-  const packName = useAppSelector(state => state.cards.packName)
-  const resultSearch = useAppSelector(state => state.cards.cardsQueryParams.cardQuestion)
-  const isMy = myProfileId === myPackUserId
+  const { dispatch, card, isMy, packName } = useTableCards()
+
   const { sortCards, cardQuestion, page, pageCount } = useAppSelector(
     state => state.cards.cardsQueryParams
   )
@@ -50,6 +46,28 @@ export const TableCards = () => {
       <BackToPackList />
       <CardHeaderMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
       {card.length === 0 && resultSearch ? <div>Not result</div> : <div>Table</div>}
+    <Box sx={packsContainerSx}>
+      <Box sx={startPositionSx}>
+        <Typography component="img" src={arrow} alt="arrow back" />
+        <Typography component="h1" variant="h5" sx={smallText}>
+          Back to Packs List
+        </Typography>
+      </Box>
+      <Typography sx={largeText} component="h2">
+        {card?.length !== 0 && (isMy ? 'My Pack' : 'Friend’s Pack')}
+      </Typography>
+      {card?.length === 0 ? (
+        <EmptyPacks packName={packName} isMyPack={isMy} />
+      ) : (
+        <Paper sx={paperPacksSx}>
+          <TableContainer>
+            <Table aria-labelledby="tableTitle">
+              <HeadersCards />
+              <TableCardsBody />
+            </Table>
+          </TableContainer>
+        </Paper>
+      )}
     </Box>
   )
 }
