@@ -15,7 +15,7 @@ export const useTableCardsBody = () => {
       question: 'question updated',
     }
 
-    dispatch(updateCard({ _id: updateCurrentPack._id, question: updateCurrentPack.question }))
+    dispatch(updateCard(updateCurrentPack))
   }
 
   const redactorData = (data: string) => {

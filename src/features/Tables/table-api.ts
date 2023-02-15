@@ -11,7 +11,8 @@ export const tableAPI = {
     instance.get<ResponseGetCard>('cards/card', { params: { ...data } }),
   createCard: (data: RequestCreateCard) =>
     instance.post<ResponseCard>('cards/card', { card: data }),
-  deleteCard: (data: RequestDeleteCard) => instance.delete<ResponseCard>(`cards/card?id=${data}`),
+  deleteCard: (data: RequestDeleteCard) =>
+    instance.delete<ResponseCard>(`cards/card?id=${data.id}`),
   updateCard: (data: RequestUpdateCard) => instance.put<ResponseCard>('cards/card', { card: data }),
 }
 
