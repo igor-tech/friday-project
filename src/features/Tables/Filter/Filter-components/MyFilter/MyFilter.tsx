@@ -1,20 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
 import { useAppDispatch, useAppSelector } from '../../../../../common'
-import { packsSelector } from '../../../../../common/selectors/filter-selectors'
 import { userIdSelector } from '../../../../../common/selectors/packs-selectors'
-import { tableAPI } from '../../../table-api'
-import { setAllFilterAC, setMyFilterAC } from '../../filter-slice'
+import { setValueFilter } from '../../../table-slice'
 
-import { buttonBlockSx, buttonSx, myFilterBlockSx } from './MyFilter.muiSx'
+import { buttonBlockSx, buttonSx, myFilterBlockSx, ToggleButtonGroupSx } from './MyFilter.muiSx'
 
 export const MyFilter = () => {
   const dispatch = useAppDispatch()
 
-  const packs = useAppSelector(packsSelector)
   const userId = useAppSelector(userIdSelector)
 
   const [filterValue, setFilterValue] = useState<string | null>('all')
@@ -24,24 +21,11 @@ export const MyFilter = () => {
   }
 
   const onClickSetMyFilter = () => {
-    // диспачим санку с запросом на сервер с параметром id из профиля для получения паков определенного пользователя
-    dispatch(
-      setMyFilterAC({
-        min: packs.minCardsCount,
-        max: packs.maxCardsCount,
-        user_id: userId,
-      })
-    )
+    dispatch(setValueFilter({ userId }))
   }
 
   const onClickSetAllFilter = () => {
-    // диспачим санку с запросом на сервер пока без параметров, потом добавим page и другие нужныеы
-    dispatch(
-      setAllFilterAC({
-        min: packs.minCardsCount,
-        max: packs.maxCardsCount,
-      })
-    )
+    dispatch(setValueFilter({ userId: '' }))
   }
 
   return (
@@ -51,6 +35,7 @@ export const MyFilter = () => {
       </Box>
       <Box sx={buttonBlockSx}>
         <ToggleButtonGroup
+          sx={ToggleButtonGroupSx}
           onChange={changeFilterHandler}
           value={filterValue}
           exclusive
