@@ -1,6 +1,1 @@
-export const filterBlockSx = {
-  display: 'flex',
-
-  margin: '0px 50px 10px 0px',
-  width: '495px',
-}
+export const filterBlockSx = { display: 'flex', marginBottom: '30px', marginTop: '40px' }
