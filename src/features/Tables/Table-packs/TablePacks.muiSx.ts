@@ -28,3 +28,6 @@ export const paperPacksSx = {
 export const btnIconBlack = {
   color: 'black',
 }
+export const tableHeadSx = {
+  background: '#EFEFEF',
+}
