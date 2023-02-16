@@ -81,8 +81,7 @@ export const getDefaultPacks = createAsyncThunk(
   'packs/getPacks',
   async (_, { dispatch, getState }) => {
     dispatch(setAppStatus('loading'))
-    const { pageCount, page, packName, sortPacks, max, min, user_id } = (getState() as RootState)
-      .packs.packsQueryParams
+    const { pageCount, page } = (getState() as RootState).packs.packsQueryParams
 
     const queryParams = {
       pageCount,
@@ -105,13 +104,15 @@ const initialState = {
   cardPacksTotalCount: 0,
   maxCardsCount: 50,
   minCardsCount: 0,
+  page: 1,
+  pageCount: 4,
   packsQueryParams: {
     packName: '',
     sortPacks: '0updated',
     min: 0,
     max: 9,
     page: 1,
-    pageCount: 10,
+    pageCount: 4,
     user_id: '',
   },
 }
@@ -127,6 +128,8 @@ export const packsSlice = createSlice({
       state.cardPacksTotalCount = action.payload.cardPacksTotalCount
       state.maxCardsCount = action.payload.maxCardsCount
       state.minCardsCount = action.payload.minCardsCount
+      state.page = action.payload.page
+      state.pageCount = action.payload.pageCount
     },
     setSortPacks: (state, action: PayloadAction<string>) => {
       state.packsQueryParams.sortPacks = action.payload
@@ -141,6 +144,10 @@ export const packsSlice = createSlice({
     setSearchValueFilter: (state, action: PayloadAction<{ packName: string }>) => {
       state.packsQueryParams.packName = action.payload.packName
     },
+    setPaginationValue: (state, action: PayloadAction<{ page: number; pageCount: number }>) => {
+      state.packsQueryParams.page = action.payload.page
+      state.packsQueryParams.pageCount = action.payload.pageCount
+    },
   },
 })
 
@@ -150,5 +157,6 @@ export const {
   setValueFilter,
   setBetweenValueFilter,
   setSearchValueFilter,
+  setPaginationValue,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer

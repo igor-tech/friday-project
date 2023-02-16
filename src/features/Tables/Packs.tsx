@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material'
 import { GeneralButton, useAppDispatch, useAppSelector } from '../../common'
 
 import { FilterPanel } from './FilterPanel/FilterPanel'
+import { PaginationComponent } from './Pagination/Pagination'
 import { EmptySearchMessage } from './Table-packs/EmptySearchMessage/EmptySearchMessage'
 import {
   addNewPackBtnSx,
@@ -44,6 +45,7 @@ const Packs = () => {
 
       <FilterPanel />
       {packs.length === 0 ? <EmptySearchMessage /> : <TablePacks />}
+      <PaginationComponent />
     </Box>
   )
 }
