@@ -13,4 +13,4 @@ export {
   userIdSelector,
 } from './profile-selectors'
 
-export { cardPacksSelector, CardsSelector } from './packs-selectors'
+export { cardPacksSelector, CardsSelector, packsUserIdSelector } from './packs-selectors'
