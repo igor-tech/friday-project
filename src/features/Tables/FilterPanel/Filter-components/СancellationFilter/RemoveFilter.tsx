@@ -4,26 +4,29 @@ import { IconButton, Paper, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
 import RemoveFilterIcon from '../../../../../assets/img/RemoveFilter.png'
-import { useAppDispatch } from '../../../../../common'
-import { remove } from '../../../table-slice'
+import { useAppDispatch, useAppSelector } from '../../../../../common'
+import { packsSelector } from '../../../../../common/selectors/filter-selectors'
+import { remove, setRenderForFilter } from '../../../table-slice'
 
 import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './RemoveFilter.miuSx'
 
 export const RemoveFilter = () => {
   const dispatch = useAppDispatch()
+  const packs = useAppSelector(packsSelector)
 
   const onClickHandler = () => {
     dispatch(
       remove({
         packName: '',
         sortPacks: '0updated',
-        min: 0,
-        max: 9,
+        min: packs.minCardsCount,
+        max: packs.maxCardsCount,
         page: 1,
         pageCount: 4,
         user_id: '',
       })
     )
+    dispatch(setRenderForFilter(1))
   }
 
   return (

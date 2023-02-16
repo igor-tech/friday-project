@@ -31,7 +31,7 @@ export const BetweenFilter = () => {
 
   useEffect(() => {
     setValue([packs.minCardsCount, packs.maxCardsCount])
-  }, [packs.minCardsCount, packs.maxCardsCount])
+  }, [packs.minCardsCount, packs.maxCardsCount, packs.forClearFilter])
 
   return (
     <Box>
@@ -42,7 +42,7 @@ export const BetweenFilter = () => {
       <Box sx={sliderBlockSx}>
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {packs.minCardsCount}
+            {value[0]}
           </Typography>
         </Paper>
         <Slider
@@ -57,7 +57,7 @@ export const BetweenFilter = () => {
         />
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {packs.maxCardsCount}
+            {value[1]}
           </Typography>
         </Paper>
       </Box>

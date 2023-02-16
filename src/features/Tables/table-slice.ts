@@ -28,6 +28,7 @@ export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch,
   }
 
   try {
+    // const { data } = await tableAPI.getPack(queryParams)
     const { data } = await tableAPI.getPack(queryParams)
 
     dispatch(setDataPack(data))
@@ -84,6 +85,7 @@ const initialState = {
   minCardsCount: 0,
   page: 1,
   pageCount: 4,
+  forClearFilter: 0,
   packsQueryParams: {
     packName: '',
     sortPacks: '0updated',
@@ -127,7 +129,11 @@ export const packsSlice = createSlice({
       state.packsQueryParams.pageCount = action.payload.pageCount
     },
     remove: (state, action: PayloadAction<any>) => {
+      console.log(action.payload)
       state.packsQueryParams = action.payload
+    },
+    setRenderForFilter: (state, action: PayloadAction<number>) => {
+      state.forClearFilter += action.payload
     },
   },
 })
@@ -140,5 +146,6 @@ export const {
   setSearchValueFilter,
   setPaginationValue,
   remove,
+  setRenderForFilter,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer
