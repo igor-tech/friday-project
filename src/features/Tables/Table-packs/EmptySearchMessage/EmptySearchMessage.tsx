@@ -12,8 +12,8 @@ export const EmptySearchMessage = () => {
   return (
     <Box sx={containerEmptySearchPacksSx}>
       <Typography sx={emptyPackNameSx}>
-        Decks with the entered name: {searchPackNameParam} not found <br />
-        Please re-enter your search details
+        Nothing was found with the given values {searchPackNameParam || ''} <br />
+        Change settings
       </Typography>
     </Box>
   )
