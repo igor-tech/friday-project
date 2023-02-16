@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
-import { useAppDispatch, useAppSelector } from '../../../../../common'
-import { userIdSelector } from '../../../../../common/selectors/packs-selectors'
+import {
+  packsUserIdSelector,
+  useAppDispatch,
+  useAppSelector,
+  userIdSelector,
+} from '../../../../../common'
 import { setValueFilter } from '../../../table-slice'
 
 import { buttonBlockSx, buttonSx, myFilterBlockSx, ToggleButtonGroupSx } from './MyFilter.muiSx'
@@ -13,27 +17,15 @@ export const MyFilter = () => {
   const dispatch = useAppDispatch()
 
   const userId = useAppSelector(userIdSelector)
-  const filterValueState = useAppSelector(state => state.packs.packsQueryParams.user_id)
+  const packsQueryParamsUserId = useAppSelector(packsUserIdSelector)
 
-  const [filterValue, setFilterValue] = useState<string | null>('all')
-
-  const changeFilterHandler = (e: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    setFilterValue(newAlignment)
-  }
-
-  const onClickSetMyFilter = () => {
+  const setMyPacks = () => {
     dispatch(setValueFilter({ userId }))
   }
 
-  const onClickSetAllFilter = () => {
+  const setAllPacks = () => {
     dispatch(setValueFilter({ userId: '' }))
   }
-
-  useEffect(() => {
-    if (filterValueState === '') {
-      setFilterValue('all')
-    }
-  }, [filterValueState])
 
   return (
     <Box sx={myFilterBlockSx}>
@@ -45,28 +37,15 @@ export const MyFilter = () => {
       <Box sx={buttonBlockSx}>
         <ToggleButtonGroup
           sx={ToggleButtonGroupSx}
-          onChange={changeFilterHandler}
-          value={filterValue}
+          value={packsQueryParamsUserId ? 'my' : 'all'}
           exclusive
           aria-label="filter"
           color="primary"
         >
-          <ToggleButton
-            sx={buttonSx}
-            value="my"
-            aria-label="My filter"
-            onClick={onClickSetMyFilter}
-            disabled={filterValue === 'my'}
-          >
+          <ToggleButton sx={buttonSx} value="my" aria-label="My filter" onClick={setMyPacks}>
             My
           </ToggleButton>
-          <ToggleButton
-            sx={buttonSx}
-            value="all"
-            aria-label="All filter"
-            onClick={onClickSetAllFilter}
-            disabled={filterValue === 'all'}
-          >
+          <ToggleButton sx={buttonSx} value="all" aria-label="All filter" onClick={setAllPacks}>
             All
           </ToggleButton>
         </ToggleButtonGroup>
