@@ -31,7 +31,7 @@ export const Login = () => {
   const disabled = appStatus === 'loading'
 
   if (isLoggedIn) {
-    return <Navigate to={PATH.PROFILE} />
+    return <Navigate to={PATH.PACKS} />
   }
 
   return (
