@@ -4,9 +4,7 @@ import { IconButton, InputBase, Paper, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
 import Search from '../../../../../assets/img/Search.png'
-import { useAppDispatch } from '../../../../../common'
 import useDebounce from '../../../../../common/hooks/useDebounce'
-import { setSearchValueFilter } from '../../../table-slice'
 
 import {
   iconBlockSx,
@@ -14,25 +12,33 @@ import {
   paperBlockSx,
   searchBlockSx,
   searchContainerSx,
-} from './Search.muiSx'
+} from './SearchMax.muiSx'
 
 type propsType = {
   searchValue: string
+  setSearchCallback: (packName: string) => void
+  style: {
+    iconBlockSx: {}
+    inputSx: {}
+    paperBlockSx: {}
+    searchBlockSx: {}
+    searchContainerSx: {}
+  }
 }
 
 export const SearchFilterComponent = (props: propsType) => {
   const [inputValue, setInputValue] = useState(props.searchValue)
 
-  const dispatch = useAppDispatch()
-
   const debouncedValue = useDebounce(inputValue, 750)
+
+  const { iconBlockSx, inputSx, paperBlockSx, searchBlockSx, searchContainerSx } = props.style
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInputValue(e.currentTarget.value)
   }
 
   useEffect(() => {
-    dispatch(setSearchValueFilter({ packName: debouncedValue }))
+    props.setSearchCallback(debouncedValue)
   }, [debouncedValue])
 
   useEffect(() => {

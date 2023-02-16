@@ -14,13 +14,21 @@ import {
   packTitleSx,
 } from './Table-packs/Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
-import { createNewPack, getPacks, setPaginationValue } from './table-slice'
+import {
+  createNewPack,
+  getPacks,
+  remove,
+  setPaginationValue,
+  setSearchValueFilter,
+} from './table-slice'
 
 const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
   const packs = useAppSelector(state => state.packs.cardPacks)
-  const { page, pageCount, cardPacksTotalCount } = useAppSelector(state => state.packs)
+  const { page, pageCount, cardPacksTotalCount, minCardsCount, maxCardsCount } = useAppSelector(
+    state => state.packs
+  )
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -34,6 +42,12 @@ const Packs = () => {
   const changePageCallback = (page: number, pageCount: number) => {
     dispatch(setPaginationValue({ page: page, pageCount: pageCount }))
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(setSearchValueFilter({ packName: '' }))
+    }
+  }, [])
 
   useEffect(() => {
     dispatch(getPacks())
