@@ -1,17 +1,12 @@
 import React from 'react'
 
-import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import Box from '@mui/material/Box/Box'
+import { ToggleButton, ToggleButtonGroup, Typography, Box } from '@mui/material'
 
-import {
-  packsUserIdSelector,
-  useAppDispatch,
-  useAppSelector,
-  userIdSelector,
-} from '../../../../../common'
 import { setValueFilter } from '../../../table-slice'
 
 import { buttonBlockSx, buttonSx, myFilterBlockSx, ToggleButtonGroupSx } from './MyFilter.muiSx'
+
+import { packsUserIdSelector, useAppDispatch, useAppSelector, userIdSelector } from 'common'
 
 export const MyFilter = () => {
   const dispatch = useAppDispatch()

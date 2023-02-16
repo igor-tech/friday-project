@@ -27,7 +27,7 @@ import {
 import { TablePacks } from './Table-packs/TablePacks'
 import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './table-slice'
 
-const Packs = () => {
+export const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(packsQueryParamsSelector)
   const packs = useAppSelector(cardPacksSelector)
@@ -50,7 +50,7 @@ const Packs = () => {
   }
 
   const changePageCallback = (page: number, pageCount: number) => {
-    dispatch(setPaginationValue({ page: page, pageCount: pageCount }))
+    dispatch(setPaginationValue({ page, pageCount }))
   }
 
   useEffect(() => {
@@ -90,5 +90,3 @@ const Packs = () => {
     </Box>
   )
 }
-
-export default Packs

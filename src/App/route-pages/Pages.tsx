@@ -10,7 +10,7 @@ import {
   Profile,
   Register,
 } from '../../features'
-import Packs from '../../features/Tables/Packs'
+import { Packs } from '../../features/Tables/Packs'
 import { TableCards } from '../../features/Tables/Table-cards/TableCards'
 
 import { PrivatePages } from './PrivatePages'
@@ -28,6 +28,7 @@ export const Pages = () => {
       <Route path={PATH.ERROR} element={<h1>error</h1>} />
 
       <Route element={<PrivatePages />}>
+        <Route index path={'/'} element={<Packs />} />
         <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.PACKS + PATH.CARDS} element={<TableCards />} />

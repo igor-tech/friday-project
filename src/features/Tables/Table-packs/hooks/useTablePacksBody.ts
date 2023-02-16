@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector, userIdSelector } from '../../../../common'
-import { cardPacksSelector } from '../../../../common/selectors/packs-selectors'
 import { deletePack, updatePack } from '../../table-slice'
+
+import { useAppDispatch, useAppSelector, userIdSelector, cardPacksSelector } from 'common'
 
 export const useTablePacksBody = () => {
   const dispatch = useAppDispatch()
@@ -18,9 +18,5 @@ export const useTablePacksBody = () => {
     dispatch(updatePack(updateCurrentPack))
   }
 
-  const redactorData = (data: string) => {
-    return new Intl.DateTimeFormat('ru').format(Date.parse(data))
-  }
-
-  return { redactorData, updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }
+  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }
 }
