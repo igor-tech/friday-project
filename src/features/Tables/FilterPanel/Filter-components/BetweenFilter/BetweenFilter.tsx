@@ -43,7 +43,6 @@ export const BetweenFilter = () => {
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
             {packs.minCardsCount}
-
           </Typography>
         </Paper>
         <Slider
