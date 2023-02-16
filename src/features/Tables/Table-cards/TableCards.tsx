@@ -4,12 +4,14 @@ import { Box, Table } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { AppStatusLoader, useAppSelector } from '../../../common'
+import { PaginationComponent } from '../../../common/components/PaginationComponent/PaginationComponent'
 
 import { BackToPackList } from './BackToPackList'
 import { CardHeaderMenu } from './CardMenu/CardHeaderMenu'
-import { createNewCard, getCards, setPacksCardId } from './cards-slice'
+import { createNewCard, getCards, setBetweenQuestion, setPacksCardId } from './cards-slice'
 import { EmptyPackMenu } from './EmptyPackMenu'
 import { useTableCards } from './hooks/useTableCards'
+import { SearchCardComponent } from './SearchCard/SearchCard'
 import { TableCardsBody } from './Table-cards-body/TableCardsBody'
 import { HeadersCards } from './Table-cards-head/TableCardsHead'
 
@@ -21,6 +23,7 @@ export const TableCards = () => {
   )
   const resultSearch = useAppSelector(state => state.cards.cardsQueryParams.cardQuestion)
   const isCardLoading = useAppSelector(state => state.cards.isCardLoading)
+  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const [urlQueryParam] = useSearchParams()
   const { cardsPackId } = Object.fromEntries(urlQueryParam)
 
@@ -44,10 +47,15 @@ export const TableCards = () => {
     return <EmptyPackMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
   }
 
+  const changePageCallback = (page: number, pageCount: number) => {
+    dispatch(setBetweenQuestion({ page: page, pageCount: pageCount }))
+  }
+
   return (
     <Box sx={{ margin: '24px 136px' }}>
       <BackToPackList />
       <CardHeaderMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
+      <SearchCardComponent searchValue={resultSearch} />
       {card.length === 0 && resultSearch ? (
         <div>Not result</div>
       ) : (
@@ -56,6 +64,12 @@ export const TableCards = () => {
           <TableCardsBody />
         </Table>
       )}
+      <PaginationComponent
+        page={page}
+        pageCount={pageCount}
+        totalCount={cardsTotalCount}
+        changePageCallback={changePageCallback}
+      />
     </Box>
   )
 }

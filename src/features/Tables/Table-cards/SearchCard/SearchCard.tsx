@@ -3,10 +3,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { IconButton, InputBase, Paper, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
 
-import Search from '../../../../../assets/img/Search.png'
-import { useAppDispatch } from '../../../../../common'
-import useDebounce from '../../../../../common/hooks/useDebounce'
-import { setSearchValueFilter } from '../../../table-slice'
+import Search from '../../../../assets/img/Search.png'
+import { useAppDispatch } from '../../../../common'
+import useDebounce from '../../../../common/hooks/useDebounce'
+import { setCardQuestion } from '../cards-slice'
 
 import {
   iconBlockSx,
@@ -14,13 +14,13 @@ import {
   paperBlockSx,
   searchBlockSx,
   searchContainerSx,
-} from './Search.muiSx'
+} from './SearchCard.muiSx'
 
 type propsType = {
   searchValue: string
 }
 
-export const SearchFilterComponent = (props: propsType) => {
+export const SearchCardComponent = (props: propsType) => {
   const [inputValue, setInputValue] = useState(props.searchValue)
 
   const dispatch = useAppDispatch()
@@ -32,12 +32,8 @@ export const SearchFilterComponent = (props: propsType) => {
   }
 
   useEffect(() => {
-    dispatch(setSearchValueFilter({ packName: debouncedValue }))
+    dispatch(setCardQuestion(debouncedValue))
   }, [debouncedValue])
-
-  useEffect(() => {
-    setInputValue(props.searchValue)
-  }, [props.searchValue])
 
   return (
     <Box sx={searchContainerSx}>

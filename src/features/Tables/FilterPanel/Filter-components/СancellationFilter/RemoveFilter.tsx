@@ -5,7 +5,7 @@ import Box from '@mui/material/Box/Box'
 
 import RemoveFilterIcon from '../../../../../assets/img/RemoveFilter.png'
 import { useAppDispatch } from '../../../../../common'
-import { getDefaultPacks } from '../../../table-slice'
+import { remove } from '../../../table-slice'
 
 import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './RemoveFilter.miuSx'
 
@@ -13,7 +13,17 @@ export const RemoveFilter = () => {
   const dispatch = useAppDispatch()
 
   const onClickHandler = () => {
-    dispatch(getDefaultPacks())
+    dispatch(
+      remove({
+        packName: '',
+        sortPacks: '0updated',
+        min: 0,
+        max: 9,
+        page: 1,
+        pageCount: 4,
+        user_id: '',
+      })
+    )
   }
 
   return (
