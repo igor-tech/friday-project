@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Avatar, Box, Icon, Toolbar, Typography } from '@mui/material'
+import { Box, Icon, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import incubatorIcon from '../../assets/img/It-incubator.png'
@@ -10,23 +10,17 @@ import {
   isLoggedInSelector,
   PATH,
   useAppSelector,
-  userAvatarSelector,
   userNameSelector,
 } from '../../common'
 
 import { appBarSx, appSx, iconItSx } from './appBar.muiSx'
+import { DropDownNavigate } from './DropDownNavigate'
 
 export const AppBar = () => {
   const userName = useAppSelector(userNameSelector)
-  const userAvatar = useAppSelector(userAvatarSelector)
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
-
-  const avatarUser =
-    userAvatar !== null
-      ? userAvatar
-      : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
 
   return (
     <div>
@@ -41,8 +35,7 @@ export const AppBar = () => {
           <Typography variant="h6" component="div" sx={{ lineHeight: ' 40px' }}>
             {userName}
           </Typography>
-
-          {isLoggedIn && <Avatar alt="Remy Sharp" src={avatarUser} />}
+          <DropDownNavigate />
 
           {!isLoggedIn && (
             <GeneralButton
