@@ -20,6 +20,7 @@ const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
   const packs = useAppSelector(state => state.packs.cardPacks)
+  const isPacksLoad = useAppSelector(state => state.packs.isPacksLoading)
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -33,6 +34,12 @@ const Packs = () => {
   useEffect(() => {
     dispatch(getPacks())
   }, [packsQueryParams])
+
+  if (!isPacksLoad) {
+    console.log('loader')
+
+    return <div>Loading</div>
+  }
 
   return (
     <Box sx={packsContainerSx}>
