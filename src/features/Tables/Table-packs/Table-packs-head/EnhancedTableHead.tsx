@@ -1,11 +1,7 @@
 import React from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import { Typography } from '@mui/material'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TableSortLabel from '@mui/material/TableSortLabel'
+import { Typography, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material'
 
 import { useTablePacksHead } from '../hooks/useTablePacksHead'
 import { headCellSx, tableHeadSx } from '../TablePacks.muiSx'
