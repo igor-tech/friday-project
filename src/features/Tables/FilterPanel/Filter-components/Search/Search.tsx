@@ -1,65 +1,53 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 
-import { IconButton, InputBase, Paper, Typography } from '@mui/material'
-import Box from '@mui/material/Box/Box'
+import { IconButton, InputBase, Paper, Typography, Box } from '@mui/material'
 
 import Search from '../../../../../assets/img/Search.png'
-import useDebounce from '../../../../../common/hooks/useDebounce'
 
-import {
-  iconBlockSx,
-  inputSx,
-  paperBlockSx,
-  searchBlockSx,
-  searchContainerSx,
-} from './SearchMax.muiSx'
+import { useDebounce } from 'common'
 
-type propsType = {
+type SearchFilterComponentType = {
   searchValue: string
   setSearchCallback: (packName: string) => void
-  style: {
-    iconBlockSx: {}
-    inputSx: {}
-    paperBlockSx: {}
-    searchBlockSx: {}
-    searchContainerSx: {}
-  }
+  style: any
 }
 
-export const SearchFilterComponent = (props: propsType) => {
-  const [inputValue, setInputValue] = useState(props.searchValue)
+export const SearchFilterComponent: React.FC<SearchFilterComponentType> = ({
+  searchValue,
+  setSearchCallback,
+  style,
+}) => {
+  const [inputValue, setInputValue] = useState(searchValue)
 
   const debouncedValue = useDebounce(inputValue, 750)
-
-  const { iconBlockSx, inputSx, paperBlockSx, searchBlockSx, searchContainerSx } = props.style
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInputValue(e.currentTarget.value)
   }
 
   useEffect(() => {
-    props.setSearchCallback(debouncedValue)
+    setSearchCallback(debouncedValue)
   }, [debouncedValue])
 
   useEffect(() => {
-    setInputValue(props.searchValue)
-  }, [props.searchValue])
+    setInputValue(searchValue)
+  }, [searchValue])
 
   return (
-    <Box sx={searchContainerSx}>
+    <Box sx={style.searchContainerSx}>
       <Box>
         <Typography sx={{ fontWeight: '700' }} component="p">
           Search
         </Typography>
       </Box>
-      <Box sx={searchBlockSx}>
-        <Paper sx={paperBlockSx}>
-          <IconButton sx={iconBlockSx} aria-label="icon search">
+      <Box sx={style.searchBlockSx}>
+        <Paper sx={style.paperBlockSx}>
+          <IconButton sx={style.iconBlockSx} aria-label="icon search">
             <Typography component="img" src={Search} />
           </IconButton>
           <InputBase
-            sx={inputSx}
-            placeholder="Search…"
+            sx={style.inputSx}
+            placeholder="Provide your text…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={onChangeHandler}
             value={inputValue}
