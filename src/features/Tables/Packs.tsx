@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 
 import { GeneralButton, useAppDispatch, useAppSelector } from '../../common'
+import { PaginationComponent } from '../../common/components/PaginationComponent/PaginationComponent'
 
 import { FilterPanel } from './FilterPanel/FilterPanel'
-import { PaginationComponent } from './Pagination/Pagination'
 import { EmptySearchMessage } from './Table-packs/EmptySearchMessage/EmptySearchMessage'
 import {
   addNewPackBtnSx,
@@ -14,13 +14,13 @@ import {
   packTitleSx,
 } from './Table-packs/Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
-import { createNewPack, getPacks } from './table-slice'
+import { createNewPack, getPacks, setPaginationValue } from './table-slice'
 
 const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
   const packs = useAppSelector(state => state.packs.cardPacks)
-  const isPacksLoad = useAppSelector(state => state.packs.isPacksLoading)
+  const { page, pageCount, cardPacksTotalCount } = useAppSelector(state => state.packs)
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -29,6 +29,10 @@ const Packs = () => {
     }
 
     dispatch(createNewPack(dataParams))
+  }
+
+  const changePageCallback = (page: number, pageCount: number) => {
+    dispatch(setPaginationValue({ page: page, pageCount: pageCount }))
   }
 
   useEffect(() => {
@@ -52,7 +56,12 @@ const Packs = () => {
 
       <FilterPanel />
       {packs.length === 0 ? <EmptySearchMessage /> : <TablePacks />}
-      <PaginationComponent />
+      <PaginationComponent
+        page={page}
+        pageCount={pageCount}
+        totalCount={cardPacksTotalCount}
+        changePageCallback={changePageCallback}
+      />
     </Box>
   )
 }

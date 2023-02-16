@@ -139,8 +139,22 @@ export const cardsSlice = createSlice({
     setLoadingCard: (state, action) => {
       state.isCardLoading = action.payload
     },
+    setCardQuestion: (state, action: PayloadAction<string>) => {
+      state.cardsQueryParams.cardQuestion = action.payload
+    },
+    setBetweenQuestion: (state, action: PayloadAction<{ page: number; pageCount: number }>) => {
+      state.cardsQueryParams.page = action.payload.page
+      state.cardsQueryParams.pageCount = action.payload.pageCount
+    },
   },
 })
 
-export const { setPacksCardId, setDataCard, setSortCards, setLoadingCard } = cardsSlice.actions
+export const {
+  setPacksCardId,
+  setDataCard,
+  setSortCards,
+  setLoadingCard,
+  setCardQuestion,
+  setBetweenQuestion,
+} = cardsSlice.actions
 export const CardsReducer = cardsSlice.reducer

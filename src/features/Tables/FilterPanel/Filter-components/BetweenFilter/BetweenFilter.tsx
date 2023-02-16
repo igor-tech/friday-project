@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Box, Paper, Slider, Typography } from '@mui/material'
 
@@ -28,6 +28,10 @@ export const BetweenFilter = () => {
   const handleChangeCommitted = () => {
     dispatch(setBetweenValueFilter({ min: value[0], max: value[1] }))
   }
+
+  useEffect(() => {
+    setValue([packs.minCardsCount, packs.maxCardsCount])
+  }, [packs.minCardsCount, packs.maxCardsCount, packs.forClearFilter])
 
   return (
     <Box>

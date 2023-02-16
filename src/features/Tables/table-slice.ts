@@ -79,28 +79,6 @@ export const updatePack = createAsyncThunk(
   }
 )
 
-export const getDefaultPacks = createAsyncThunk(
-  'packs/getPacks',
-  async (_, { dispatch, getState }) => {
-    dispatch(setAppStatus('loading'))
-    const { pageCount, page } = (getState() as RootState).packs.packsQueryParams
-
-    const queryParams = {
-      pageCount,
-      page,
-    }
-
-    try {
-      const { data } = await tableAPI.getPack(queryParams)
-
-      dispatch(setDataPack(data))
-      dispatch(setAppStatus('success'))
-    } catch (e) {
-      handleServerNetworkError(e, dispatch)
-    }
-  }
-)
-
 const initialState = {
   cardPacks: [] as CardsPack[],
   cardPacksTotalCount: 0,
@@ -108,6 +86,7 @@ const initialState = {
   minCardsCount: 0,
   page: 1,
   pageCount: 4,
+  forClearFilter: 0,
   packsQueryParams: {
     packName: '',
     sortPacks: '0updated',
@@ -153,6 +132,13 @@ export const packsSlice = createSlice({
       state.packsQueryParams.page = action.payload.page
       state.packsQueryParams.pageCount = action.payload.pageCount
     },
+    remove: (state, action: PayloadAction<any>) => {
+      console.log(action.payload)
+      state.packsQueryParams = action.payload
+    },
+    setRenderForFilter: (state, action: PayloadAction<number>) => {
+      state.forClearFilter += action.payload
+    },
     setIsPacksloading: (state, action) => {
       state.isPacksLoading = action.payload
     },
@@ -166,6 +152,8 @@ export const {
   setBetweenValueFilter,
   setSearchValueFilter,
   setPaginationValue,
+  remove,
+  setRenderForFilter,
   setIsPacksloading,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer
