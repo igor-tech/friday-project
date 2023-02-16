@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { Box, Typography } from '@mui/material'
+import { useSearchParams } from 'react-router-dom'
 
 import {
   cardPacksSelector,
@@ -36,6 +37,8 @@ const Packs = () => {
 
   const isPacksLoad = useAppSelector(isPacksLoadingSelector)
 
+  const [, setPacksQueryParam] = useSearchParams()
+
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -58,6 +61,9 @@ const Packs = () => {
 
   useEffect(() => {
     dispatch(getPacks())
+    setPacksQueryParam({
+      packs: packsQueryParams.user_id ? 'my' : 'all',
+    })
   }, [packsQueryParams])
 
   if (!isPacksLoad) {
