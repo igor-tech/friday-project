@@ -34,6 +34,8 @@ export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch,
     dispatch(setAppStatus('success'))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
+  } finally {
+    dispatch(setIsPacksloading(true))
   }
 })
 
@@ -110,11 +112,12 @@ const initialState = {
     packName: '',
     sortPacks: '0updated',
     min: 0,
-    max: 9,
+    max: 0,
     page: 1,
     pageCount: 4,
     user_id: '',
   },
+  isPacksLoading: false,
 }
 
 type InitialStatePacksType = typeof initialState
@@ -136,6 +139,8 @@ export const packsSlice = createSlice({
     },
     setValueFilter: (state, action: PayloadAction<{ userId: string }>) => {
       state.packsQueryParams.user_id = action.payload.userId
+      state.packsQueryParams.min = 0
+      state.packsQueryParams.max = 0
     },
     setBetweenValueFilter: (state, action: PayloadAction<{ min: number; max: number }>) => {
       state.packsQueryParams.max = action.payload.max
@@ -148,6 +153,9 @@ export const packsSlice = createSlice({
       state.packsQueryParams.page = action.payload.page
       state.packsQueryParams.pageCount = action.payload.pageCount
     },
+    setIsPacksloading: (state, action) => {
+      state.isPacksLoading = action.payload
+    },
   },
 })
 
@@ -158,5 +166,6 @@ export const {
   setBetweenValueFilter,
   setSearchValueFilter,
   setPaginationValue,
+  setIsPacksloading,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer
