@@ -2,7 +2,17 @@ import React, { useEffect } from 'react'
 
 import { Box, Typography } from '@mui/material'
 
-import { GeneralButton, useAppDispatch, useAppSelector } from '../../common'
+import {
+  cardPacksSelector,
+  cardPacksTotalCountSelector,
+  GeneralButton,
+  isPacksLoadingSelector,
+  packsQueryParamsSelector,
+  pageCountSelector,
+  pageSelector,
+  useAppDispatch,
+  useAppSelector,
+} from '../../common'
 import { PaginationComponent } from '../../common/components/PaginationComponent/PaginationComponent'
 
 import { FilterPanel } from './FilterPanel/FilterPanel'
@@ -14,21 +24,18 @@ import {
   packTitleSx,
 } from './Table-packs/Packs.muiSx'
 import { TablePacks } from './Table-packs/TablePacks'
-import {
-  createNewPack,
-  getPacks,
-  remove,
-  setPaginationValue,
-  setSearchValueFilter,
-} from './table-slice'
+import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './table-slice'
 
 const Packs = () => {
   const dispatch = useAppDispatch()
-  const packsQueryParams = useAppSelector(state => state.packs.packsQueryParams)
-  const packs = useAppSelector(state => state.packs.cardPacks)
-  const { page, pageCount, cardPacksTotalCount, minCardsCount, maxCardsCount } = useAppSelector(
-    state => state.packs
-  )
+  const packsQueryParams = useAppSelector(packsQueryParamsSelector)
+  const packs = useAppSelector(cardPacksSelector)
+  const page = useAppSelector(pageSelector)
+  const pageCount = useAppSelector(pageCountSelector)
+  const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
+
+  const isPacksLoad = useAppSelector(isPacksLoadingSelector)
+
   const addNewPack = () => {
     const dataParams = {
       name: `New Pack Name`,
@@ -54,8 +61,6 @@ const Packs = () => {
   }, [packsQueryParams])
 
   if (!isPacksLoad) {
-    console.log('loader')
-
     return <div>Loading</div>
   }
 
