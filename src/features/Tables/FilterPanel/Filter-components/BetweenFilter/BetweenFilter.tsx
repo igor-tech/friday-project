@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Box, Paper, Slider, Typography } from '@mui/material'
 
@@ -29,6 +29,10 @@ export const BetweenFilter = () => {
     dispatch(setBetweenValueFilter({ min: value[0], max: value[1] }))
   }
 
+  useEffect(() => {
+    setValue([packs.minCardsCount, packs.maxCardsCount])
+  }, [packs.minCardsCount, packs.maxCardsCount])
+
   return (
     <Box>
       <Typography sx={titleSx} component="h2">
@@ -38,7 +42,8 @@ export const BetweenFilter = () => {
       <Box sx={sliderBlockSx}>
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {value[0]}
+            {packs.minCardsCount}
+            {/*            {value[0]}*/}
           </Typography>
         </Paper>
         <Slider
@@ -53,7 +58,8 @@ export const BetweenFilter = () => {
         />
         <Paper sx={numberBlockSx}>
           <Typography sx={textPaperBlockSx} component="p">
-            {value[1]}
+            {packs.maxCardsCount}
+            {/*            {value[1]}*/}
           </Typography>
         </Paper>
       </Box>

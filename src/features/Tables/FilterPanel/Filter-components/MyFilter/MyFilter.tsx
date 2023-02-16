@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import Box from '@mui/material/Box/Box'
@@ -13,6 +13,7 @@ export const MyFilter = () => {
   const dispatch = useAppDispatch()
 
   const userId = useAppSelector(userIdSelector)
+  const filterValueState = useAppSelector(state => state.packs.packsQueryParams.user_id)
 
   const [filterValue, setFilterValue] = useState<string | null>('all')
 
@@ -27,6 +28,12 @@ export const MyFilter = () => {
   const onClickSetAllFilter = () => {
     dispatch(setValueFilter({ userId: '' }))
   }
+
+  useEffect(() => {
+    if (filterValueState === '') {
+      setFilterValue('all')
+    }
+  }, [filterValueState])
 
   return (
     <Box sx={myFilterBlockSx}>
