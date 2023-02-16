@@ -2,43 +2,47 @@ import React, { ChangeEvent } from 'react'
 
 import { Box, Pagination, Typography } from '@mui/material'
 
-import { SuperSelect, useAppDispatch, useAppSelector } from '../../../common'
-import { setPaginationValue } from '../table-slice'
+import { setPaginationValue } from '../../../features/Tables/table-slice'
+import { SuperSelect, useAppDispatch } from '../../index'
 
 import {
   paginatorBlockSx,
   paginatorContainerSx,
   paginatorTitleSx,
   selectorBlockSx,
-  superSelectSx,
-} from './Paginator.muiSx'
+} from './PaginatorComponent.muiSx'
 
-export const PaginationComponent = () => {
+type propsType = {
+  page: number
+  pageCount: number
+  totalCount: number
+  changePageCallback: (page: number, pageCount: number) => void
+}
+
+export const PaginationComponent = (props: propsType) => {
   const dispatch = useAppDispatch()
 
-  const { page, pageCount, cardPacksTotalCount } = useAppSelector(state => state.packs)
-
-  const count = Math.ceil(cardPacksTotalCount / pageCount)
+  const count = Math.ceil(props.totalCount / props.pageCount)
 
   const changePageHandler = (e: ChangeEvent<unknown>, page: number) => {
-    dispatch(setPaginationValue({ page: page, pageCount: pageCount }))
+    props.changePageCallback(page, props.pageCount)
   }
 
   const changePageCountHandler = (pageCount: number) => {
-    dispatch(setPaginationValue({ page: page, pageCount: pageCount }))
+    props.changePageCallback(props.page, pageCount)
   }
 
   return (
     <Box sx={paginatorContainerSx}>
       <Box sx={paginatorBlockSx}>
-        <Pagination count={count} shape="rounded" page={page} onChange={changePageHandler} />
+        <Pagination count={count} shape="rounded" page={props.page} onChange={changePageHandler} />
         <Typography component="span" sx={paginatorTitleSx}>
           Show
         </Typography>
       </Box>
       <Box sx={selectorBlockSx}>
         <SuperSelect
-          value={pageCount}
+          value={props.pageCount}
           onChangeOption={changePageCountHandler}
           options={[
             { id: 4, value: 4 },
