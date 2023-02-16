@@ -129,7 +129,6 @@ export const packsSlice = createSlice({
       state.packsQueryParams.pageCount = action.payload.pageCount
     },
     remove: (state, action: PayloadAction<any>) => {
-      console.log(action.payload)
       state.packsQueryParams = action.payload
     },
     setRenderForFilter: (state, action: PayloadAction<number>) => {

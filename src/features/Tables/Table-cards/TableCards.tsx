@@ -5,13 +5,27 @@ import { useSearchParams } from 'react-router-dom'
 
 import { AppStatusLoader, useAppSelector } from '../../../common'
 import { PaginationComponent } from '../../../common/components/PaginationComponent/PaginationComponent'
+import { SearchFilterComponent } from '../FilterPanel/Filter-components/Search/Search'
+import {
+  iconBlockSx,
+  inputSx,
+  paperBlockSx,
+  searchBlockSx,
+  searchContainerSx,
+} from '../FilterPanel/Filter-components/Search/SearchMax.muiSx'
+import { setSearchValueFilter } from '../table-slice'
 
 import { BackToPackList } from './BackToPackList'
 import { CardHeaderMenu } from './CardMenu/CardHeaderMenu'
-import { createNewCard, getCards, setBetweenQuestion, setPacksCardId } from './cards-slice'
+import {
+  createNewCard,
+  getCards,
+  setBetweenQuestion,
+  setCardQuestion,
+  setPacksCardId,
+} from './cards-slice'
 import { EmptyPackMenu } from './EmptyPackMenu'
 import { useTableCards } from './hooks/useTableCards'
-import { SearchCardComponent } from './SearchCard/SearchCard'
 import { TableCardsBody } from './Table-cards-body/TableCardsBody'
 import { HeadersCards } from './Table-cards-head/TableCardsHead'
 
@@ -33,6 +47,10 @@ export const TableCards = () => {
 
   useEffect(() => {
     dispatch(setPacksCardId(cardsPackId))
+
+    return () => {
+      dispatch(setCardQuestion(''))
+    }
   }, [])
 
   useEffect(() => {
@@ -51,11 +69,27 @@ export const TableCards = () => {
     dispatch(setBetweenQuestion({ page: page, pageCount: pageCount }))
   }
 
+  const setSearchCallback = (newPackName: string) => {
+    dispatch(setCardQuestion(newPackName))
+  }
+
+  const style = {
+    iconBlockSx: iconBlockSx,
+    inputSx: inputSx,
+    paperBlockSx: paperBlockSx,
+    searchBlockSx: searchBlockSx,
+    searchContainerSx: searchContainerSx,
+  }
+
   return (
     <Box sx={{ margin: '24px 136px' }}>
       <BackToPackList />
       <CardHeaderMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
-      <SearchCardComponent searchValue={resultSearch} />
+      <SearchFilterComponent
+        searchValue={resultSearch}
+        setSearchCallback={setSearchCallback}
+        style={style}
+      />
       {card.length === 0 && resultSearch ? (
         <div>Not result</div>
       ) : (
