@@ -6,7 +6,13 @@ import { useAppDispatch, useAppSelector } from '../../../../../common'
 import { packsSelector } from '../../../../../common/selectors/filter-selectors'
 import { setBetweenValueFilter } from '../../../table-slice'
 
-import { numberBlockSx, sliderBlockSx, sliderSx, textPaperBlockSx } from './BetweenFilter.muiSx'
+import {
+  numberBlockSx,
+  sliderBlockSx,
+  sliderSx,
+  textPaperBlockSx,
+  titleSx,
+} from './BetweenFilter.muiSx'
 
 export const BetweenFilter = () => {
   const dispatch = useAppDispatch()
@@ -24,8 +30,10 @@ export const BetweenFilter = () => {
   }
 
   return (
-    <Box sx={{ width: 300, marginLeft: '48px' }}>
-      <Typography component="p">Number of cards</Typography>
+    <Box>
+      <Typography sx={titleSx} component="h2">
+        Number of cards
+      </Typography>
 
       <Box sx={sliderBlockSx}>
         <Paper sx={numberBlockSx}>

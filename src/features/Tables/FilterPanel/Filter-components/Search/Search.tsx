@@ -17,9 +17,10 @@ import {
 } from './Search.muiSx'
 
 export const SearchFilter = () => {
+  const [inputValue, setInputValue] = useState('')
+
   const dispatch = useAppDispatch()
 
-  const [inputValue, setInputValue] = useState('')
   const debouncedValue = useDebounce(inputValue, 750)
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,7 +34,9 @@ export const SearchFilter = () => {
   return (
     <Box sx={searchContainerSx}>
       <Box>
-        <Typography component="p">Show packs cards</Typography>
+        <Typography sx={{ fontWeight: '700' }} component="p">
+          Show packs cards
+        </Typography>
       </Box>
       <Box sx={searchBlockSx}>
         <Paper sx={paperBlockSx}>

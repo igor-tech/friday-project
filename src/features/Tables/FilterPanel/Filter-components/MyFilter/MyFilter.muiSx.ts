@@ -4,7 +4,6 @@ export const myFilterBlockSx = {
   alignItems: 'start',
   flexWrap: 'wrap',
   width: '195px',
-  marginLeft: '31px',
 }
 export const buttonBlockSx = {
   borderRadius: '0px',

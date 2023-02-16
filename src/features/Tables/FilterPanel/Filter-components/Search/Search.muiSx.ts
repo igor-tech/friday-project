@@ -3,7 +3,6 @@ export const searchContainerSx = {
   alignContent: 'start',
   alignItems: 'start',
   flexDirection: 'column',
-  width: '437px',
 }
 export const searchBlockSx = {
   display: 'flex',

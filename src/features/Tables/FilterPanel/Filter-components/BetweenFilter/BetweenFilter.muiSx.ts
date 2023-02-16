@@ -1,7 +1,12 @@
 export const sliderBlockSx = {
   display: 'flex',
-  width: '300px',
   marginTop: '10px',
+  marginLeft: '0',
+}
+
+export const titleSx = {
+  marginLeft: '20px',
+  fontWeight: '700',
 }
 export const sliderSx = {
   width: '155px',

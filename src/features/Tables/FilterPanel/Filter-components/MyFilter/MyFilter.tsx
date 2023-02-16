@@ -31,7 +31,9 @@ export const MyFilter = () => {
   return (
     <Box sx={myFilterBlockSx}>
       <Box>
-        <Typography component="p">Show packs cards</Typography>
+        <Typography sx={{ fontWeight: '700' }} component="h2">
+          Show packs cards
+        </Typography>
       </Box>
       <Box sx={buttonBlockSx}>
         <ToggleButtonGroup
