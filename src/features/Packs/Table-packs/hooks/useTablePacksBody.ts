@@ -1,11 +1,18 @@
 import { deletePack, updatePack } from '../../packs-slice'
 
-import { useAppDispatch, useAppSelector, userIdSelector, cardPacksSelector } from 'common'
+import {
+  useAppDispatch,
+  useAppSelector,
+  userIdSelector,
+  cardPacksSelector,
+  appStatusSelector,
+} from 'common'
 
 export const useTablePacksBody = () => {
   const dispatch = useAppDispatch()
   const cardsPack = useAppSelector(cardPacksSelector)
   const myProfileId = useAppSelector(userIdSelector)
+  const statusLoad = useAppSelector(appStatusSelector)
   const deleteCurrentPack = (idPack: string) => {
     dispatch(deletePack(idPack))
   }
@@ -18,5 +25,5 @@ export const useTablePacksBody = () => {
     dispatch(updatePack(updateCurrentPack))
   }
 
-  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack }
+  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack, statusLoad }
 }

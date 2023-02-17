@@ -8,6 +8,7 @@ import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } fr
 import { FilterPanel, TablePacks } from './Table-packs'
 
 import {
+  appStatusSelector,
   cardPacksSelector,
   cardPacksTotalCountSelector,
   EmptySearchMessage,
@@ -35,6 +36,7 @@ export const Packs = () => {
   const searchPackNameParam = useAppSelector(packNameSelector)
 
   const isPacksLoad = useAppSelector(isPacksLoadingSelector)
+  const statusLoad = useAppSelector(appStatusSelector)
 
   const [queryParams, setPacksQueryParam] = useSearchParams()
 
@@ -94,7 +96,12 @@ export const Packs = () => {
         <Typography component="h1" sx={packTitleSx}>
           Pack List
         </Typography>
-        <GeneralButton name="Add new pack" sx={addNewPackBtnSx} onClick={addNewPack} />
+        <GeneralButton
+          name="Add new pack"
+          sx={addNewPackBtnSx}
+          onClick={addNewPack}
+          disabled={statusLoad === 'loading'}
+        />
       </Box>
 
       <FilterPanel />

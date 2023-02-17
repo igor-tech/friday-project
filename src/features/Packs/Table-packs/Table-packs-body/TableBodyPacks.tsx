@@ -10,7 +10,8 @@ import { actionsIcon, btnIconBlack, userLink } from '../TablePacks.muiSx'
 import { PATH, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
-  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId } = useTablePacksBody()
+  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId, statusLoad } =
+    useTablePacksBody()
 
   const cardsPackLayout = cardsPack?.map((cardsPack, index) => {
     const labelId = `enhanced-table-checkbox-${index}`
@@ -33,7 +34,7 @@ export const TableBodyPacks = () => {
         <TableCell align="left">{cardsPack.user_name}</TableCell>
         <TableCell align="left" sx={actionsIcon}>
           <IconButton
-            disabled={cardsPack.cardsCount === 0}
+            disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
             onClick={() => alert('learn')}
             sx={btnIconBlack}
           >
@@ -44,14 +45,14 @@ export const TableBodyPacks = () => {
             <>
               <IconButton
                 onClick={() => updateCurrentPack(cardsPack._id)}
-                disabled={false}
+                disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
               <IconButton
                 onClick={() => deleteCurrentPack(cardsPack._id)}
-                disabled={false}
+                disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DeleteOutlined />

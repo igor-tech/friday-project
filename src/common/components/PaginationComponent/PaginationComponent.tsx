@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 
 import { Box, Pagination, Typography } from '@mui/material'
 
-import { SuperSelect } from '../../index'
+import { appStatusSelector, SuperSelect, useAppSelector } from '../../index'
 
 import {
   paginatorBlockSx,
@@ -24,6 +24,7 @@ export const PaginationComponent: React.FC<PaginationComponentType> = ({
   totalCount,
   changePageCallback,
 }) => {
+  const statusLoad = useAppSelector(appStatusSelector)
   const count = Math.ceil(totalCount / pageCount)
 
   const changePageHandler = (e: ChangeEvent<unknown>, page: number) => {
@@ -37,7 +38,13 @@ export const PaginationComponent: React.FC<PaginationComponentType> = ({
   return (
     <Box sx={paginatorContainerSx}>
       <Box sx={paginatorBlockSx}>
-        <Pagination count={count} shape="rounded" page={page} onChange={changePageHandler} />
+        <Pagination
+          count={count}
+          shape="rounded"
+          page={page}
+          onChange={changePageHandler}
+          disabled={statusLoad === 'loading'}
+        />
         <Typography component="span" sx={paginatorTitleSx}>
           Show
         </Typography>
@@ -46,6 +53,7 @@ export const PaginationComponent: React.FC<PaginationComponentType> = ({
         <SuperSelect
           value={pageCount}
           onChangeOption={changePageCountHandler}
+          disabled={statusLoad === 'loading'}
           options={[
             { id: 4, value: 4 },
             { id: 7, value: 7 },

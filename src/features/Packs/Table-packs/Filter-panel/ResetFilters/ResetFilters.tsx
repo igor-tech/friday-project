@@ -7,11 +7,11 @@ import { remove } from '../../../packs-slice'
 
 import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './ResetFilters.miuSx'
 
-import { useAppDispatch } from 'common'
+import { appStatusSelector, useAppDispatch, useAppSelector } from 'common'
 
 export const ResetFilters = () => {
   const dispatch = useAppDispatch()
-
+  const statusLoad = useAppSelector(appStatusSelector)
   const onClickHandler = () => {
     dispatch(
       remove({
@@ -29,7 +29,12 @@ export const ResetFilters = () => {
   return (
     <Box sx={RemoveFilterContainerSx}>
       <Paper sx={paperBlockSx}>
-        <IconButton sx={iconBlockSx} aria-label="icon Remove-Filter" onClick={onClickHandler}>
+        <IconButton
+          sx={iconBlockSx}
+          aria-label="icon Remove-Filter"
+          onClick={onClickHandler}
+          disabled={statusLoad === 'loading'}
+        >
           <Typography component="img" src={RemoveFilterIcon} />
         </IconButton>
       </Paper>
