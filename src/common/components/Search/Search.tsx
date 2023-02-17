@@ -2,9 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import { IconButton, InputBase, Paper, Typography, Box } from '@mui/material'
 
-import Search from '../../../../../assets/img/Search.png'
-
-import { useDebounce } from 'common'
+import Search from '../../../assets/img/Search.png'
+import { useDebounce } from '../../hooks'
 
 type SearchFilterComponentType = {
   searchValue: string
