@@ -1,3 +1,5 @@
+import { createNewPack, setPaginationValue } from '../../packs-slice'
+
 import {
   appStatusSelector,
   cardPacksSelector,
@@ -9,8 +11,7 @@ import {
   pageSelector,
   useAppDispatch,
   useAppSelector,
-} from '../../../../common'
-import { createNewPack, setPaginationValue } from '../../packs-slice'
+} from 'common'
 
 export const usePacksLogic = () => {
   const dispatch = useAppDispatch()
