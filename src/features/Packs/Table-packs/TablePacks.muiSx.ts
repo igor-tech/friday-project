@@ -1,4 +1,4 @@
-export const userLink = {
+export const userLinkSx = {
   color: 'black',
   textDecoration: 'none',
   fontSize: '13px',
@@ -10,7 +10,7 @@ export const userLink = {
   },
 }
 
-export const actionsIcon = {
+export const actionsIconSx = {
   display: 'flex',
 }
 
@@ -20,7 +20,7 @@ export const headCellSx = {
   lineHeight: '17px',
 }
 
-export const btnIconBlack = {
+export const btnIconBlackSx = {
   color: 'black',
 }
 export const tableHeadSx = {

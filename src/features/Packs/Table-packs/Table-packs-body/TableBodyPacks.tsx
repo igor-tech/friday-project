@@ -5,7 +5,7 @@ import { IconButton, Link, TableBody, TableCell, TableRow } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
-import { actionsIcon, btnIconBlack, userLink } from '../TablePacks.muiSx'
+import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
 
 import { PATH, redactorDataTime } from 'common'
 
@@ -22,7 +22,7 @@ export const TableBodyPacks = () => {
           <Link
             component={NavLink}
             to={`${PATH.PACKS}${PATH.CARDS}?cardsPackId=${cardsPack._id}`}
-            sx={userLink}
+            sx={userLinkSx}
           >
             {cardsPack.name}
           </Link>
@@ -31,29 +31,21 @@ export const TableBodyPacks = () => {
         <TableCell align="left">{cardsPack.cardsCount}</TableCell>
         <TableCell align="left">{redactorDataTime(cardsPack.updated)}</TableCell>
         <TableCell align="left">{cardsPack.user_name}</TableCell>
-        <TableCell align="left" sx={actionsIcon}>
+        <TableCell align="left" sx={actionsIconSx}>
           <IconButton
             disabled={cardsPack.cardsCount === 0}
             onClick={() => alert('learn')}
-            sx={btnIconBlack}
+            sx={btnIconBlackSx}
           >
             <SchoolOutlined />
           </IconButton>
 
           {isMyPack && (
             <>
-              <IconButton
-                onClick={() => updateCurrentPack(cardsPack._id)}
-                disabled={false}
-                sx={btnIconBlack}
-              >
+              <IconButton onClick={() => updateCurrentPack(cardsPack._id)} sx={btnIconBlackSx}>
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
-              <IconButton
-                onClick={() => deleteCurrentPack(cardsPack._id)}
-                disabled={false}
-                sx={btnIconBlack}
-              >
+              <IconButton onClick={() => deleteCurrentPack(cardsPack._id)} sx={btnIconBlackSx}>
                 <DeleteOutlined />
               </IconButton>
             </>
