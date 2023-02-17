@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { setAppStatus } from '../../App/app-slice'
 import { RootState } from '../../App/store'
 import {
   Cards,
@@ -23,7 +24,7 @@ const initialState = {
   maxGrade: 5,
   cardsQueryParams: {
     cardsPack_id: '',
-    cardQuestion: '',
+    cardQuestion: null as string | null,
     sortCards: '0question',
     page: 1,
     pageCount: 7,
@@ -37,17 +38,18 @@ export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getS
 
   const queryParams = {
     cardsPack_id,
-    cardQuestion,
+    cardQuestion: cardQuestion === null ? '' : cardQuestion,
     sortCards,
     page,
     pageCount,
   }
 
-  dispatch(setLoadingCard(false))
+  dispatch(setAppStatus('loading'))
   try {
     const { data } = await tableAPI.getCards(queryParams)
 
     dispatch(setDataCard(data))
+    dispatch(setAppStatus('success'))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
   } finally {
@@ -64,8 +66,10 @@ export const createNewCard = createAsyncThunk(
       ...dataParam,
     }
 
+    dispatch(setAppStatus('loading'))
     try {
       await tableAPI.createCard(queryParams)
+      dispatch(setAppStatus('success'))
       dispatch(getCards())
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -76,8 +80,10 @@ export const createNewCard = createAsyncThunk(
 export const deleteCard = createAsyncThunk(
   'card/delete',
   async (cardId: RequestDeleteCard, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
     try {
       await tableAPI.deleteCard(cardId)
+      dispatch(setAppStatus('success'))
       dispatch(getCards())
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -87,8 +93,10 @@ export const deleteCard = createAsyncThunk(
 export const updateCard = createAsyncThunk(
   'card/update',
   async (updateData: RequestUpdateCard, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
     try {
       await tableAPI.updateCard(updateData)
+      dispatch(setAppStatus('success'))
       dispatch(getCards())
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -99,8 +107,10 @@ export const updateCard = createAsyncThunk(
 export const updateCardPack = createAsyncThunk(
   'card/updateCardPack',
   async (updateData: RequestUpdatePack, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
     try {
       await tableAPI.updatePack(updateData)
+      dispatch(setAppStatus('success'))
       dispatch(getCards())
     } catch (e) {
       handleServerNetworkError(e, dispatch)
@@ -110,8 +120,10 @@ export const updateCardPack = createAsyncThunk(
 export const deleteCardPack = createAsyncThunk(
   'card/deleteCardPack',
   async (packId: string, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
     try {
       await tableAPI.deletePack(packId)
+      dispatch(setAppStatus('success'))
     } catch (e) {
       handleServerNetworkError(e, dispatch)
     }

@@ -10,7 +10,8 @@ import { btnIcon, btnIconBlack, grade } from './tableCardsBody.muiSx'
 import { redactorDataTime } from 'common'
 
 export const TableCardsBody = () => {
-  const { updateCurrentCard, deleteCurrentCard, myProfileId, cards } = useTableCardsBody()
+  const { updateCurrentCard, deleteCurrentCard, myProfileId, cards, statusLoad } =
+    useTableCardsBody()
 
   const cardsLayout = cards.map((cards, index) => {
     const labelId = `enhanced-table-checkbox-${index}`
@@ -30,14 +31,14 @@ export const TableCardsBody = () => {
             <Box sx={btnIcon}>
               <IconButton
                 onClick={() => updateCurrentCard(cards._id)}
-                disabled={false}
+                disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
               <IconButton
                 onClick={() => deleteCurrentCard(cards._id)}
-                disabled={false}
+                disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DeleteOutlined />

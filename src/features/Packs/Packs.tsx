@@ -3,7 +3,13 @@ import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './packs-slice'
+import {
+  createNewPack,
+  getPacks,
+  setIsPacksLoading,
+  setPaginationValue,
+  setSearchValueFilter,
+} from './packs-slice'
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { FilterPanel, TablePacks } from './Table-packs'
 
@@ -57,6 +63,7 @@ export const Packs = () => {
   useEffect(() => {
     return () => {
       dispatch(setSearchValueFilter({ packName: '' }))
+      dispatch(setIsPacksLoading(false))
     }
   }, [])
 

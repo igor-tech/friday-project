@@ -11,13 +11,15 @@ import {
   packNameSx,
 } from './cardHeaderMenu.muiSx'
 
-import { GeneralButton } from 'common'
+import { appStatusSelector, GeneralButton, useAppSelector } from 'common'
 
 export const CardHeaderMenu: React.FC<{
   packName: string
   isMyPack: boolean
   addNewCard: () => void
 }> = ({ packName, isMyPack, addNewCard }) => {
+  const statusLoad = useAppSelector(appStatusSelector)
+
   return (
     <Box sx={containerCardMenuSx}>
       {isMyPack && (
@@ -26,14 +28,23 @@ export const CardHeaderMenu: React.FC<{
             <Typography sx={packNameSx}>{packName}</Typography>
             <DropDownMenu />
           </Box>
-          <GeneralButton name="Add new card" sx={btnCardMenuSx} onClick={addNewCard} />
+          <GeneralButton
+            name="Add new card"
+            sx={btnCardMenuSx}
+            onClick={addNewCard}
+            disabled={statusLoad === 'loading'}
+          />
         </>
       )}
 
       {!isMyPack && (
         <>
           <Typography sx={packNameSx}>{packName}</Typography>
-          <GeneralButton name="Learn to pack" sx={btnCardMenuSx} />
+          <GeneralButton
+            name="Learn to pack"
+            sx={btnCardMenuSx}
+            disabled={statusLoad === 'loading'}
+          />
         </>
       )}
     </Box>
