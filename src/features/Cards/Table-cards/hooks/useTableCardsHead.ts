@@ -19,7 +19,7 @@ type HeadCell = {
 export const useTableCardsHead = () => {
   const dispatch = useAppDispatch()
   const [order, setOrder] = useState<OrderSortType>('desc')
-  const [orderBy, setOrderBy] = useState<keyof TitlePacksType>('updated')
+  const [orderBy, setOrderBy] = useState<keyof TitlePacksType>('question')
   const headCells: HeadCell[] = [
     {
       id: 'question',
