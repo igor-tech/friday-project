@@ -4,21 +4,10 @@ import { Box, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import arrow from '../../../assets/img/arrow.png'
-import { PATH } from '../../../common'
 
-const containerBackToPackListSx = {
-  display: 'flex',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  gap: '12px',
-  cursor: 'pointer',
-}
-const titleBackPackListSx = {
-  fontWeight: '400',
-  fontSize: '14px',
-  lineHeight: '24px',
-  color: '#000000',
-}
+import { containerBackToPackListSx, titleBackPackListSx } from './backToPackList.muiSx'
+
+import { PATH } from 'common/index'
 
 export const BackToPackList = () => {
   const navigate = useNavigate()

@@ -5,12 +5,12 @@ import { useSearchParams } from 'react-router-dom'
 
 import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './packs-slice'
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
-import { TablePacks, FilterPanel } from './Table-packs'
+import { FilterPanel, TablePacks } from './Table-packs'
 
 import {
-  EmptySearchMessage,
   cardPacksSelector,
   cardPacksTotalCountSelector,
+  EmptySearchMessage,
   GeneralButton,
   InitializedLoader,
   isPacksLoadingSelector,
@@ -59,7 +59,6 @@ export const Packs = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(getPacks())
     setPacksQueryParam({
       user_id: packsQueryParams.user_id,
       minCardsCount: String(packsQueryParams.min),
@@ -67,21 +66,22 @@ export const Packs = () => {
       page: String(packsQueryParams.page),
       pageCount: String(packsQueryParams.pageCount),
     })
+    dispatch(getPacks())
   }, [packsQueryParams])
 
   // идет 2 запроса - доработать
   // useEffect(() => {
-  //   const params = Object.fromEntries(queryParams)
+  // dispatch(
+  //       setQueryParam({
+  //         user_id: params.user_id || '',
+  //         minCardsCount: params.minCardsCount || 0,
+  //         maxCardsCount: params.maxCardsCount || 0,
+  //         page: params.page || 1,
+  //         pageCount: params.pageCount || 4,
+  //       })
+  //     )
   //
-  //   dispatch(
-  //     setQueryParam({
-  //       user_id: params.user_id || '',
-  //       minCardsCount: params.minCardsCount || 0,
-  //       maxCardsCount: params.maxCardsCount || 0,
-  //       page: params.page || 1,
-  //       pageCount: params.pageCount || 4,
-  //     })
-  //   )
+
   // }, [])
 
   if (!isPacksLoad) {

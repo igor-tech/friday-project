@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { useAppDispatch } from '../../../../common'
-import { setSortCards } from '../cards-slice'
+import { setSortCards } from '../../cards-slice'
+
+import { useAppDispatch } from 'common'
 
 type TitlePacksType = {
   question: string

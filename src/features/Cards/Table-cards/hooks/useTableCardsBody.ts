@@ -1,4 +1,4 @@
-import { deleteCard, updateCard } from '../cards-slice'
+import { deleteCard, updateCard } from '../../cards-slice'
 
 import { CardsSelector, useAppDispatch, useAppSelector, userIdSelector } from 'common'
 
@@ -18,12 +18,5 @@ export const useTableCardsBody = () => {
     dispatch(updateCard(updateCurrentPack))
   }
 
-  const redactorData = (data: string) => {
-    return data
-      .slice(0, -14)
-      .replace(/(\d+).(\d+).(\d+)/, '$3-$2-$1')
-      .replace(/-/g, '.')
-  }
-
-  return { redactorData, updateCurrentCard, deleteCurrentCard, myProfileId, cards }
+  return { updateCurrentCard, deleteCurrentCard, myProfileId, cards }
 }

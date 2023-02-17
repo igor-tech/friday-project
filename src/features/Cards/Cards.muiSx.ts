@@ -1,16 +1,10 @@
+export const cardsContainerSx = { margin: '24px 136px' }
+
 export const startPositionSx = {
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
   gap: '12px',
-}
-
-export const grade = {
-  display: 'flex',
-  alignItems: 'center',
-}
-export const btnIcon = {
-  marginLeft: '40px',
 }
 
 export const smallText = {

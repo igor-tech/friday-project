@@ -3,32 +3,15 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { GeneralButton, PATH } from '../../../common'
+import {
+  btnSx,
+  containerMyPackMenuSx,
+  containerPackMenuSx,
+  packNameSx,
+  warningTitleSx,
+} from './emptyPackMenu.muiSx'
 
-import { BackToPackList } from './BackToPackList'
-
-const containerPackMenuSx = { margin: '24px 136px' }
-const containerMyPackMenuSx = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  marginTop: '86px',
-}
-const packNameSx = {
-  fontWeight: '600',
-  fontSize: '22px',
-  lineHeight: '27px',
-  color: '#000000',
-  marginTop: '27px',
-}
-const warningTitleSx = {
-  fontSize: '16px',
-  lineHeight: '20px',
-  fontWeight: '400',
-  opacity: '0.5',
-  color: '#000000',
-}
-const btnSx = { padding: '8px 28px', marginTop: '32px' }
+import { BackToPackList, GeneralButton, PATH } from 'common'
 
 export const EmptyPackMenu: React.FC<{
   packName: string
