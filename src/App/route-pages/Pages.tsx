@@ -2,7 +2,11 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import { PrivatePages } from './PrivatePages'
+
+import { PATH } from 'common'
 import {
+  Cards,
   CheckEmail,
   Login,
   NewPassword,
@@ -10,12 +14,7 @@ import {
   Profile,
   Register,
   Packs,
-} from '../../features'
-import { TableCards } from '../../features/Tables/Table-cards/TableCards'
-
-import { PrivatePages } from './PrivatePages'
-
-import { PATH } from 'common'
+} from 'features'
 
 export const Pages = () => {
   return (
@@ -31,7 +30,7 @@ export const Pages = () => {
         <Route index path={'/'} element={<Packs />} />
         <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={PATH.PROFILE} element={<Profile />} />
-        <Route path={PATH.PACKS + PATH.CARDS} element={<TableCards />} />
+        <Route path={PATH.PACKS + PATH.CARDS} element={<Cards />} />
       </Route>
     </Routes>
   )

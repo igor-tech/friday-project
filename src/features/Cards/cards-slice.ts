@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { RootState } from '../../../App/store'
-import { handleServerNetworkError } from '../../../common'
+import { RootState } from '../../App/store'
 import {
   Cards,
   RequestCreateCard,
@@ -10,7 +9,9 @@ import {
   RequestUpdatePack,
   ResponseGetCard,
   tableAPI,
-} from '../../Packs/table-api'
+} from '../Packs/table-api'
+
+import { handleServerNetworkError } from 'common'
 
 const initialState = {
   cards: [] as Cards[],
