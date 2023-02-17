@@ -119,6 +119,7 @@ export const packsSlice = createSlice({
       state.packsQueryParams.user_id = action.payload.userId
       state.packsQueryParams.min = 0
       state.packsQueryParams.max = 0
+      state.packsQueryParams.page = 1
     },
     setBetweenValueFilter: (state, action: PayloadAction<{ min: number; max: number }>) => {
       state.packsQueryParams.max = action.payload.max
