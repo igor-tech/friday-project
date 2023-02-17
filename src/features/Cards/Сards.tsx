@@ -64,7 +64,7 @@ export const Cards = () => {
     dispatch(setPacksCardId(cardsPackId))
 
     return () => {
-      dispatch(setCardQuestion(''))
+      dispatch(setCardQuestion(null))
       dispatch(setLoadingCard(false))
     }
   }, [])
