@@ -4,8 +4,9 @@ import { DeleteOutlined, DriveFileRenameOutlineOutlined, SchoolOutlined } from '
 import { IconButton, Link, TableBody, TableCell, TableRow } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
+import { btnIconBlack } from '../../../Cards/Table-cards/Table-cards-body/tableCardsBody.muiSx'
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
-import { actionsIcon, btnIconBlack, userLink } from '../TablePacks.muiSx'
+import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
 
 import { PATH, redactorDataTime } from 'common'
 

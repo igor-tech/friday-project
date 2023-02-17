@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material'
 
 import { containerEmptySearchPacksSx, emptyPackNameSx } from './searchPackNameParam.muiSx'
 
-export const EmptySearchMessage: React.FC<{ searchParam: string }> = ({ searchParam }) => {
+export const EmptySearchMessage: React.FC<{ searchParam: string | null }> = ({ searchParam }) => {
   return (
     <Box sx={containerEmptySearchPacksSx}>
       <Typography sx={emptyPackNameSx}>

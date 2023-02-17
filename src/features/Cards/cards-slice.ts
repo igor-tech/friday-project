@@ -152,7 +152,7 @@ export const cardsSlice = createSlice({
     setLoadingCard: (state, action) => {
       state.isCardLoading = action.payload
     },
-    setCardQuestion: (state, action: PayloadAction<string>) => {
+    setCardQuestion: (state, action: PayloadAction<string | null>) => {
       state.cardsQueryParams.cardQuestion = action.payload
     },
     setBetweenQuestion: (state, action: PayloadAction<{ page: number; pageCount: number }>) => {
