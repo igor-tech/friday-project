@@ -1,4 +1,4 @@
-import { instance } from '../../common'
+import { instance } from 'common'
 export const tableAPI = {
   getPack: (data: RequestGetParamsPack) =>
     instance.get<ResponseGetPacks>(`cards/pack`, { params: { ...data } }),

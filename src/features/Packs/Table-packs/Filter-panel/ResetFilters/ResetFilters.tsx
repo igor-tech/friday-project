@@ -1,32 +1,29 @@
 import React from 'react'
 
-import { IconButton, Paper, Typography } from '@mui/material'
-import Box from '@mui/material/Box/Box'
+import { Box, IconButton, Paper, Typography } from '@mui/material'
 
 import RemoveFilterIcon from '../../../../../assets/img/RemoveFilter.png'
-import { useAppDispatch, useAppSelector } from '../../../../../common'
-import { packsSelector } from '../../../../../common/selectors/filter-selectors'
-import { remove, setRenderForFilter } from '../../../table-slice'
+import { remove } from '../../../packs-slice'
 
-import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './RemoveFilter.miuSx'
+import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './ResetFilters.miuSx'
 
-export const RemoveFilter = () => {
+import { useAppDispatch } from 'common'
+
+export const ResetFilters = () => {
   const dispatch = useAppDispatch()
-  const packs = useAppSelector(packsSelector)
 
   const onClickHandler = () => {
     dispatch(
       remove({
         packName: '',
         sortPacks: '0updated',
-        min: packs.minCardsCount,
-        max: packs.maxCardsCount,
+        min: 0,
+        max: 0,
         page: 1,
         pageCount: 4,
         user_id: '',
       })
     )
-    dispatch(setRenderForFilter(1))
   }
 
   return (

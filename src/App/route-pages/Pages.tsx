@@ -9,8 +9,8 @@ import {
   PasswordRecoveryForm,
   Profile,
   Register,
+  Packs,
 } from '../../features'
-import { Packs } from '../../features/Tables/Packs'
 import { TableCards } from '../../features/Tables/Table-cards/TableCards'
 
 import { PrivatePages } from './PrivatePages'

@@ -20,11 +20,6 @@ export const headCellSx = {
   lineHeight: '17px',
 }
 
-export const paperPacksSx = {
-  width: '100%',
-  margin: '0 auto',
-}
-
 export const btnIconBlack = {
   color: 'black',
 }

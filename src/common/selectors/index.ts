@@ -22,4 +22,7 @@ export {
   pageCountSelector,
   cardPacksTotalCountSelector,
   isPacksLoadingSelector,
+  packNameSelector,
+  minCardsCountSelector,
+  maxCardsCountSelector,
 } from './packs-selectors'

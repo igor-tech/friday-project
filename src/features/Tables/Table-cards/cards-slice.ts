@@ -10,7 +10,7 @@ import {
   RequestUpdatePack,
   ResponseGetCard,
   tableAPI,
-} from '../table-api'
+} from '../../Packs/table-api'
 
 const initialState = {
   cards: [] as Cards[],

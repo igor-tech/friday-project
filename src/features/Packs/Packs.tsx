@@ -3,41 +3,40 @@ import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
+import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './packs-slice'
+import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
+import { TablePacks, FilterPanel } from './Table-packs'
+
 import {
+  EmptySearchMessage,
   cardPacksSelector,
   cardPacksTotalCountSelector,
   GeneralButton,
+  InitializedLoader,
   isPacksLoadingSelector,
+  packNameSelector,
   packsQueryParamsSelector,
   pageCountSelector,
   pageSelector,
+  PaginationComponent,
   useAppDispatch,
   useAppSelector,
-} from '../../common'
-import { PaginationComponent } from '../../common/components/PaginationComponent/PaginationComponent'
-
-import { FilterPanel } from './FilterPanel/FilterPanel'
-import { EmptySearchMessage } from './Table-packs/EmptySearchMessage/EmptySearchMessage'
-import {
-  addNewPackBtnSx,
-  addPackContainerSx,
-  packsContainerSx,
-  packTitleSx,
-} from './Table-packs/Packs.muiSx'
-import { TablePacks } from './Table-packs/TablePacks'
-import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './table-slice'
+} from 'common'
 
 export const Packs = () => {
   const dispatch = useAppDispatch()
   const packsQueryParams = useAppSelector(packsQueryParamsSelector)
+
   const packs = useAppSelector(cardPacksSelector)
   const page = useAppSelector(pageSelector)
   const pageCount = useAppSelector(pageCountSelector)
   const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
 
+  const searchPackNameParam = useAppSelector(packNameSelector)
+
   const isPacksLoad = useAppSelector(isPacksLoadingSelector)
 
-  const [, setPacksQueryParam] = useSearchParams()
+  const [queryParams, setPacksQueryParam] = useSearchParams()
 
   const addNewPack = () => {
     const dataParams = {
@@ -62,12 +61,31 @@ export const Packs = () => {
   useEffect(() => {
     dispatch(getPacks())
     setPacksQueryParam({
-      packs: packsQueryParams.user_id ? 'my' : 'all',
+      user_id: packsQueryParams.user_id,
+      minCardsCount: String(packsQueryParams.min),
+      maxCardsCount: String(packsQueryParams.max),
+      page: String(packsQueryParams.page),
+      pageCount: String(packsQueryParams.pageCount),
     })
   }, [packsQueryParams])
 
+  // идет 2 запроса - доработать
+  // useEffect(() => {
+  //   const params = Object.fromEntries(queryParams)
+  //
+  //   dispatch(
+  //     setQueryParam({
+  //       user_id: params.user_id || '',
+  //       minCardsCount: params.minCardsCount || 0,
+  //       maxCardsCount: params.maxCardsCount || 0,
+  //       page: params.page || 1,
+  //       pageCount: params.pageCount || 4,
+  //     })
+  //   )
+  // }, [])
+
   if (!isPacksLoad) {
-    return <div>Loading</div>
+    return <InitializedLoader />
   }
 
   return (
@@ -80,7 +98,11 @@ export const Packs = () => {
       </Box>
 
       <FilterPanel />
-      {packs.length === 0 ? <EmptySearchMessage /> : <TablePacks />}
+      {packs.length === 0 ? (
+        <EmptySearchMessage searchParam={searchPackNameParam} />
+      ) : (
+        <TablePacks />
+      )}
       <PaginationComponent
         page={page}
         pageCount={pageCount}

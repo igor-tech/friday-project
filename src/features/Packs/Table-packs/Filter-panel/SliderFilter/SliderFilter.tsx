@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Box, Paper, Slider, Typography } from '@mui/material'
 
-import { useAppDispatch, useAppSelector } from '../../../../../common'
-import { packsSelector } from '../../../../../common/selectors/filter-selectors'
-import { setBetweenValueFilter } from '../../../table-slice'
+import { setBetweenValueFilter } from '../../../packs-slice'
 
 import {
   numberBlockSx,
@@ -12,14 +10,22 @@ import {
   sliderSx,
   textPaperBlockSx,
   titleSx,
-} from './BetweenFilter.muiSx'
+} from './SliderFilter.muiSx'
 
-export const BetweenFilter = () => {
+import {
+  maxCardsCountSelector,
+  minCardsCountSelector,
+  useAppDispatch,
+  useAppSelector,
+} from 'common'
+
+export const SliderFilter = () => {
   const dispatch = useAppDispatch()
 
-  const packs = useAppSelector(packsSelector)
+  const minCardsCount = useAppSelector(minCardsCountSelector)
+  const maxCardsCount = useAppSelector(maxCardsCountSelector)
 
-  const [value, setValue] = useState<number[]>([packs.minCardsCount, packs.maxCardsCount])
+  const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[])
@@ -30,8 +36,8 @@ export const BetweenFilter = () => {
   }
 
   useEffect(() => {
-    setValue([packs.minCardsCount, packs.maxCardsCount])
-  }, [packs.minCardsCount, packs.maxCardsCount, packs.forClearFilter])
+    setValue([minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount])
 
   return (
     <Box>
@@ -51,8 +57,8 @@ export const BetweenFilter = () => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
-          max={packs.maxCardsCount}
-          min={packs.minCardsCount}
+          max={maxCardsCount}
+          min={minCardsCount}
           onChangeCommitted={handleChangeCommitted}
         />
         <Paper sx={numberBlockSx}>

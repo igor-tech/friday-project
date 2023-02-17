@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../App/app-slice'
 import { RootState } from '../../App/store'
-import { handleServerNetworkError } from '../../common'
 
 import {
   CardsPack,
@@ -12,8 +11,9 @@ import {
   tableAPI,
 } from './table-api'
 
+import { handleServerNetworkError } from 'common'
+
 export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch, getState }) => {
-  dispatch(setAppStatus('loading'))
   const { pageCount, page, packName, sortPacks, max, min, user_id } = (getState() as RootState)
     .packs.packsQueryParams
 
@@ -27,6 +27,7 @@ export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch,
     user_id,
   }
 
+  dispatch(setAppStatus('loading'))
   try {
     const { data } = await tableAPI.getPack(queryParams)
 
@@ -35,7 +36,7 @@ export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch,
   } catch (e) {
     handleServerNetworkError(e, dispatch)
   } finally {
-    dispatch(setIsPacksloading(true))
+    dispatch(setIsPacksLoading(true))
   }
 })
 
@@ -84,9 +85,6 @@ const initialState = {
   cardPacksTotalCount: 0,
   maxCardsCount: 50,
   minCardsCount: 0,
-  page: 1,
-  pageCount: 4,
-  forClearFilter: 0,
   packsQueryParams: {
     packName: '',
     sortPacks: '0updated',
@@ -110,8 +108,8 @@ export const packsSlice = createSlice({
       state.cardPacksTotalCount = action.payload.cardPacksTotalCount
       state.maxCardsCount = action.payload.maxCardsCount
       state.minCardsCount = action.payload.minCardsCount
-      state.page = action.payload.page
-      state.pageCount = action.payload.pageCount
+      state.packsQueryParams.page = action.payload.page
+      state.packsQueryParams.pageCount = action.payload.pageCount
     },
     setSortPacks: (state, action: PayloadAction<string>) => {
       state.packsQueryParams.sortPacks = action.payload
@@ -135,12 +133,16 @@ export const packsSlice = createSlice({
     remove: (state, action: PayloadAction<any>) => {
       state.packsQueryParams = action.payload
     },
-    setRenderForFilter: (state, action: PayloadAction<number>) => {
-      state.forClearFilter += action.payload
-    },
-    setIsPacksloading: (state, action) => {
+    setIsPacksLoading: (state, action) => {
       state.isPacksLoading = action.payload
     },
+    // setQueryParam: (state, action) => {
+    //   state.packsQueryParams.min = action.payload.minCardsCount
+    //   state.packsQueryParams.max = action.payload.maxCardsCount
+    //   state.packsQueryParams.user_id = action.payload.user_id
+    //   state.packsQueryParams.pageCount = action.payload.pageCount
+    //   state.packsQueryParams.page = action.payload.page
+    // },
   },
 })
 
@@ -152,7 +154,6 @@ export const {
   setSearchValueFilter,
   setPaginationValue,
   remove,
-  setRenderForFilter,
-  setIsPacksloading,
+  setIsPacksLoading,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer

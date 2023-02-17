@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { useAppDispatch } from '../../../../common'
-import { setSortPacks } from '../../table-slice'
+import { setSortPacks } from '../../packs-slice'
+
+import { useAppDispatch } from 'common'
 
 type TitlePacksType = {
   name: string

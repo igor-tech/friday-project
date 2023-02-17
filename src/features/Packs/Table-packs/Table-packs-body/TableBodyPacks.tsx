@@ -37,7 +37,7 @@ export const TableBodyPacks = () => {
             onClick={() => alert('learn')}
             sx={btnIconBlack}
           >
-            <DeleteOutlined />
+            <SchoolOutlined />
           </IconButton>
 
           {isMyPack && (
@@ -54,7 +54,7 @@ export const TableBodyPacks = () => {
                 disabled={false}
                 sx={btnIconBlack}
               >
-                <SchoolOutlined />
+                <DeleteOutlined />
               </IconButton>
             </>
           )}

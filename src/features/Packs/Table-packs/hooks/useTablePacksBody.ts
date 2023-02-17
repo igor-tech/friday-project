@@ -1,4 +1,4 @@
-import { deletePack, updatePack } from '../../table-slice'
+import { deletePack, updatePack } from '../../packs-slice'
 
 import { useAppDispatch, useAppSelector, userIdSelector, cardPacksSelector } from 'common'
 
