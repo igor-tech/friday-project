@@ -7,7 +7,7 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 
-import { btnIconBlack } from '../../Table-packs/TablePacks.muiSx'
+import { btnIconBlack } from '../../../Packs/Table-packs/TablePacks.muiSx'
 import { btnIcon, grade } from '../Cards.muiSx'
 import { useTableCardsBody } from '../hooks/useTableCardsBody'
 

@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
 
-import { headCellSx, tableHeadSx } from '../../Table-packs/TablePacks.muiSx'
+// import { headCellSx, tableHeadSx } from '../../Table-packs/TablePacks.muiSx'
+import { headCellSx, tableHeadSx } from '../../../Packs/Table-packs/TablePacks.muiSx'
 import { useTableCardsHead } from '../hooks/useTableCardsHead'
 
 export const HeadersCards = () => {

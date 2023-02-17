@@ -3,17 +3,19 @@ import React, { useEffect } from 'react'
 import { Box, Table } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { AppStatusLoader, useAppSelector } from '../../../common'
-import { PaginationComponent } from '../../../common/components/PaginationComponent/PaginationComponent'
-import { SearchFilterComponent } from '../FilterPanel/Filter-components/Search/Search'
+import {
+  AppStatusLoader,
+  useAppSelector,
+  PaginationComponent,
+  SearchFilterComponent,
+} from '../../../common'
 import {
   iconBlockSx,
   inputSx,
   paperBlockSx,
   searchBlockSx,
   searchContainerSx,
-} from '../FilterPanel/Filter-components/Search/SearchMax.muiSx'
-import { setSearchValueFilter } from '../table-slice'
+} from '../../../common/components/Search/SearchMax.muiSx'
 
 import { BackToPackList } from './BackToPackList'
 import { CardHeaderMenu } from './CardMenu/CardHeaderMenu'
