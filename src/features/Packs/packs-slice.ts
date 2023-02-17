@@ -95,6 +95,7 @@ const initialState = {
     user_id: '',
   },
   isPacksLoading: false,
+  isFilterReset: false,
 }
 
 type InitialStatePacksType = typeof initialState
@@ -143,6 +144,9 @@ export const packsSlice = createSlice({
     //   state.packsQueryParams.pageCount = action.payload.pageCount
     //   state.packsQueryParams.page = action.payload.page
     // },
+    setResetFilter: (state, action: PayloadAction<boolean>) => {
+      state.isFilterReset = action.payload
+    },
   },
 })
 
@@ -155,5 +159,6 @@ export const {
   setPaginationValue,
   remove,
   setIsPacksLoading,
+  setResetFilter,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer

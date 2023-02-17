@@ -14,6 +14,7 @@ import {
 
 import {
   appStatusSelector,
+  isFilterResetSelector,
   maxCardsCountSelector,
   minCardsCountSelector,
   useAppDispatch,
@@ -26,6 +27,7 @@ export const SliderFilter = () => {
 
   const minCardsCount = useAppSelector(minCardsCountSelector)
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
+  const isFilterReset = useAppSelector(isFilterResetSelector)
 
   const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
 
@@ -39,7 +41,7 @@ export const SliderFilter = () => {
 
   useEffect(() => {
     setValue([minCardsCount, maxCardsCount])
-  }, [minCardsCount, maxCardsCount])
+  }, [minCardsCount, maxCardsCount, isFilterReset])
 
   return (
     <Box>

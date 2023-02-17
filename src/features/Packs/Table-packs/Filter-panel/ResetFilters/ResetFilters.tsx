@@ -3,15 +3,16 @@ import React from 'react'
 import { Box, IconButton, Paper, Typography } from '@mui/material'
 
 import RemoveFilterIcon from '../../../../../assets/img/RemoveFilter.png'
-import { remove } from '../../../packs-slice'
+import { remove, setResetFilter } from '../../../packs-slice'
 
 import { iconBlockSx, paperBlockSx, RemoveFilterContainerSx } from './ResetFilters.miuSx'
 
-import { appStatusSelector, useAppDispatch, useAppSelector } from 'common'
+import { appStatusSelector, isFilterResetSelector, useAppDispatch, useAppSelector } from 'common'
 
 export const ResetFilters = () => {
   const dispatch = useAppDispatch()
   const statusLoad = useAppSelector(appStatusSelector)
+  const isFilterReset = useAppSelector(isFilterResetSelector)
   const onClickHandler = () => {
     dispatch(
       remove({
@@ -24,6 +25,7 @@ export const ResetFilters = () => {
         user_id: '',
       })
     )
+    dispatch(setResetFilter(!isFilterReset))
   }
 
   return (

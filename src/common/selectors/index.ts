@@ -25,6 +25,7 @@ export {
   packNameSelector,
   minCardsCountSelector,
   maxCardsCountSelector,
+  isFilterResetSelector,
 } from './packs-selectors'
 
 export {

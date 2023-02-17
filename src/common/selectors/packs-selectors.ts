@@ -12,3 +12,4 @@ export const packsQueryParamsSelector = (state: RootState) => state.packs.packsQ
 export const pageSelector = (state: RootState) => state.packs.packsQueryParams.page
 export const pageCountSelector = (state: RootState) => state.packs.packsQueryParams.pageCount
 export const packNameSelector = (state: RootState) => state.packs.packsQueryParams.packName
+export const isFilterResetSelector = (state: RootState) => state.packs.isFilterReset
