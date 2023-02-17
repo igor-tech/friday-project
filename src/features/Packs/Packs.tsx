@@ -3,62 +3,28 @@ import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import {
-  createNewPack,
-  getPacks,
-  setIsPacksLoading,
-  setPaginationValue,
-  setSearchValueFilter,
-} from './packs-slice'
+import { getPacks, setIsPacksLoading, setSearchValueFilter } from './packs-slice'
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { FilterPanel, TablePacks } from './Table-packs'
+import { usePacksLogic } from './Table-packs/hooks/usePacksLogic'
 
-import {
-  appStatusSelector,
-  cardPacksSelector,
-  cardPacksTotalCountSelector,
-  EmptySearchMessage,
-  GeneralButton,
-  InitializedLoader,
-  isPacksLoadingSelector,
-  packNameSelector,
-  packsQueryParamsSelector,
-  pageCountSelector,
-  pageSelector,
-  PaginationComponent,
-  useAppDispatch,
-  useAppSelector,
-} from 'common'
+import { EmptySearchMessage, GeneralButton, InitializedLoader, PaginationComponent } from 'common'
 
 export const Packs = () => {
-  const dispatch = useAppDispatch()
-  const packsQueryParams = useAppSelector(packsQueryParamsSelector)
-
-  const packs = useAppSelector(cardPacksSelector)
-  const page = useAppSelector(pageSelector)
-  const pageCount = useAppSelector(pageCountSelector)
-  const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
-
-  const searchPackNameParam = useAppSelector(packNameSelector)
-
-  const isPacksLoad = useAppSelector(isPacksLoadingSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
-
-  const [queryParams, setPacksQueryParam] = useSearchParams()
-
-  const addNewPack = () => {
-    const dataParams = {
-      name: `New Pack Name`,
-      deckCover: '',
-      private: false,
-    }
-
-    dispatch(createNewPack(dataParams))
-  }
-
-  const changePageCallback = (page: number, pageCount: number) => {
-    dispatch(setPaginationValue({ page, pageCount }))
-  }
+  const {
+    packs,
+    packsQueryParams,
+    searchPackNameParam,
+    cardPacksTotalCount,
+    pageCount,
+    page,
+    isPacksLoad,
+    statusLoad,
+    addNewPack,
+    dispatch,
+    changePageCallback,
+  } = usePacksLogic()
+  const [, setPacksQueryParam] = useSearchParams()
 
   useEffect(() => {
     return () => {
