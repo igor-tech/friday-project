@@ -1,3 +1,4 @@
+import { BackToPackList } from './BackToPackList/BackToPackList'
 import { GeneralButton } from './Buttons/GeneralButton/GeneralButton'
 import { EmptySearchMessage } from './EmptySearchMessage/EmptySearchMessage'
 import { ErrorSnackbar } from './ErrorSnackbar/ErrorSnackbar'
@@ -25,4 +26,5 @@ export {
   PaginationComponent,
   EmptySearchMessage,
   SearchFilterComponent,
+  BackToPackList,
 }
