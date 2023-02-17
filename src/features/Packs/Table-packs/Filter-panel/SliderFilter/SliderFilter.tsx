@@ -13,6 +13,7 @@ import {
 } from './SliderFilter.muiSx'
 
 import {
+  appStatusSelector,
   maxCardsCountSelector,
   minCardsCountSelector,
   useAppDispatch,
@@ -21,6 +22,7 @@ import {
 
 export const SliderFilter = () => {
   const dispatch = useAppDispatch()
+  const statusLoad = useAppSelector(appStatusSelector)
 
   const minCardsCount = useAppSelector(minCardsCountSelector)
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
@@ -52,6 +54,7 @@ export const SliderFilter = () => {
           </Typography>
         </Paper>
         <Slider
+          disabled={statusLoad === 'loading'}
           sx={sliderSx}
           getAriaLabel={() => 'Temperature range'}
           value={value}

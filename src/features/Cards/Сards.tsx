@@ -11,14 +11,20 @@ import {
   searchContainerSx,
 } from '../../common/components/Search/SearchMax.muiSx'
 
-import { createNewCard, getCards, setCardQuestion, setPacksCardId } from './cards-slice'
+import {
+  createNewCard,
+  getCards,
+  setCardQuestion,
+  setLoadingCard,
+  setPacksCardId,
+} from './cards-slice'
 import { cardsContainerSx } from './Cards.muiSx'
-import { EmptyPackMenu, CardHeaderMenu, useCardsLogic, TableCards } from './Table-cards'
+import { CardHeaderMenu, EmptyPackMenu, TableCards, useCardsLogic } from './Table-cards'
 
 import {
-  AppStatusLoader,
   BackToPackList,
   EmptySearchMessage,
+  InitializedLoader,
   PaginationComponent,
   SearchFilterComponent,
 } from 'common'
@@ -59,6 +65,7 @@ export const Cards = () => {
 
     return () => {
       dispatch(setCardQuestion(''))
+      dispatch(setLoadingCard(false))
     }
   }, [])
 
@@ -67,10 +74,10 @@ export const Cards = () => {
   }, [sortCard, searchCardQuestion, page, pageCount])
 
   if (!isCardLoading) {
-    return <AppStatusLoader />
+    return <InitializedLoader />
   }
 
-  if (card?.length === 0 && !searchCardQuestion) {
+  if (card?.length === 0 && searchCardQuestion === null) {
     return <EmptyPackMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
   }
 
@@ -79,11 +86,11 @@ export const Cards = () => {
       <BackToPackList />
       <CardHeaderMenu packName={packName} isMyPack={isMy} addNewCard={addNewCard} />
       <SearchFilterComponent
-        searchValue={searchCardQuestion}
+        searchValue={searchCardQuestion!}
         setSearchCallback={setSearchCallback}
         style={SearchFilterComponentCardSx}
       />
-      {card?.length === 0 && searchCardQuestion ? (
+      {card?.length === 0 && searchCardQuestion !== null ? (
         <EmptySearchMessage searchParam={searchCardQuestion} />
       ) : (
         <TableCards />

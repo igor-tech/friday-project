@@ -56,10 +56,10 @@ export const createNewPack = createAsyncThunk(
 )
 export const deletePack = createAsyncThunk('delete/pack', async (idPack: string, { dispatch }) => {
   dispatch(setAppStatus('loading'))
-  console.log(idPack)
   try {
     await tableAPI.deletePack(idPack)
     dispatch(setAppMessage('Pack delete successfully'))
+    dispatch(setAppStatus('success'))
     dispatch(getPacks())
   } catch (e) {
     handleServerNetworkError(e, dispatch)

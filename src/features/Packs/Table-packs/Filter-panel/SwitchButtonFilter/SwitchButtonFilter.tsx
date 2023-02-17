@@ -11,11 +11,17 @@ import {
   ToggleButtonGroupSx,
 } from './SwithButtonFilter.muiSx'
 
-import { packsUserIdSelector, useAppDispatch, useAppSelector, userIdSelector } from 'common'
+import {
+  appStatusSelector,
+  packsUserIdSelector,
+  useAppDispatch,
+  useAppSelector,
+  userIdSelector,
+} from 'common'
 
 export const SwitchButtonFilter = () => {
   const dispatch = useAppDispatch()
-
+  const statusLoad = useAppSelector(appStatusSelector)
   const userId = useAppSelector(userIdSelector)
   const packsQueryParamsUserId = useAppSelector(packsUserIdSelector)
 
@@ -36,6 +42,7 @@ export const SwitchButtonFilter = () => {
       </Box>
       <Box sx={buttonBlockSx}>
         <ToggleButtonGroup
+          disabled={statusLoad === 'loading'}
           sx={ToggleButtonGroupSx}
           value={packsQueryParamsUserId ? 'my' : 'all'}
           exclusive

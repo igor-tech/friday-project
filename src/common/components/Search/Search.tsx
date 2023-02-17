@@ -3,7 +3,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { IconButton, InputBase, Paper, Typography, Box } from '@mui/material'
 
 import Search from '../../../assets/img/Search.png'
-import { useDebounce } from '../../hooks'
+import { useAppSelector, useDebounce } from '../../hooks'
+import { appStatusSelector } from '../../selectors'
 
 type SearchFilterComponentType = {
   searchValue: string
@@ -16,6 +17,7 @@ export const SearchFilterComponent: React.FC<SearchFilterComponentType> = ({
   setSearchCallback,
   style,
 }) => {
+  const statusLoad = useAppSelector(appStatusSelector)
   const [inputValue, setInputValue] = useState(searchValue)
 
   const debouncedValue = useDebounce(inputValue, 750)
@@ -45,11 +47,13 @@ export const SearchFilterComponent: React.FC<SearchFilterComponentType> = ({
             <Typography component="img" src={Search} />
           </IconButton>
           <InputBase
+            disabled={statusLoad === 'loading'}
             sx={style.inputSx}
             placeholder="Provide your text…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={onChangeHandler}
             value={inputValue}
+            autoFocus
           />
         </Paper>
       </Box>

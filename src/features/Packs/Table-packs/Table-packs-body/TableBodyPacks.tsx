@@ -5,12 +5,13 @@ import { IconButton, Link, TableBody, TableCell, TableRow } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
-import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
+import { actionsIcon, btnIconBlack, userLink } from '../TablePacks.muiSx'
 
 import { PATH, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
-  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId } = useTablePacksBody()
+  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId, statusLoad } =
+    useTablePacksBody()
 
   const cardsPackLayout = cardsPack?.map((cardsPack, index) => {
     const labelId = `enhanced-table-checkbox-${index}`
@@ -33,7 +34,7 @@ export const TableBodyPacks = () => {
         <TableCell align="left">{cardsPack.user_name}</TableCell>
         <TableCell align="left" sx={actionsIconSx}>
           <IconButton
-            disabled={cardsPack.cardsCount === 0}
+            disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
             onClick={() => alert('learn')}
             sx={btnIconBlackSx}
           >
@@ -42,10 +43,18 @@ export const TableBodyPacks = () => {
 
           {isMyPack && (
             <>
-              <IconButton onClick={() => updateCurrentPack(cardsPack._id)} sx={btnIconBlackSx}>
+              <IconButton
+                onClick={() => updateCurrentPack(cardsPack._id)}
+                disabled={statusLoad === 'loading'}
+                sx={btnIconBlack}
+              >
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
-              <IconButton onClick={() => deleteCurrentPack(cardsPack._id)} sx={btnIconBlackSx}>
+              <IconButton
+                onClick={() => deleteCurrentPack(cardsPack._id)}
+                disabled={statusLoad === 'loading'}
+                sx={btnIconBlack}
+              >
                 <DeleteOutlined />
               </IconButton>
             </>

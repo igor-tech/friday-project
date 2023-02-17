@@ -3,11 +3,18 @@ import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
-import { createNewPack, getPacks, setPaginationValue, setSearchValueFilter } from './packs-slice'
+import {
+  createNewPack,
+  getPacks,
+  setIsPacksLoading,
+  setPaginationValue,
+  setSearchValueFilter,
+} from './packs-slice'
 import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } from './Packs.muiSx'
 import { FilterPanel, TablePacks } from './Table-packs'
 
 import {
+  appStatusSelector,
   cardPacksSelector,
   cardPacksTotalCountSelector,
   EmptySearchMessage,
@@ -35,6 +42,7 @@ export const Packs = () => {
   const searchPackNameParam = useAppSelector(packNameSelector)
 
   const isPacksLoad = useAppSelector(isPacksLoadingSelector)
+  const statusLoad = useAppSelector(appStatusSelector)
 
   const [queryParams, setPacksQueryParam] = useSearchParams()
 
@@ -55,6 +63,7 @@ export const Packs = () => {
   useEffect(() => {
     return () => {
       dispatch(setSearchValueFilter({ packName: '' }))
+      dispatch(setIsPacksLoading(false))
     }
   }, [])
 
@@ -94,7 +103,12 @@ export const Packs = () => {
         <Typography component="h1" sx={packTitleSx}>
           Pack List
         </Typography>
-        <GeneralButton name="Add new pack" sx={addNewPackBtnSx} onClick={addNewPack} />
+        <GeneralButton
+          name="Add new pack"
+          sx={addNewPackBtnSx}
+          onClick={addNewPack}
+          disabled={statusLoad === 'loading'}
+        />
       </Box>
 
       <FilterPanel />
