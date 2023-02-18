@@ -1,4 +1,2 @@
-import { handleServerNetworkError } from './error-utils'
-
-export { handleServerNetworkError }
+export { handleServerNetworkError } from './error-utils'
 export { redactorDataTime } from './redactor-data-time'
