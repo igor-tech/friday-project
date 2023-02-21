@@ -7,6 +7,7 @@ import {
   RequestCreateCard,
   RequestDeleteCard,
   RequestUpdateCard,
+  RequestUpdateGrade,
   RequestUpdatePack,
   ResponseGetCard,
   tableAPI,
@@ -90,6 +91,20 @@ export const deleteCard = createAsyncThunk(
     }
   }
 )
+export const updateGrade = createAsyncThunk(
+  'grade/update',
+  async (data: RequestUpdateGrade, { dispatch }) => {
+    dispatch(setAppStatus('loading'))
+    try {
+      await tableAPI.updateGrade(data)
+      dispatch(setAppStatus('success'))
+      dispatch(getCards())
+    } catch (e) {
+      handleServerNetworkError(e, dispatch)
+    }
+  }
+)
+
 export const updateCard = createAsyncThunk(
   'card/update',
   async (updateData: RequestUpdateCard, { dispatch }) => {
