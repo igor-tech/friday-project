@@ -72,6 +72,7 @@ export const useLearn = () => {
       setCard(getNumberCard(cards))
     }
   }
+  const isLoading = status === 'loading'
 
   return {
     grades,
@@ -91,5 +92,6 @@ export const useLearn = () => {
     status,
     cards,
     onChangeRadio,
+    isLoading,
   }
 }

@@ -44,3 +44,13 @@ export const rateYouSelfSx = {
   marginTop: '24px',
   marginBottom: '12px',
 }
+
+export const generalBtn = {
+  padding: '8px 36px',
+  marginTop: '50px',
+  marginBottom: '30px',
+}
+
+export const fontWeight = {
+  fontWeight: '600',
+}
