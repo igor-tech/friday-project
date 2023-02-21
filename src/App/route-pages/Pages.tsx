@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
+import { Learn } from '../../features/Learn/Learn'
+
 import { PrivatePages } from './PrivatePages'
 
 import { PATH } from 'common'
@@ -31,6 +33,7 @@ export const Pages = () => {
         <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.PACKS + PATH.CARDS} element={<Cards />} />
+        <Route path={PATH.LEARN + PATH.ID} element={<Learn />} />
       </Route>
     </Routes>
   )
