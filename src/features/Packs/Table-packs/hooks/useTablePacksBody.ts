@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { deletePack, updatePack } from '../../packs-slice'
 
 import {
+  appStatusSelector,
+  cardPacksSelector,
+  myPackUserIdSelector,
+  packIdSelector,
+  PATH,
   useAppDispatch,
   useAppSelector,
   userIdSelector,
-  cardPacksSelector,
-  appStatusSelector,
-  myPackUserIdSelector,
-  PATH,
 } from 'common'
 
 export const useTablePacksBody = () => {
@@ -30,7 +31,7 @@ export const useTablePacksBody = () => {
 
     dispatch(updatePack(updateCurrentPack))
   }
-  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
+  const cardsPack_id = useAppSelector(packIdSelector)
 
   const learnPack = () => {
     navigate(`${PATH.LEARN}/${cardsPack_id}`)

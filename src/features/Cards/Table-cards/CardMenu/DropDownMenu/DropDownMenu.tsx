@@ -20,7 +20,7 @@ export const DropDownMenu = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const packId = useAppSelector(packIdSelector)
-  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
+  const cardsPack_id = useAppSelector(packIdSelector)
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)

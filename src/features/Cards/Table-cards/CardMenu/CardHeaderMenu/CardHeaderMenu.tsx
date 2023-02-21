@@ -12,7 +12,7 @@ import {
   packNameSx,
 } from './cardHeaderMenu.muiSx'
 
-import { appStatusSelector, GeneralButton, PATH, useAppSelector } from 'common'
+import { appStatusSelector, GeneralButton, packIdSelector, PATH, useAppSelector } from 'common'
 
 export const CardHeaderMenu: React.FC<{
   packName: string
@@ -21,7 +21,7 @@ export const CardHeaderMenu: React.FC<{
 }> = ({ packName, isMyPack, addNewCard }) => {
   const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
-  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
+  const cardsPack_id = useAppSelector(packIdSelector)
 
   const learnPack = () => {
     navigate(`${PATH.LEARN}/${cardsPack_id}`)
