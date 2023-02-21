@@ -11,7 +11,7 @@ import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
 import { PATH, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
-  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId, statusLoad } =
+  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId, statusLoad, learnPack } =
     useTablePacksBody()
 
   const cardsPackLayout = cardsPack?.map((cardsPack, index) => {
@@ -36,7 +36,7 @@ export const TableBodyPacks = () => {
         <TableCell align="left" sx={actionsIconSx}>
           <IconButton
             disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
-            onClick={() => alert('learn')}
+            onClick={learnPack}
             sx={btnIconBlackSx}
           >
             <SchoolOutlined />

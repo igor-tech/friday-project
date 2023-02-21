@@ -20,6 +20,7 @@ export const DropDownMenu = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const packId = useAppSelector(packIdSelector)
+  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -28,6 +29,11 @@ export const DropDownMenu = () => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const learnPack = () => {
+    navigate(`${PATH.LEARN}/${cardsPack_id}`)
     setAnchorEl(null)
   }
 
@@ -87,7 +93,7 @@ export const DropDownMenu = () => {
           </ListItemIcon>
           <Typography component="p">Delete</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={learnPack}>
           <ListItemIcon>
             <SchoolOutlined fontSize="small" />
           </ListItemIcon>

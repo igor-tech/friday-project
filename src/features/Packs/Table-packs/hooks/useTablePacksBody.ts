@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { deletePack, updatePack } from '../../packs-slice'
 
 import {
@@ -6,10 +8,14 @@ import {
   userIdSelector,
   cardPacksSelector,
   appStatusSelector,
+  myPackUserIdSelector,
+  PATH,
 } from 'common'
 
 export const useTablePacksBody = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const myPackUserId = useAppSelector(myPackUserIdSelector)
   const cardsPack = useAppSelector(cardPacksSelector)
   const myProfileId = useAppSelector(userIdSelector)
   const statusLoad = useAppSelector(appStatusSelector)
@@ -24,6 +30,21 @@ export const useTablePacksBody = () => {
 
     dispatch(updatePack(updateCurrentPack))
   }
+  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
 
-  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack, statusLoad }
+  const learnPack = () => {
+    navigate(`${PATH.LEARN}/${cardsPack_id}`)
+  }
+
+  return {
+    learnPack,
+    cardsPack_id,
+    updateCurrentPack,
+    deleteCurrentPack,
+    myProfileId,
+    cardsPack,
+    statusLoad,
+    navigate,
+    myPackUserId,
+  }
 }

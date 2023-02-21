@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Box, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 import { DropDownMenu } from '../DropDownMenu/DropDownMenu'
 
@@ -11,7 +12,7 @@ import {
   packNameSx,
 } from './cardHeaderMenu.muiSx'
 
-import { appStatusSelector, GeneralButton, useAppSelector } from 'common'
+import { appStatusSelector, GeneralButton, PATH, useAppSelector } from 'common'
 
 export const CardHeaderMenu: React.FC<{
   packName: string
@@ -19,6 +20,12 @@ export const CardHeaderMenu: React.FC<{
   addNewCard: () => void
 }> = ({ packName, isMyPack, addNewCard }) => {
   const statusLoad = useAppSelector(appStatusSelector)
+  const navigate = useNavigate()
+  const cardsPack_id = useAppSelector(state => state.cards.cardsQueryParams.cardsPack_id)
+
+  const learnPack = () => {
+    navigate(`${PATH.LEARN}/${cardsPack_id}`)
+  }
 
   return (
     <Box sx={containerCardMenuSx}>
@@ -44,6 +51,7 @@ export const CardHeaderMenu: React.FC<{
             name="Learn to pack"
             sx={btnCardMenuSx}
             disabled={statusLoad === 'loading'}
+            onClick={learnPack}
           />
         </>
       )}
