@@ -3,6 +3,7 @@
 
   position: relative;
 
+  box-sizing: content-box;
   width: 16px;
   height: 16px;
 
@@ -21,40 +22,40 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  box-sizing: border-box;
   width: 16px;
   height: 16px;
 
-  border: 2px solid black;
+  border: 1px solid #000000;
   border-radius: 50%;
 }
-
 .radio:checked::before {
   content: '';
 
   position: absolute;
-  z-index: 2;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
 
-  width: 6px;
-  height: 6px;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
 
-  background-color: black;
-  border: 2px solid black;
+  border: none;
   border-radius: 50%;
 }
+
 .radio:checked::after {
   content: '';
 
   position: absolute;
-  top: -2px;
-  left: -2px;
 
+  box-sizing: border-box;
   width: 16px;
   height: 16px;
 
-  background-color: white;
-  border: 2px solid black;
+  background: #FFFFFF;
+  border: 4px solid #366EFF;
   border-radius: 50%;
 }
 
