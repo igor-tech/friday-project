@@ -9,4 +9,6 @@ export const PATH = {
   TEST: '/test',
   PACKS: '/packs',
   CARDS: '/cards',
+  LEARN: '/learn',
+  ID: '/:id',
 } as const
