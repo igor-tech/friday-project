@@ -14,6 +14,7 @@ export const tableAPI = {
   deleteCard: (data: RequestDeleteCard) =>
     instance.delete<ResponseCard>(`cards/card?id=${data.id}`),
   updateCard: (data: RequestUpdateCard) => instance.put<ResponseCard>('cards/card', { card: data }),
+  updateGrade: (data: RequestUpdateGrade) => instance.put<ResponseUpdateGrade>('cards/grade', data),
 }
 
 //Response
@@ -48,12 +49,23 @@ export type ResponsePack = {
   token: string
   tokenDeathTime: number
 }
+export type ResponseUpdateGrade = {
+  updateGrade: {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+  }
+}
+
 export type ResponseCard = {
   newCard: Cards
   token: string
   tokenDeathTime: number
 }
-
+//refactor type
 //Request params
 export type RequestGetParamsPack = {
   packName?: string
@@ -108,6 +120,10 @@ export type RequestDeleteCard = {
 export type RequestUpdateCard = {
   _id: string
   question: string
+}
+export type RequestUpdateGrade = {
+  grade: number
+  card_id: string
 }
 
 // types
