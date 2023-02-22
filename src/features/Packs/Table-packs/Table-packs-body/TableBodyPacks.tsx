@@ -11,9 +11,14 @@ import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
 import { MODAL_TYPE, PATH, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
-
-  const { cardsPack, updateCurrentPackHandler, deleteCurrentPack, myProfileId, statusLoad, learnPack } =
-    useTablePacksBody()
+  const {
+    cardsPack,
+    updateCurrentPackHandler,
+    deleteCurrentPack,
+    myProfileId,
+    statusLoad,
+    learnPack,
+  } = useTablePacksBody()
 
   const cardsPackLayout = cardsPack?.map((cardsPack, index) => {
     const labelId = `enhanced-table-checkbox-${index}`

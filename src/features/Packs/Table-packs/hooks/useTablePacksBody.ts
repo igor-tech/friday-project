@@ -1,5 +1,7 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
 import { setSettingDeletePackModal, setSettingEditPackModal } from '../../packs-slice'
+
 import {
   appStatusSelector,
   cardPacksSelector,
@@ -11,7 +13,6 @@ import {
   userIdSelector,
   useModal,
 } from 'common'
-
 
 export const useTablePacksBody = () => {
   const navigate = useNavigate()
@@ -58,10 +59,6 @@ export const useTablePacksBody = () => {
     navigate,
     myPackUserId,
     deleteCurrentPack,
-    myProfileId,
-    cardsPack,
-    statusLoad,
     updateCurrentPackHandler,
   }
-
 }
