@@ -8,7 +8,13 @@ import { addNewPackBtnSx, addPackContainerSx, packsContainerSx, packTitleSx } fr
 import { FilterPanel, TablePacks } from './Table-packs'
 import { usePacksLogic } from './Table-packs/hooks/usePacksLogic'
 
-import { EmptySearchMessage, GeneralButton, InitializedLoader, PaginationComponent } from 'common'
+import {
+  EmptySearchMessage,
+  GeneralButton,
+  InitializedLoader,
+  MODAL_TYPE,
+  PaginationComponent,
+} from 'common'
 
 export const Packs = () => {
   const {
@@ -20,9 +26,9 @@ export const Packs = () => {
     page,
     isPacksLoad,
     statusLoad,
-    addNewPack,
     dispatch,
     changePageCallback,
+    addNewPackHandler,
   } = usePacksLogic()
   const [, setPacksQueryParam] = useSearchParams()
 
@@ -44,21 +50,6 @@ export const Packs = () => {
     dispatch(getPacks())
   }, [packsQueryParams])
 
-  // идет 2 запроса - доработать
-  // useEffect(() => {
-  // dispatch(
-  //       setQueryParam({
-  //         user_id: params.user_id || '',
-  //         minCardsCount: params.minCardsCount || 0,
-  //         maxCardsCount: params.maxCardsCount || 0,
-  //         page: params.page || 1,
-  //         pageCount: params.pageCount || 4,
-  //       })
-  //     )
-  //
-
-  // }, [])
-
   if (!isPacksLoad) {
     return <InitializedLoader />
   }
@@ -72,7 +63,7 @@ export const Packs = () => {
         <GeneralButton
           name="Add new pack"
           sx={addNewPackBtnSx}
-          onClick={addNewPack}
+          onClick={() => addNewPackHandler(MODAL_TYPE.addNewPack)}
           disabled={statusLoad === 'loading'}
         />
       </Box>

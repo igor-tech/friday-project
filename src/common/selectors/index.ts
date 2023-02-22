@@ -1,4 +1,10 @@
-export { appMessageSelector, appStatusSelector, isInitializedSelector } from './app-selectors'
+export {
+  appMessageSelector,
+  appStatusSelector,
+  isInitializedSelector,
+  modalTypeSelector,
+  modalTitleSelector,
+} from './app-selectors'
 export {
   emailSelector,
   isRecoverySelector,
@@ -26,6 +32,9 @@ export {
   minCardsCountSelector,
   maxCardsCountSelector,
   isFilterResetSelector,
+  packNameSettingSelector,
+  idPackSettingSelector,
+  privateStatusSettingSelector,
 } from './packs-selectors'
 
 export {

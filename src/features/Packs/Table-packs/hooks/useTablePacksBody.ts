@@ -1,7 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-
-import { deletePack, updatePack } from '../../packs-slice'
-
+import {useNavigate} from 'react-router-dom'
+import { setSettingDeletePackModal, setSettingEditPackModal } from '../../packs-slice'
 import {
   appStatusSelector,
   cardPacksSelector,
@@ -11,7 +9,9 @@ import {
   useAppDispatch,
   useAppSelector,
   userIdSelector,
+  useModal,
 } from 'common'
+
 
 export const useTablePacksBody = () => {
   const navigate = useNavigate()
@@ -20,16 +20,28 @@ export const useTablePacksBody = () => {
   const cardsPack = useAppSelector(cardPacksSelector)
   const myProfileId = useAppSelector(userIdSelector)
   const statusLoad = useAppSelector(appStatusSelector)
-  const deleteCurrentPack = (idPack: string) => {
-    dispatch(deletePack(idPack))
-  }
-  const updateCurrentPack = (idPack: string) => {
-    const updateCurrentPack = {
-      _id: idPack,
-      name: 'Name Update',
-    }
 
-    dispatch(updatePack(updateCurrentPack))
+  const { openModal } = useModal()
+
+  const updateCurrentPackHandler = (
+    idPack: string,
+    currentNamePack: string,
+    currentPrivateStatus: boolean,
+    modalType: string
+  ) => {
+    openModal(modalType, 'Edit pack')
+    dispatch(
+      setSettingEditPackModal({
+        packId: idPack,
+        packName: currentNamePack,
+        privateStatus: currentPrivateStatus,
+      })
+    )
+  }
+
+  const deleteCurrentPack = (idPack: string, currentNamePack: string, modalType: string) => {
+    openModal(modalType, 'Delete Pack')
+    dispatch(setSettingDeletePackModal({ packId: idPack, packName: currentNamePack }))
   }
   const cardsPack_id = useAppSelector(packIdSelector)
 
@@ -40,12 +52,16 @@ export const useTablePacksBody = () => {
   return {
     learnPack,
     cardsPack_id,
-    updateCurrentPack,
-    deleteCurrentPack,
     myProfileId,
     cardsPack,
     statusLoad,
     navigate,
     myPackUserId,
+    deleteCurrentPack,
+    myProfileId,
+    cardsPack,
+    statusLoad,
+    updateCurrentPackHandler,
   }
+
 }
