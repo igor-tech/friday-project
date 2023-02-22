@@ -96,6 +96,11 @@ const initialState = {
   },
   isPacksLoading: false,
   isFilterReset: false,
+  packsSettingModal: {
+    packId: '',
+    packName: '',
+    privateStatus: false,
+  },
 }
 
 type InitialStatePacksType = typeof initialState
@@ -138,19 +143,30 @@ export const packsSlice = createSlice({
     setIsPacksLoading: (state, action) => {
       state.isPacksLoading = action.payload
     },
-    // setQueryParam: (state, action) => {
-    //   state.packsQueryParams.min = action.payload.minCardsCount
-    //   state.packsQueryParams.max = action.payload.maxCardsCount
-    //   state.packsQueryParams.user_id = action.payload.user_id
-    //   state.packsQueryParams.pageCount = action.payload.pageCount
-    //   state.packsQueryParams.page = action.payload.page
-    // },
     setResetFilter: (state, action: PayloadAction<boolean>) => {
       state.isFilterReset = action.payload
     },
+    setSettingEditPackModal: (
+      state,
+      action: PayloadAction<{
+        packId: string
+        packName: string
+        privateStatus: boolean
+      }>
+    ) => {
+      state.packsSettingModal.packId = action.payload.packId
+      state.packsSettingModal.packName = action.payload.packName
+      state.packsSettingModal.privateStatus = action.payload.privateStatus
+    },
+    setSettingDeletePackModal: (
+      state,
+      action: PayloadAction<{ packId: string; packName: string }>
+    ) => {
+      state.packsSettingModal.packId = action.payload.packId
+      state.packsSettingModal.packName = action.payload.packName
+    },
   },
 })
-
 export const {
   setDataPack,
   setSortPacks,
@@ -161,5 +177,7 @@ export const {
   remove,
   setIsPacksLoading,
   setResetFilter,
+  setSettingEditPackModal,
+  setSettingDeletePackModal,
 } = packsSlice.actions
 export const packsReducer = packsSlice.reducer
