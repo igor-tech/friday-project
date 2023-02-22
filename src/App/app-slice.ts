@@ -10,12 +10,16 @@ type InitialStateType = {
   status: StatusType
   message: null | string
   isInitialized: boolean
+  modalTitle: string
+  modalType: null | string
 }
 
 const initialState: InitialStateType = {
   status: 'idle',
   message: null,
   isInitialized: false,
+  modalTitle: '',
+  modalType: null,
 }
 
 export const getMeAuthTC = createAsyncThunk('app/getMeAuth', async (_, { dispatch }) => {
@@ -48,8 +52,17 @@ export const appSlice = createSlice({
     isInitialized: (state, action) => {
       state.isInitialized = action.payload
     },
+    setCloseModal: (state, action) => {
+      state.modalTitle = action.payload
+      state.modalType = ''
+    },
+    setOpenModal: (state, action: PayloadAction<{ type: string; modalTitle: string }>) => {
+      state.modalType = action.payload.type
+      state.modalTitle = action.payload.modalTitle
+    },
   },
 })
 
-export const { setAppMessage, setAppStatus, isInitialized } = appSlice.actions
+export const { setAppMessage, setAppStatus, isInitialized, setCloseModal, setOpenModal } =
+  appSlice.actions
 export const appReducer = appSlice.reducer
