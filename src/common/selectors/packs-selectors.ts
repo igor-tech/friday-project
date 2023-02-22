@@ -13,3 +13,9 @@ export const pageSelector = (state: RootState) => state.packs.packsQueryParams.p
 export const pageCountSelector = (state: RootState) => state.packs.packsQueryParams.pageCount
 export const packNameSelector = (state: RootState) => state.packs.packsQueryParams.packName
 export const isFilterResetSelector = (state: RootState) => state.packs.isFilterReset
+
+//modal
+export const packNameSettingSelector = (state: RootState) => state.packs.packsSettingModal.packName
+export const privateStatusSettingSelector = (state: RootState) =>
+  state.packs.packsSettingModal.privateStatus
+export const idPackSettingSelector = (state: RootState) => state.packs.packsSettingModal.packId
