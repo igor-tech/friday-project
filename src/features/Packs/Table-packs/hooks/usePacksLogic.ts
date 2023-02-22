@@ -1,6 +1,7 @@
-import { createNewPack, setPaginationValue } from '../../packs-slice'
+import { setPaginationValue } from '../../packs-slice'
 
 import {
+  useModal,
   appStatusSelector,
   cardPacksSelector,
   cardPacksTotalCountSelector,
@@ -27,18 +28,13 @@ export const usePacksLogic = () => {
   const isPacksLoad = useAppSelector(isPacksLoadingSelector)
   const statusLoad = useAppSelector(appStatusSelector)
 
-  const addNewPack = () => {
-    const dataParams = {
-      name: `New Pack Name`,
-      deckCover: '',
-      private: false,
-    }
-
-    dispatch(createNewPack(dataParams))
-  }
-
   const changePageCallback = (page: number, pageCount: number) => {
     dispatch(setPaginationValue({ page, pageCount }))
+  }
+
+  const { openModal } = useModal()
+  const addNewPackHandler = (typeModal: string) => {
+    openModal(typeModal, 'Add new pack')
   }
 
   return {
@@ -51,7 +47,8 @@ export const usePacksLogic = () => {
     searchPackNameParam,
     isPacksLoad,
     statusLoad,
-    addNewPack,
     changePageCallback,
+    openModal,
+    addNewPackHandler,
   }
 }

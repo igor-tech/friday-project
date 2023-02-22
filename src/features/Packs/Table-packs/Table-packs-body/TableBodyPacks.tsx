@@ -8,10 +8,10 @@ import { btnIconBlack } from '../../../Cards/Table-cards/Table-cards-body/tableC
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
 import { actionsIconSx, btnIconBlackSx, userLinkSx } from '../TablePacks.muiSx'
 
-import { PATH, redactorDataTime } from 'common'
+import { MODAL_TYPE, PATH, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
-  const { cardsPack, updateCurrentPack, deleteCurrentPack, myProfileId, statusLoad } =
+  const { cardsPack, deleteCurrentPack, myProfileId, statusLoad, updateCurrentPackHandler } =
     useTablePacksBody()
 
   const cardsPackLayout = cardsPack?.map((cardsPack, index) => {
@@ -45,14 +45,23 @@ export const TableBodyPacks = () => {
           {isMyPack && (
             <>
               <IconButton
-                onClick={() => updateCurrentPack(cardsPack._id)}
+                onClick={() =>
+                  updateCurrentPackHandler(
+                    cardsPack._id,
+                    cardsPack.name,
+                    cardsPack.private,
+                    MODAL_TYPE.editCurrentPack
+                  )
+                }
                 disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
               <IconButton
-                onClick={() => deleteCurrentPack(cardsPack._id)}
+                onClick={() =>
+                  deleteCurrentPack(cardsPack._id, cardsPack.name, MODAL_TYPE.deleteCurrentPack)
+                }
                 disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >

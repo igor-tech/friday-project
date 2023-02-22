@@ -1,11 +1,12 @@
-import { deletePack, updatePack } from '../../packs-slice'
+import { setSettingDeletePackModal, setSettingEditPackModal } from '../../packs-slice'
 
 import {
+  appStatusSelector,
+  cardPacksSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
   userIdSelector,
-  cardPacksSelector,
-  appStatusSelector,
 } from 'common'
 
 export const useTablePacksBody = () => {
@@ -13,17 +14,35 @@ export const useTablePacksBody = () => {
   const cardsPack = useAppSelector(cardPacksSelector)
   const myProfileId = useAppSelector(userIdSelector)
   const statusLoad = useAppSelector(appStatusSelector)
-  const deleteCurrentPack = (idPack: string) => {
-    dispatch(deletePack(idPack))
-  }
-  const updateCurrentPack = (idPack: string) => {
-    const updateCurrentPack = {
-      _id: idPack,
-      name: 'Name Update',
-    }
 
-    dispatch(updatePack(updateCurrentPack))
+  const { openModal } = useModal()
+
+  const updateCurrentPackHandler = (
+    idPack: string,
+    currentNamePack: string,
+    currentPrivateStatus: boolean,
+    modalType: string
+  ) => {
+    openModal(modalType, 'Edit pack')
+    dispatch(
+      setSettingEditPackModal({
+        packId: idPack,
+        packName: currentNamePack,
+        privateStatus: currentPrivateStatus,
+      })
+    )
   }
 
-  return { updateCurrentPack, deleteCurrentPack, myProfileId, cardsPack, statusLoad }
+  const deleteCurrentPack = (idPack: string, currentNamePack: string, modalType: string) => {
+    openModal(modalType, 'Delete Pack')
+    dispatch(setSettingDeletePackModal({ packId: idPack, packName: currentNamePack }))
+  }
+
+  return {
+    deleteCurrentPack,
+    myProfileId,
+    cardsPack,
+    statusLoad,
+    updateCurrentPackHandler,
+  }
 }
