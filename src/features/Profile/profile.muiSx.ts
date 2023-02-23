@@ -5,6 +5,7 @@ export const backBlockSx = {
   margin: '20px 0px 0px 110px',
   gap: '12px',
   width: '212px',
+  cursor: 'pointer',
 }
 export const titleSx = {
   marginTop: '5px',
