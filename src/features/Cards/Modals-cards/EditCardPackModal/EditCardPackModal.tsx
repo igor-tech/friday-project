@@ -32,7 +32,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
   const [newNamePackCard, setNewNamePackCard] = useState(cardPackName)
   const [error, setError] = useState('')
 
-  const editPackCardHandler = () => {
+  const updatePackCardHandler = () => {
     if (newNamePackCard.trim() === cardPackName.trim()) {
       setError("You didn't change your name")
 
@@ -41,7 +41,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
     if (newNamePackCard.trim() !== '' && !error) {
       const updateCurrentCardPack = {
         _id: packId,
-        name: newNamePackCard,
+        name: newNamePackCard.trim(),
         private: newPrivateStatus,
       }
 
@@ -54,7 +54,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
       setError('Name must not be empty')
     }
   }
-  const setNamePackCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setNewNamePackCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = e.currentTarget.value
 
     setNewNamePackCard(name)
@@ -71,7 +71,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
         value={newNamePackCard}
         error={!!error}
         helperText={error}
-        onChange={setNamePackCardHandler}
+        onChange={setNewNamePackCardHandler}
         disabled={statusLoad === 'loading'}
       />
       <FormControlLabel
@@ -95,7 +95,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
         <GeneralButton
           name="Save"
           sx={saveBtnSx}
-          onClick={editPackCardHandler}
+          onClick={updatePackCardHandler}
           disabled={statusLoad === 'loading' || !!error}
         />
       </Box>
