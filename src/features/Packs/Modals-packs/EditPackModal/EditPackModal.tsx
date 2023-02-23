@@ -36,7 +36,7 @@ export const EditPackModal: React.FC<{
   const [newNamePack, setNewNamePack] = useState(currentNamePack)
   const [error, setError] = useState('')
 
-  const addNewPackHandler = () => {
+  const updateCurrentPackHandler = () => {
     if (newNamePack.trim() === currentNamePack.trim()) {
       setError("You didn't change your name")
 
@@ -61,20 +61,15 @@ export const EditPackModal: React.FC<{
             })
           )
         })
-      setError('')
     } else {
       setError('Name must not be empty')
     }
   }
-  const setNamePackHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setNewNamePackHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = e.currentTarget.value
 
-    if (name.length < 40) {
-      setNewNamePack(name)
-      setError('')
-    } else {
-      setError('cannot be more than 40')
-    }
+    setNewNamePack(name)
+    setError('')
   }
 
   return (
@@ -87,7 +82,7 @@ export const EditPackModal: React.FC<{
         value={newNamePack}
         error={!!error}
         helperText={error}
-        onChange={setNamePackHandler}
+        onChange={setNewNamePackHandler}
         disabled={statusLoad === 'loading'}
       />
       <FormControlLabel
@@ -111,7 +106,7 @@ export const EditPackModal: React.FC<{
         <GeneralButton
           name="Save"
           sx={saveBtnSx}
-          onClick={addNewPackHandler}
+          onClick={updateCurrentPackHandler}
           disabled={statusLoad === 'loading' || !!error}
         />
       </Box>
