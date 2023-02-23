@@ -50,4 +50,5 @@ export {
   packIdSelector,
   questionSettingSelector,
   CardIdSettingSelector,
+  answerSettingSelector,
 } from './cards-selectors'

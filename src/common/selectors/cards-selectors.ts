@@ -15,3 +15,4 @@ export const isCardLoadingSelector = (state: RootState) => state.cards.isCardLoa
 
 export const questionSettingSelector = (state: RootState) => state.cards.cardsSettingModal.question
 export const CardIdSettingSelector = (state: RootState) => state.cards.cardsSettingModal.cardId
+export const answerSettingSelector = (state: RootState) => state.cards.cardsSettingModal.answer

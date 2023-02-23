@@ -22,13 +22,21 @@ import {
   textFieldSx,
 } from './editCardModal.muiSx'
 
-import { appStatusSelector, GeneralButton, useAppDispatch, useAppSelector } from 'common'
+import {
+  answerSettingSelector,
+  appStatusSelector,
+  CardIdSettingSelector,
+  GeneralButton,
+  questionSettingSelector,
+  useAppDispatch,
+  useAppSelector,
+} from 'common'
 
 export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const dispatch = useAppDispatch()
-  const currentQuestion = useAppSelector(state => state.cards.cardsSettingModal.question)
-  const currentAnswer = useAppSelector(state => state.cards.cardsSettingModal.answer)
-  const idCard = useAppSelector(state => state.cards.cardsSettingModal.cardId)
+  const currentQuestion = useAppSelector(questionSettingSelector)
+  const currentAnswer = useAppSelector(answerSettingSelector)
+  const idCard = useAppSelector(CardIdSettingSelector)
   const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
   const [question, setQuestion] = useState(currentQuestion)
@@ -53,13 +61,13 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
     }
 
     if (question !== '' && answer !== '') {
-      const updateCurrentPack = {
+      const updateCurrentCard = {
         _id: idCard,
         question,
         answer,
       }
 
-      dispatch(updateCard(updateCurrentPack))
+      dispatch(updateCard(updateCurrentCard))
         .unwrap()
         .then(() => {
           closeModal()
@@ -68,13 +76,13 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
     }
   }
 
-  const onChangeQuestion = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChangeQuestionCard = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const question = e.currentTarget.value
 
     setQuestion(question)
     setErrorQuestion('')
   }
-  const onChangeAnswer = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChangeAnswerCard = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const answer = e.currentTarget.value
 
     setAnswer(answer)
@@ -105,7 +113,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         variant="standard"
         value={question}
         label="Question"
-        onChange={onChangeQuestion}
+        onChange={onChangeQuestionCard}
         error={!!errorQuestion}
         helperText={errorQuestion}
         sx={textFieldSx}
@@ -117,7 +125,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         variant="standard"
         value={answer}
         label="Answer"
-        onChange={onChangeAnswer}
+        onChange={onChangeAnswerCard}
         error={!!errorAnswer}
         helperText={errorAnswer}
         sx={textFieldSx}
