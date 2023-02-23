@@ -22,10 +22,11 @@ import {
   textFieldSx,
 } from './addNewCardModal.muiSx'
 
-import { GeneralButton, useAppDispatch } from 'common'
+import { appStatusSelector, GeneralButton, useAppDispatch, useAppSelector } from 'common'
 
 export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const dispatch = useAppDispatch()
+  const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
   const [question, setQuestion] = useState('')
   const [errorQuestion, setErrorQuestion] = useState('')
@@ -65,23 +66,16 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
   const onChangeQuestion = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const question = e.currentTarget.value
 
-    if (question.length < 40) {
-      setQuestion(question)
-      setErrorQuestion('')
-    } else {
-      setErrorQuestion('max 40 symbols')
-    }
+    setQuestion(question)
+    setErrorQuestion('')
   }
   const onChangeAnswer = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const answer = e.currentTarget.value
 
-    if (answer.length < 40) {
-      setAnswer(answer)
-      setErrorAnswer('')
-    } else {
-      setErrorAnswer('max 40 symbols')
-    }
+    setAnswer(answer)
+    setErrorAnswer('')
   }
+  const disabled = statusLoad === 'loading'
 
   return (
     <Box sx={addNewCardContainerSx}>
@@ -110,6 +104,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         error={!!errorQuestion}
         helperText={errorQuestion}
         sx={textFieldSx}
+        disabled={disabled}
       />
       <TextField
         fullWidth
@@ -121,11 +116,12 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         error={!!errorAnswer}
         helperText={errorAnswer}
         sx={textFieldSx}
+        disabled={disabled}
       />
 
       <Box sx={addNewCardBtnContainerSx}>
-        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} />
-        <GeneralButton name="Save" onClick={addNewCardHandler} sx={saveBtn} />
+        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} disabled={disabled} />
+        <GeneralButton name="Save" onClick={addNewCardHandler} sx={saveBtn} disabled={disabled} />
       </Box>
     </Box>
   )
