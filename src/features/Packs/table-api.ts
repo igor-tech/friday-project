@@ -120,6 +120,7 @@ export type RequestDeleteCard = {
 export type RequestUpdateCard = {
   _id: string
   question: string
+  answer: string
 }
 export type RequestUpdateGrade = {
   grade: number
