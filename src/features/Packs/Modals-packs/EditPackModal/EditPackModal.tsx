@@ -45,7 +45,7 @@ export const EditPackModal: React.FC<{
     if (newNamePack.trim() !== '' && !error) {
       const updateCurrentPack = {
         _id: idPack,
-        name: newNamePack,
+        name: newNamePack.trim(),
         private: newPrivateStatus,
       }
 

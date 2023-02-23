@@ -38,21 +38,21 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
   }
 
   const addNewCardHandler = () => {
-    if (question === '' && answer === '') {
+    if (question.trim() === '' && answer.trim() === '') {
       setErrorQuestion('can not be empty')
       setErrorAnswer('can not be empty')
     }
-    if (question === '') {
+    if (question.trim() === '') {
       setErrorQuestion('can not be empty')
     }
-    if (answer === '') {
+    if (answer.trim() === '') {
       setErrorAnswer('can not be empty')
     }
 
-    if (question !== '' && answer !== '') {
+    if (question.trim() !== '' && answer.trim() !== '') {
       const dataParam = {
-        question,
-        answer,
+        question: question.trim(),
+        answer: answer.trim(),
       }
 
       dispatch(createNewCard(dataParam))

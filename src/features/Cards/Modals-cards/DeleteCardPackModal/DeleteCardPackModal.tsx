@@ -30,7 +30,7 @@ export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = ({ clos
   const cardPackName = useAppSelector(packNameCardSelector)
   const statusLoad = useAppSelector(appStatusSelector)
 
-  const deleteCurrentPackCard = () => {
+  const deleteCurrentPackCardHandler = () => {
     dispatch(deleteCardPack(packId))
       .unwrap()
       .then(() => {
@@ -55,7 +55,7 @@ export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = ({ clos
         <GeneralButton
           sx={deleteBtnSx}
           name="Delete"
-          onClick={deleteCurrentPackCard}
+          onClick={deleteCurrentPackCardHandler}
           disabled={statusLoad === 'loading'}
         />
       </Box>

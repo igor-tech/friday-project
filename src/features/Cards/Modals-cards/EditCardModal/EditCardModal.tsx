@@ -49,22 +49,22 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
   }
 
   const updateCurrentCardHandler = () => {
-    if (questionCard === '' && answerCard === '') {
+    if (questionCard.trim() === '' && answerCard.trim() === '') {
       setErrorQuestionCard('can not be empty')
       setErrorAnswerCard('can not be empty')
     }
-    if (questionCard === '') {
+    if (questionCard.trim() === '') {
       setErrorQuestionCard('can not be empty')
     }
-    if (answerCard === '') {
+    if (answerCard.trim() === '') {
       setErrorAnswerCard('can not be empty')
     }
 
-    if (questionCard !== '' && answerCard !== '') {
+    if (questionCard.trim() !== '' && answerCard.trim() !== '') {
       const updateCurrentCard = {
         _id: idCard,
-        question: questionCard,
-        answer: answerCard,
+        question: questionCard.trim(),
+        answer: answerCard.trim(),
       }
 
       dispatch(updateCard(updateCurrentCard))
