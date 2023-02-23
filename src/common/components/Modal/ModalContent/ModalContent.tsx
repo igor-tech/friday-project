@@ -12,6 +12,7 @@ import {
   EditCardModal,
   DeleteCardModal,
   DeleteCardPackModal,
+  EditCardPackModal,
 } from 'features'
 
 export const ModalContent: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
@@ -24,6 +25,9 @@ export const ModalContent: React.FC<{ closeModal: () => void }> = ({ closeModal 
       {typeModal === MODAL_TYPE.deleteCurrentPack && <DeletePackModal closeModal={closeModal} />}
       {typeModal === MODAL_TYPE.addNewCard && <AddNewCardModal closeModal={closeModal} />}
       {typeModal === MODAL_TYPE.editCurrentCard && <EditCardModal closeModal={closeModal} />}
+      {typeModal === MODAL_TYPE.editCurrentPackCard && (
+        <EditCardPackModal closeModal={closeModal} />
+      )}
       {typeModal === MODAL_TYPE.deleteCurrentCard && <DeleteCardModal closeModal={closeModal} />}
       {typeModal === MODAL_TYPE.deleteCurrentPackCard && (
         <DeleteCardPackModal closeModal={closeModal} />
