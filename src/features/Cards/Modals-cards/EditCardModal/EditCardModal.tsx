@@ -39,32 +39,32 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
   const idCard = useAppSelector(CardIdSettingSelector)
   const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
-  const [question, setQuestion] = useState(currentQuestion)
-  const [errorQuestion, setErrorQuestion] = useState('')
-  const [answer, setAnswer] = useState(currentAnswer)
-  const [errorAnswer, setErrorAnswer] = useState('')
+  const [questionCard, setQuestionCard] = useState(currentQuestion)
+  const [errorQuestionCard, setErrorQuestionCard] = useState('')
+  const [answerCard, setAnswerCard] = useState(currentAnswer)
+  const [errorAnswerCard, setErrorAnswerCard] = useState('')
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const setQuestionFormatHandler = (event: SelectChangeEvent) => {
     setQuestionFormat(event.target.value as string)
   }
 
-  const editCardHandler = () => {
-    if (question === '' && answer === '') {
-      setErrorQuestion('can not be empty')
-      setErrorAnswer('can not be empty')
+  const updateCurrentCardHandler = () => {
+    if (questionCard === '' && answerCard === '') {
+      setErrorQuestionCard('can not be empty')
+      setErrorAnswerCard('can not be empty')
     }
-    if (question === '') {
-      setErrorQuestion('can not be empty')
+    if (questionCard === '') {
+      setErrorQuestionCard('can not be empty')
     }
-    if (answer === '') {
-      setErrorAnswer('can not be empty')
+    if (answerCard === '') {
+      setErrorAnswerCard('can not be empty')
     }
 
-    if (question !== '' && answer !== '') {
+    if (questionCard !== '' && answerCard !== '') {
       const updateCurrentCard = {
         _id: idCard,
-        question,
-        answer,
+        question: questionCard,
+        answer: answerCard,
       }
 
       dispatch(updateCard(updateCurrentCard))
@@ -76,17 +76,17 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
     }
   }
 
-  const onChangeQuestionCard = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setNewQuestionCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const question = e.currentTarget.value
 
-    setQuestion(question)
-    setErrorQuestion('')
+    setQuestionCard(question)
+    setErrorQuestionCard('')
   }
-  const onChangeAnswerCard = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setNewAnswerCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const answer = e.currentTarget.value
 
-    setAnswer(answer)
-    setErrorAnswer('')
+    setAnswerCard(answer)
+    setErrorAnswerCard('')
   }
   const disabled = statusLoad === 'loading'
 
@@ -100,7 +100,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
           size="small"
           id="simple-select"
           value={questionFormat}
-          onChange={handleChange}
+          onChange={setQuestionFormatHandler}
           sx={editSelectSx}
         >
           <MenuItem value={'Text'}>Text</MenuItem>
@@ -111,11 +111,11 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         fullWidth
         type="text"
         variant="standard"
-        value={question}
+        value={questionCard}
         label="Question"
-        onChange={onChangeQuestionCard}
-        error={!!errorQuestion}
-        helperText={errorQuestion}
+        onChange={setNewQuestionCardHandler}
+        error={!!errorQuestionCard}
+        helperText={errorQuestionCard}
         sx={textFieldSx}
         disabled={disabled}
       />
@@ -123,18 +123,23 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         fullWidth
         type="text"
         variant="standard"
-        value={answer}
+        value={answerCard}
         label="Answer"
-        onChange={onChangeAnswerCard}
-        error={!!errorAnswer}
-        helperText={errorAnswer}
+        onChange={setNewAnswerCardHandler}
+        error={!!errorAnswerCard}
+        helperText={errorAnswerCard}
         sx={textFieldSx}
         disabled={disabled}
       />
 
       <Box sx={editCardBtnContainerSx}>
         <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} disabled={disabled} />
-        <GeneralButton name="Save" onClick={editCardHandler} sx={saveBtn} disabled={disabled} />
+        <GeneralButton
+          name="Save"
+          onClick={updateCurrentCardHandler}
+          sx={saveBtn}
+          disabled={disabled}
+        />
       </Box>
     </Box>
   )
