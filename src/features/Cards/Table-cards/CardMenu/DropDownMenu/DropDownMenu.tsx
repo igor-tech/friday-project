@@ -5,7 +5,6 @@ import { Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography } fr
 import { useNavigate } from 'react-router-dom'
 
 import moreVert from '../../../../../assets/img/moreVert.svg'
-import { updateCardPack } from '../../../cards-slice'
 
 import {
   containerPackMenuSx,
@@ -14,12 +13,10 @@ import {
   moreVertSx,
 } from './dropDownMenu.muiSx'
 
-import { MODAL_TYPE, packIdSelector, PATH, useAppDispatch, useAppSelector, useModal } from 'common'
+import { MODAL_TYPE, packIdSelector, PATH, useAppSelector, useModal } from 'common'
 
 export const DropDownMenu = () => {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const packId = useAppSelector(packIdSelector)
   const cardsPack_id = useAppSelector(packIdSelector)
   const { openModal } = useModal()
 
@@ -38,20 +35,12 @@ export const DropDownMenu = () => {
     setAnchorEl(null)
   }
 
-  const editCurrentPackCard = () => {
-    const updateCurrentPack = {
-      _id: packId,
-      name: 'Pack Update',
-    }
-
-    dispatch(updateCardPack(updateCurrentPack))
-      .unwrap()
-      .then(() => {
-        setAnchorEl(null)
-      })
+  const editCurrentPackCardHandler = (modalType: string) => {
+    openModal(modalType, 'Edit Pack Card')
+    setAnchorEl(null)
   }
   const deleteCurrentPackCardHandler = (modalType: string) => {
-    openModal(modalType, 'Delete Pack')
+    openModal(modalType, 'Delete Pack Card')
     setAnchorEl(null)
   }
 
@@ -81,7 +70,7 @@ export const DropDownMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={editCurrentPackCard}>
+        <MenuItem onClick={() => editCurrentPackCardHandler(MODAL_TYPE.editCurrentPackCard)}>
           <ListItemIcon>
             <EditOutlined fontSize="small" />
           </ListItemIcon>
