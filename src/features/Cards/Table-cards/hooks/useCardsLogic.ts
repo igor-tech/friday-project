@@ -12,6 +12,7 @@ import {
   sortCardsSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
   userIdSelector,
 } from 'common'
 
@@ -37,6 +38,12 @@ export const useCardsLogic = () => {
     dispatch(setCardQuestion(newPackName))
   }
 
+  const { openModal } = useModal()
+
+  const addNewCardHandler = (modalType: string) => {
+    openModal(modalType, 'Add new card')
+  }
+
   return {
     dispatch,
     card,
@@ -50,5 +57,6 @@ export const useCardsLogic = () => {
     cardsTotalCount,
     changePageCallback,
     setSearchCallback,
+    addNewCardHandler,
   }
 }
