@@ -12,13 +12,20 @@ import {
   packNameSx,
 } from './cardHeaderMenu.muiSx'
 
-import { appStatusSelector, GeneralButton, packIdSelector, PATH, useAppSelector } from 'common'
+import {
+  appStatusSelector,
+  GeneralButton,
+  MODAL_TYPE,
+  packIdSelector,
+  PATH,
+  useAppSelector,
+} from 'common'
 
 export const CardHeaderMenu: React.FC<{
   packName: string
   isMyPack: boolean
-  addNewCard: () => void
-}> = ({ packName, isMyPack, addNewCard }) => {
+  addNewCardHandler: (modalType: string) => void
+}> = ({ packName, isMyPack, addNewCardHandler }) => {
   const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
   const cardsPack_id = useAppSelector(packIdSelector)
@@ -38,7 +45,7 @@ export const CardHeaderMenu: React.FC<{
           <GeneralButton
             name="Add new card"
             sx={btnCardMenuSx}
-            onClick={addNewCard}
+            onClick={() => addNewCardHandler(MODAL_TYPE.addNewCard)}
             disabled={statusLoad === 'loading'}
           />
         </>
