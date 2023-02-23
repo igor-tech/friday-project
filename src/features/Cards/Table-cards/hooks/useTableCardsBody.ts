@@ -1,10 +1,11 @@
-import { deleteCard, updateCard } from '../../cards-slice'
+import { setSettingDeleteCardModal, setSettingEditCardModal } from '../../cards-slice'
 
 import {
   appStatusSelector,
   CardsSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
   userIdSelector,
 } from 'common'
 
@@ -13,17 +14,27 @@ export const useTableCardsBody = () => {
   const cards = useAppSelector(CardsSelector)
   const myProfileId = useAppSelector(userIdSelector)
   const statusLoad = useAppSelector(appStatusSelector)
-  const deleteCurrentCard = (idCard: string) => {
-    dispatch(deleteCard({ id: idCard }))
-  }
-  const updateCurrentCard = (idCard: string) => {
-    const updateCurrentPack = {
-      _id: idCard,
-      question: 'question updated',
-    }
 
-    dispatch(updateCard(updateCurrentPack))
+  const { openModal } = useModal()
+  const updateCurrentCardHandler = (
+    idCard: string,
+    question: string,
+    answer: string,
+    modalType: string
+  ) => {
+    openModal(modalType, 'Edit card')
+    dispatch(setSettingEditCardModal({ cardId: idCard, answer, question }))
+  }
+  const deleteCurrentCardHandler = (idCard: string, question: string, modalType: string) => {
+    openModal(modalType, 'Delete card')
+    dispatch(setSettingDeleteCardModal({ cardId: idCard, question }))
   }
 
-  return { updateCurrentCard, deleteCurrentCard, myProfileId, cards, statusLoad }
+  return {
+    updateCurrentCardHandler,
+    deleteCurrentCardHandler,
+    myProfileId,
+    cards,
+    statusLoad,
+  }
 }

@@ -7,10 +7,10 @@ import { useTableCardsBody } from '../hooks/useTableCardsBody'
 
 import { btnIcon, btnIconBlack, grade } from './tableCardsBody.muiSx'
 
-import { redactorDataTime } from 'common'
+import { MODAL_TYPE, redactorDataTime } from 'common'
 
 export const TableCardsBody = () => {
-  const { updateCurrentCard, deleteCurrentCard, myProfileId, cards, statusLoad } =
+  const { updateCurrentCardHandler, deleteCurrentCardHandler, myProfileId, cards, statusLoad } =
     useTableCardsBody()
 
   const cardsLayout = cards.map((cards, index) => {
@@ -30,14 +30,23 @@ export const TableCardsBody = () => {
           {isMyPack && (
             <Box sx={btnIcon}>
               <IconButton
-                onClick={() => updateCurrentCard(cards._id)}
+                onClick={() =>
+                  updateCurrentCardHandler(
+                    cards._id,
+                    cards.question,
+                    cards.answer,
+                    MODAL_TYPE.editCurrentCard
+                  )
+                }
                 disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
                 <DriveFileRenameOutlineOutlined />
               </IconButton>
               <IconButton
-                onClick={() => deleteCurrentCard(cards._id)}
+                onClick={() =>
+                  deleteCurrentCardHandler(cards._id, cards.question, MODAL_TYPE.deleteCurrentCard)
+                }
                 disabled={statusLoad === 'loading'}
                 sx={btnIconBlack}
               >
