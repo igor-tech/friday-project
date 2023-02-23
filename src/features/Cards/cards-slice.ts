@@ -30,6 +30,11 @@ const initialState = {
     page: 1,
     pageCount: 7,
   },
+  cardsSettingModal: {
+    cardId: '',
+    question: '',
+    answer: '',
+  },
   isCardLoading: false,
 }
 
@@ -50,6 +55,7 @@ export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getS
     const { data } = await tableAPI.getCards(queryParams)
 
     dispatch(setDataCard(data))
+    console.log(data)
     dispatch(setAppStatus('success'))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
@@ -157,6 +163,7 @@ export const cardsSlice = createSlice({
       state.packUserId = action.payload.packUserId
       state.minGrade = action.payload.minGrade
       state.maxGrade = action.payload.maxGrade
+      state.packPrivate = action.payload.packPrivate
     },
     setPacksCardId: (state, action) => {
       state.cardsQueryParams.cardsPack_id = action.payload
@@ -174,6 +181,21 @@ export const cardsSlice = createSlice({
       state.cardsQueryParams.page = action.payload.page
       state.cardsQueryParams.pageCount = action.payload.pageCount
     },
+    setSettingEditCardModal: (
+      state,
+      action: PayloadAction<{ cardId: string; answer: string; question: string }>
+    ) => {
+      state.cardsSettingModal.cardId = action.payload.cardId
+      state.cardsSettingModal.answer = action.payload.answer
+      state.cardsSettingModal.question = action.payload.question
+    },
+    setSettingDeleteCardModal: (
+      state,
+      action: PayloadAction<{ cardId: string; question: string }>
+    ) => {
+      state.cardsSettingModal.cardId = action.payload.cardId
+      state.cardsSettingModal.question = action.payload.question
+    },
   },
 })
 
@@ -184,5 +206,7 @@ export const {
   setLoadingCard,
   setCardQuestion,
   setBetweenQuestion,
+  setSettingEditCardModal,
+  setSettingDeleteCardModal,
 } = cardsSlice.actions
 export const CardsReducer = cardsSlice.reducer
