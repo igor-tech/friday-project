@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-import { SchoolOutlined, EditOutlined, DeleteOutlined } from '@mui/icons-material'
-import { Box, Typography, Tooltip, MenuItem, Menu, ListItemIcon, IconButton } from '@mui/material'
+import { DeleteOutlined, EditOutlined, SchoolOutlined } from '@mui/icons-material'
+import { Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import moreVert from '../../../../../assets/img/moreVert.svg'
-import { deleteCardPack, updateCardPack } from '../../../cards-slice'
+import { updateCardPack } from '../../../cards-slice'
 
 import {
   containerPackMenuSx,
@@ -14,13 +14,14 @@ import {
   moreVertSx,
 } from './dropDownMenu.muiSx'
 
-import { packIdSelector, PATH, useAppDispatch, useAppSelector } from 'common'
+import { MODAL_TYPE, packIdSelector, PATH, useAppDispatch, useAppSelector, useModal } from 'common'
 
 export const DropDownMenu = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const packId = useAppSelector(packIdSelector)
   const cardsPack_id = useAppSelector(packIdSelector)
+  const { openModal } = useModal()
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -44,14 +45,13 @@ export const DropDownMenu = () => {
     }
 
     dispatch(updateCardPack(updateCurrentPack))
-    setAnchorEl(null)
-  }
-  const deleteCurrentPackCard = () => {
-    dispatch(deleteCardPack(packId))
       .unwrap()
       .then(() => {
-        navigate(PATH.PACKS)
+        setAnchorEl(null)
       })
+  }
+  const deleteCurrentPackCardHandler = (modalType: string) => {
+    openModal(modalType, 'Delete Pack')
     setAnchorEl(null)
   }
 
@@ -87,7 +87,7 @@ export const DropDownMenu = () => {
           </ListItemIcon>
           <Typography component="p">Edit</Typography>
         </MenuItem>
-        <MenuItem onClick={deleteCurrentPackCard}>
+        <MenuItem onClick={() => deleteCurrentPackCardHandler(MODAL_TYPE.deleteCurrentPackCard)}>
           <ListItemIcon>
             <DeleteOutlined fontSize="small" />
           </ListItemIcon>
