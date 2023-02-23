@@ -10,6 +10,7 @@ export const cardsSelectors = (state: RootState) => state.cards.cards
 export const myPackUserIdSelector = (state: RootState) => state.cards.packUserId
 export const packNameCardSelector = (state: RootState) => state.cards.packName
 export const cardsTotalCountSelector = (state: RootState) => state.cards.cardsTotalCount
+export const privateStatusSelector = (state: RootState) => state.cards.packPrivate
 
 export const isCardLoadingSelector = (state: RootState) => state.cards.isCardLoading
 

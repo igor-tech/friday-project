@@ -101,6 +101,7 @@ export type RequestDeletePack = {
 export type RequestUpdatePack = {
   _id: string
   name: string
+  private: boolean
 }
 
 //Request card

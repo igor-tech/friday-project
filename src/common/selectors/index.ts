@@ -51,4 +51,5 @@ export {
   questionSettingSelector,
   CardIdSettingSelector,
   answerSettingSelector,
+  privateStatusSelector,
 } from './cards-selectors'
