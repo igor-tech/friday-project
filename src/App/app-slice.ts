@@ -53,8 +53,8 @@ export const appSlice = createSlice({
       state.isInitialized = action.payload
     },
     setCloseModal: (state, action) => {
-      state.modalTitle = action.payload
-      state.modalType = ''
+      state.modalTitle = ''
+      state.modalType = action.payload
     },
     setOpenModal: (state, action: PayloadAction<{ type: string; modalTitle: string }>) => {
       state.modalType = action.payload.type
