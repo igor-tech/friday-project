@@ -2,8 +2,9 @@ import { setBetweenQuestion, setCardQuestion } from '../../cards-slice'
 
 import {
   cardQuestionSelector,
-  cardsSelectors,
   cardsTotalCountSelector,
+  emptyCardSelector,
+  emptySearchCardSelector,
   isCardLoadingSelector,
   myPackUserIdSelector,
   packNameCardSelector,
@@ -18,7 +19,6 @@ import {
 
 export const useCardsLogic = () => {
   const dispatch = useAppDispatch()
-  const card = useAppSelector(cardsSelectors)
   const myProfileId = useAppSelector(userIdSelector)
   const myPackUserId = useAppSelector(myPackUserIdSelector)
   const packName = useAppSelector(packNameCardSelector)
@@ -28,6 +28,8 @@ export const useCardsLogic = () => {
   const searchCardQuestion = useAppSelector(cardQuestionSelector)
   const isCardLoading = useAppSelector(isCardLoadingSelector)
   const cardsTotalCount = useAppSelector(cardsTotalCountSelector)
+  const emptyCard = useAppSelector(emptyCardSelector)
+  const emptySearchCard = useAppSelector(emptySearchCardSelector)
   const isMy = myProfileId === myPackUserId
 
   const changePageCallback = (page: number, pageCount: number) => {
@@ -46,7 +48,7 @@ export const useCardsLogic = () => {
 
   return {
     dispatch,
-    card,
+
     packName,
     isMy,
     sortCard,
@@ -58,5 +60,7 @@ export const useCardsLogic = () => {
     changePageCallback,
     setSearchCallback,
     addNewCardHandler,
+    emptyCard,
+    emptySearchCard,
   }
 }

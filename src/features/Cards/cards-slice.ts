@@ -23,9 +23,11 @@ const initialState = {
   cardsTotalCount: 2,
   minGrade: 0,
   maxGrade: 5,
+  emptyCard: false,
+  emptySearchCard: false,
   cardsQueryParams: {
     cardsPack_id: '',
-    cardQuestion: null as string | null,
+    cardQuestion: '',
     sortCards: '0question',
     page: 1,
     pageCount: 7,
@@ -44,7 +46,7 @@ export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getS
 
   const queryParams = {
     cardsPack_id,
-    cardQuestion: cardQuestion === null ? '' : cardQuestion,
+    cardQuestion,
     sortCards,
     page,
     pageCount,
@@ -54,8 +56,18 @@ export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getS
   try {
     const { data } = await tableAPI.getCards(queryParams)
 
+    if (data.cards.length === 0) {
+      if (cardQuestion === '') {
+        dispatch(setEmptyCard(true))
+      } else {
+        dispatch(setEmptySearchCard(true))
+      }
+    } else {
+      dispatch(setEmptyCard(false))
+      dispatch(setEmptySearchCard(false))
+    }
+
     dispatch(setDataCard(data))
-    console.log(data)
     dispatch(setAppStatus('success'))
   } catch (e) {
     handleServerNetworkError(e, dispatch)
@@ -165,6 +177,12 @@ export const cardsSlice = createSlice({
       state.maxGrade = action.payload.maxGrade
       state.packPrivate = action.payload.packPrivate
     },
+    setEmptyCard: (state, action) => {
+      state.emptyCard = action.payload
+    },
+    setEmptySearchCard: (state, action) => {
+      state.emptySearchCard = action.payload
+    },
     setPacksCardId: (state, action) => {
       state.cardsQueryParams.cardsPack_id = action.payload
     },
@@ -174,7 +192,7 @@ export const cardsSlice = createSlice({
     setLoadingCard: (state, action) => {
       state.isCardLoading = action.payload
     },
-    setCardQuestion: (state, action: PayloadAction<string | null>) => {
+    setCardQuestion: (state, action: PayloadAction<string>) => {
       state.cardsQueryParams.cardQuestion = action.payload
     },
     setBetweenQuestion: (state, action: PayloadAction<{ page: number; pageCount: number }>) => {
@@ -208,5 +226,7 @@ export const {
   setBetweenQuestion,
   setSettingEditCardModal,
   setSettingDeleteCardModal,
+  setEmptyCard,
+  setEmptySearchCard,
 } = cardsSlice.actions
 export const CardsReducer = cardsSlice.reducer

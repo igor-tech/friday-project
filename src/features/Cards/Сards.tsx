@@ -34,7 +34,6 @@ const SearchFilterComponentCardSx = {
 export const Cards = () => {
   const {
     dispatch,
-    card,
     isMy,
     packName,
     searchCardQuestion,
@@ -46,6 +45,8 @@ export const Cards = () => {
     setSearchCallback,
     changePageCallback,
     addNewCardHandler,
+    emptyCard,
+    emptySearchCard,
   } = useCardsLogic()
 
   const [urlQueryParam] = useSearchParams()
@@ -55,7 +56,7 @@ export const Cards = () => {
     dispatch(setPacksCardId(cardsPackId))
 
     return () => {
-      dispatch(setCardQuestion(null))
+      dispatch(setCardQuestion(''))
       dispatch(setLoadingCard(false))
     }
   }, [])
@@ -68,7 +69,7 @@ export const Cards = () => {
     return <InitializedLoader />
   }
 
-  if (card?.length === 0 && searchCardQuestion === null) {
+  if (emptyCard) {
     return (
       <EmptyPackMenu packName={packName} isMyPack={isMy} addNewCardHandler={addNewCardHandler} />
     )
@@ -79,15 +80,11 @@ export const Cards = () => {
       <BackToPackList />
       <CardHeaderMenu packName={packName} isMyPack={isMy} addNewCardHandler={addNewCardHandler} />
       <SearchFilterComponent
-        searchValue={searchCardQuestion !== null ? searchCardQuestion : ''}
+        searchValue={searchCardQuestion}
         setSearchCallback={setSearchCallback}
         style={SearchFilterComponentCardSx}
       />
-      {card?.length === 0 && searchCardQuestion !== null ? (
-        <EmptySearchMessage searchParam={searchCardQuestion} />
-      ) : (
-        <TableCards />
-      )}
+      {emptySearchCard ? <EmptySearchMessage searchParam={searchCardQuestion} /> : <TableCards />}
       <PaginationComponent
         page={page}
         pageCount={pageCount}
