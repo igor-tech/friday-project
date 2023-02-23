@@ -26,7 +26,7 @@ export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({ closeMod
   const addNewPackHandler = () => {
     if (namePack.trim() !== '' && !error) {
       const dataParams = {
-        name: namePack,
+        name: namePack.trim(),
         deckCover: '',
         private: privateStatus,
       }
@@ -44,12 +44,8 @@ export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({ closeMod
   const setNamePackHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = e.currentTarget.value
 
-    if (name.length <= 35) {
-      setNamePack(name)
-      setError('')
-    } else {
-      setError('cannot be more than 35')
-    }
+    setNamePack(name)
+    setError('')
   }
 
   return (
