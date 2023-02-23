@@ -14,7 +14,7 @@ import {
 
 import {
   appStatusSelector,
-  CardIdSettingSelector,
+  cardIdSettingSelector,
   GeneralButton,
   questionSettingSelector,
   useAppDispatch,
@@ -23,7 +23,7 @@ import {
 
 export const DeleteCardModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const dispatch = useAppDispatch()
-  const idCard = useAppSelector(CardIdSettingSelector)
+  const idCard = useAppSelector(cardIdSettingSelector)
   const question = useAppSelector(questionSettingSelector)
   const statusLoad = useAppSelector(appStatusSelector)
 

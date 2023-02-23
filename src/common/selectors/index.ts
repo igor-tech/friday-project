@@ -49,7 +49,7 @@ export {
   isCardLoadingSelector,
   packIdSelector,
   questionSettingSelector,
-  CardIdSettingSelector,
+  cardIdSettingSelector,
   answerSettingSelector,
   privateStatusSelector,
 } from './cards-selectors'
