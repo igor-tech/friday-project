@@ -48,4 +48,6 @@ export {
   cardsTotalCountSelector,
   isCardLoadingSelector,
   packIdSelector,
+  questionSettingSelector,
+  CardIdSettingSelector,
 } from './cards-selectors'

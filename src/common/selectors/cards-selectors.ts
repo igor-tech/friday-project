@@ -12,3 +12,6 @@ export const packNameCardSelector = (state: RootState) => state.cards.packName
 export const cardsTotalCountSelector = (state: RootState) => state.cards.cardsTotalCount
 
 export const isCardLoadingSelector = (state: RootState) => state.cards.isCardLoading
+
+export const questionSettingSelector = (state: RootState) => state.cards.cardsSettingModal.question
+export const CardIdSettingSelector = (state: RootState) => state.cards.cardsSettingModal.cardId
