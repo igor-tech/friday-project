@@ -33,7 +33,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
   const [answer, setAnswer] = useState('')
   const [errorAnswer, setErrorAnswer] = useState('')
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const setQuestionFormatHandler = (event: SelectChangeEvent) => {
     setQuestionFormat(event.target.value as string)
   }
 
@@ -63,13 +63,13 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
     }
   }
 
-  const onChangeQuestion = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setQuestionHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const question = e.currentTarget.value
 
     setQuestion(question)
     setErrorQuestion('')
   }
-  const onChangeAnswer = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setAnswerHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const answer = e.currentTarget.value
 
     setAnswer(answer)
@@ -87,7 +87,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
           size="small"
           id="simple-select"
           value={questionFormat}
-          onChange={handleChange}
+          onChange={setQuestionFormatHandler}
           sx={selectSx}
         >
           <MenuItem value={'Text'}>Text</MenuItem>
@@ -100,7 +100,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         variant="standard"
         value={question}
         label="Question"
-        onChange={onChangeQuestion}
+        onChange={setQuestionHandler}
         error={!!errorQuestion}
         helperText={errorQuestion}
         sx={textFieldSx}
@@ -112,7 +112,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         variant="standard"
         value={answer}
         label="Answer"
-        onChange={onChangeAnswer}
+        onChange={setAnswerHandler}
         error={!!errorAnswer}
         helperText={errorAnswer}
         sx={textFieldSx}
