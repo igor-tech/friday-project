@@ -22,13 +22,14 @@ import {
   textFieldSx,
 } from './editCardModal.muiSx'
 
-import { GeneralButton, useAppDispatch, useAppSelector } from 'common'
+import { appStatusSelector, GeneralButton, useAppDispatch, useAppSelector } from 'common'
 
 export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const dispatch = useAppDispatch()
   const currentQuestion = useAppSelector(state => state.cards.cardsSettingModal.question)
   const currentAnswer = useAppSelector(state => state.cards.cardsSettingModal.answer)
   const idCard = useAppSelector(state => state.cards.cardsSettingModal.cardId)
+  const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
   const [question, setQuestion] = useState(currentQuestion)
   const [errorQuestion, setErrorQuestion] = useState('')
@@ -79,6 +80,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
     setAnswer(answer)
     setErrorAnswer('')
   }
+  const disabled = statusLoad === 'loading'
 
   return (
     <Box sx={editCardContainerSx}>
@@ -107,6 +109,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         error={!!errorQuestion}
         helperText={errorQuestion}
         sx={textFieldSx}
+        disabled={disabled}
       />
       <TextField
         fullWidth
@@ -118,11 +121,12 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
         error={!!errorAnswer}
         helperText={errorAnswer}
         sx={textFieldSx}
+        disabled={disabled}
       />
 
       <Box sx={editCardBtnContainerSx}>
-        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} />
-        <GeneralButton name="Save" onClick={editCardHandler} sx={saveBtn} />
+        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} disabled={disabled} />
+        <GeneralButton name="Save" onClick={editCardHandler} sx={saveBtn} disabled={disabled} />
       </Box>
     </Box>
   )
