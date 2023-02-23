@@ -25,18 +25,18 @@ import {
 import {
   answerSettingSelector,
   appStatusSelector,
-  CardIdSettingSelector,
   GeneralButton,
   questionSettingSelector,
   useAppDispatch,
   useAppSelector,
+  cardIdSettingSelector,
 } from 'common'
 
 export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const dispatch = useAppDispatch()
   const currentQuestion = useAppSelector(questionSettingSelector)
   const currentAnswer = useAppSelector(answerSettingSelector)
-  const idCard = useAppSelector(CardIdSettingSelector)
+  const idCard = useAppSelector(cardIdSettingSelector)
   const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
   const [questionCard, setQuestionCard] = useState(currentQuestion)

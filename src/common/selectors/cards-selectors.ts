@@ -15,5 +15,5 @@ export const privateStatusSelector = (state: RootState) => state.cards.packPriva
 export const isCardLoadingSelector = (state: RootState) => state.cards.isCardLoading
 
 export const questionSettingSelector = (state: RootState) => state.cards.cardsSettingModal.question
-export const CardIdSettingSelector = (state: RootState) => state.cards.cardsSettingModal.cardId
+export const cardIdSettingSelector = (state: RootState) => state.cards.cardsSettingModal.cardId
 export const answerSettingSelector = (state: RootState) => state.cards.cardsSettingModal.answer
