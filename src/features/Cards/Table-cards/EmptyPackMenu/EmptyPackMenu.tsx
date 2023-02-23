@@ -11,13 +11,13 @@ import {
   warningTitleSx,
 } from './emptyPackMenu.muiSx'
 
-import { BackToPackList, GeneralButton, PATH } from 'common'
+import { BackToPackList, GeneralButton, MODAL_TYPE, PATH } from 'common'
 
 export const EmptyPackMenu: React.FC<{
   packName: string
   isMyPack: boolean
-  addNewCard: () => void
-}> = ({ packName, isMyPack, addNewCard }) => {
+  addNewCardHandler: (modalType: string) => void
+}> = ({ packName, isMyPack, addNewCardHandler }) => {
   const navigate = useNavigate()
 
   return (
@@ -32,7 +32,11 @@ export const EmptyPackMenu: React.FC<{
             <Typography component="p" sx={warningTitleSx}>
               This pack is empty. Click add new card to fill this pack
             </Typography>
-            <GeneralButton sx={btnSx} name="Add new card" onClick={addNewCard} />
+            <GeneralButton
+              sx={btnSx}
+              name="Add new card"
+              onClick={() => addNewCardHandler(MODAL_TYPE.addNewCard)}
+            />
           </>
         )}
 
