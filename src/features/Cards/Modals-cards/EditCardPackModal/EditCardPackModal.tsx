@@ -5,24 +5,24 @@ import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
 import { updateCardPack } from '../../cards-slice'
 
 import {
-  cancelBtnSx,
   editPackCardBtnContainer,
   editPackCardContainerSx,
   editPackCardFormControlSx,
-  saveBtnSx,
 } from './editCardPackModal.muiSx'
 
 import {
+  ActionButtonsModal,
   appStatusSelector,
-  GeneralButton,
   packIdSelector,
   packNameCardSelector,
   privateStatusSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
 } from 'common'
 
-export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const EditCardPackModal: React.FC<{ closeModal: () => void }> = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const packId = useAppSelector(packIdSelector)
   const cardPackName = useAppSelector(packNameCardSelector)
@@ -86,18 +86,7 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
         label="Private pack"
       />
       <Box sx={editPackCardBtnContainer}>
-        <GeneralButton
-          name="Cancel"
-          sx={cancelBtnSx}
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-        />
-        <GeneralButton
-          name="Save"
-          sx={saveBtnSx}
-          onClick={updatePackCardHandler}
-          disabled={statusLoad === 'loading' || !!error}
-        />
+        <ActionButtonsModal closeModal={closeModal} actionSubmit={updatePackCardHandler} />
       </Box>
     </Box>
   )
