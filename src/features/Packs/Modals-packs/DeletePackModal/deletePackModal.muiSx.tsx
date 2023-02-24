@@ -7,5 +7,4 @@ export const deletePackBtnContainerSx = {
   justifyContent: 'space-between',
 }
 
-export const cancelBtnSx = { padding: '8px 28px', background: '#FCFCFC', color: '#000000' }
 export const deleteBtnSx = { padding: '8px 28px', background: '#FF3636', color: '#FFFFFF' }
