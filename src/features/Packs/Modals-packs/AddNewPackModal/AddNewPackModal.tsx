@@ -5,17 +5,18 @@ import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
 
 import { createNewPack } from '../../packs-slice'
 
+import { addPackBtnContainerSx, addPackContainerSx, formControlSx } from './addNewPackModal.muiSx'
+
 import {
-  addPackBtnContainerSx,
-  addPackContainerSx,
-  cancelBtnSx,
-  formControlSx,
-  saveBtnSx,
-} from './addNewPackModal.muiSx'
+  ActionButtonsModal,
+  appStatusSelector,
+  useAppDispatch,
+  useAppSelector,
+  useModal,
+} from 'common'
 
-import { appStatusSelector, GeneralButton, useAppDispatch, useAppSelector } from 'common'
-
-export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({}) => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const [privateStatus, setPrivateStatus] = useState(false)
   const [namePack, setNamePack] = useState('')
@@ -73,17 +74,10 @@ export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         label="Private pack"
       />
       <Box sx={addPackBtnContainerSx}>
-        <GeneralButton
-          name="Cancel"
-          sx={cancelBtnSx}
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-        />
-        <GeneralButton
-          name="Save"
-          sx={saveBtnSx}
-          onClick={addNewPackHandler}
-          disabled={statusLoad === 'loading' || !!error}
+        <ActionButtonsModal
+          actionSubmit={addNewPackHandler}
+          error={error}
+          closeModal={closeModal}
         />
       </Box>
     </Box>
