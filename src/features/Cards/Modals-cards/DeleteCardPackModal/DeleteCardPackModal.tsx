@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { deleteCardPack } from '../../cards-slice'
 
 import {
-  cancelBtnSx,
   deleteBtnSx,
   deleteCardPackBtnContainerSx,
   deletePackCardContainerSx,
@@ -14,21 +13,21 @@ import {
 } from './DeleteCardPackModal.muiSx'
 
 import {
-  appStatusSelector,
-  GeneralButton,
+  ActionButtonsModal,
   packIdSelector,
   packNameCardSelector,
   PATH,
   useAppDispatch,
   useAppSelector,
+  useModal,
 } from 'common'
 
-export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const packId = useAppSelector(packIdSelector)
   const cardPackName = useAppSelector(packNameCardSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
 
   const deleteCurrentPackCardHandler = () => {
     dispatch(deleteCardPack(packId))
@@ -46,17 +45,11 @@ export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = ({ clos
         All cards will be deleted.
       </Typography>
       <Box sx={deleteCardPackBtnContainerSx}>
-        <GeneralButton
-          name="Cancel"
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-          sx={cancelBtnSx}
-        />
-        <GeneralButton
-          sx={deleteBtnSx}
-          name="Delete"
-          onClick={deleteCurrentPackCardHandler}
-          disabled={statusLoad === 'loading'}
+        <ActionButtonsModal
+          actionSubmit={deleteCurrentPackCardHandler}
+          closeModal={closeModal}
+          submitStyleSx={deleteBtnSx}
+          submitName="Delete"
         />
       </Box>
     </Box>
