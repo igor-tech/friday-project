@@ -1,5 +1,5 @@
 export const deletePackCardContainerSx = { marginTop: '30px' }
-export const warningMessageSx = { fontWeight: '400', fontSize: '14px', lineHeight: '24px' }
+
 export const deleteCardPackBtnContainerSx = {
   margin: '34px 0 47px',
   display: 'flex',

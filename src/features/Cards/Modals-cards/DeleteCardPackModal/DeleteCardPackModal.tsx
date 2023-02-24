@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { deleteCardPack } from '../../cards-slice'
@@ -9,11 +9,11 @@ import {
   deleteBtnSx,
   deleteCardPackBtnContainerSx,
   deletePackCardContainerSx,
-  warningMessageSx,
 } from './DeleteCardPackModal.muiSx'
 
 import {
   ActionButtonsModal,
+  MessageToDelete,
   packIdSelector,
   packNameCardSelector,
   PATH,
@@ -40,10 +40,10 @@ export const DeleteCardPackModal = () => {
 
   return (
     <Box sx={deletePackCardContainerSx}>
-      <Typography component="p" sx={warningMessageSx}>
+      <MessageToDelete>
         Do you really want to remove <strong>{cardPackName}</strong> <br />
         All cards will be deleted.
-      </Typography>
+      </MessageToDelete>
       <Box sx={deleteCardPackBtnContainerSx}>
         <ActionButtonsModal
           actionSubmit={deleteCurrentPackCardHandler}

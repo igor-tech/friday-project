@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { deletePack, setSettingDeletePackModal } from '../../packs-slice'
 
@@ -8,7 +8,6 @@ import {
   deleteBtnSx,
   deletePackBtnContainerSx,
   deletePackContainerSx,
-  warningMessageSx,
 } from './deletePackModal.muiSx'
 
 import {
@@ -18,6 +17,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useModal,
+  MessageToDelete,
 } from 'common'
 
 export const DeletePackModal = () => {
@@ -37,10 +37,10 @@ export const DeletePackModal = () => {
 
   return (
     <Box sx={deletePackContainerSx}>
-      <Typography component="p" sx={warningMessageSx}>
+      <MessageToDelete>
         Do you really want to remove <strong>{packName}</strong> <br />
         All cards will be deleted.
-      </Typography>
+      </MessageToDelete>
       <Box sx={deletePackBtnContainerSx}>
         <ActionButtonsModal
           actionSubmit={deleteCurrentPackHandler}

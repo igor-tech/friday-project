@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { deleteCard, setSettingDeleteCardModal } from '../../cards-slice'
 
@@ -8,12 +8,12 @@ import {
   deleteBtnSx,
   deleteCardBtnContainerSx,
   deleteCardContainerSx,
-  warningMessageSx,
 } from './deleteCardModal.muiSx'
 
 import {
   ActionButtonsModal,
   cardIdSettingSelector,
+  MessageToDelete,
   questionSettingSelector,
   useAppDispatch,
   useAppSelector,
@@ -37,10 +37,10 @@ export const DeleteCardModal = () => {
 
   return (
     <Box sx={deleteCardContainerSx}>
-      <Typography component="p" sx={warningMessageSx}>
+      <MessageToDelete>
         Do you really want to remove <strong>{question}</strong> <br />
         Question will be deleted.
-      </Typography>
+      </MessageToDelete>
       <Box sx={deleteCardBtnContainerSx}>
         <ActionButtonsModal
           actionSubmit={deleteCurrentCardHandler}
