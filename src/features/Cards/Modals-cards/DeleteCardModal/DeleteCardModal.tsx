@@ -5,7 +5,6 @@ import { Box, Typography } from '@mui/material'
 import { deleteCard, setSettingDeleteCardModal } from '../../cards-slice'
 
 import {
-  cancelBtnSx,
   deleteBtnSx,
   deleteCardBtnContainerSx,
   deleteCardContainerSx,
@@ -13,19 +12,19 @@ import {
 } from './deleteCardModal.muiSx'
 
 import {
-  appStatusSelector,
+  ActionButtonsModal,
   cardIdSettingSelector,
-  GeneralButton,
   questionSettingSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
 } from 'common'
 
-export const DeleteCardModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const DeleteCardModal: React.FC<{ closeModal: () => void }> = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const idCard = useAppSelector(cardIdSettingSelector)
   const question = useAppSelector(questionSettingSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
 
   const deleteCurrentCardHandler = () => {
     dispatch(deleteCard({ id: idCard }))
@@ -43,17 +42,11 @@ export const DeleteCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
         Question will be deleted.
       </Typography>
       <Box sx={deleteCardBtnContainerSx}>
-        <GeneralButton
-          name="Cancel"
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-          sx={cancelBtnSx}
-        />
-        <GeneralButton
-          sx={deleteBtnSx}
-          name="Delete"
-          onClick={deleteCurrentCardHandler}
-          disabled={statusLoad === 'loading'}
+        <ActionButtonsModal
+          actionSubmit={deleteCurrentCardHandler}
+          closeModal={closeModal}
+          submitStyleSx={deleteBtnSx}
+          submitName="Delete"
         />
       </Box>
     </Box>
