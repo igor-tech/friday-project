@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import {
   Box,
@@ -31,7 +31,7 @@ import {
   useModal,
 } from 'common'
 
-export const EditCardModal: FC<{ closeModal: () => void }> = () => {
+export const EditCardModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const currentQuestion = useAppSelector(questionSettingSelector)

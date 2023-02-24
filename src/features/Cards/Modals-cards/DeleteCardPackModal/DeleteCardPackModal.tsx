@@ -22,7 +22,7 @@ import {
   useModal,
 } from 'common'
 
-export const DeleteCardPackModal: React.FC<{ closeModal: () => void }> = () => {
+export const DeleteCardPackModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

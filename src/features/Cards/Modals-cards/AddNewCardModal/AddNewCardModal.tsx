@@ -28,7 +28,7 @@ import {
   useModal,
 } from 'common'
 
-export const AddNewCardModal: React.FC<{ closeModal: () => void }> = () => {
+export const AddNewCardModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const statusLoad = useAppSelector(appStatusSelector)

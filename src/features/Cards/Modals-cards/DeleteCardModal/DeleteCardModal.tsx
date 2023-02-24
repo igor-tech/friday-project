@@ -20,7 +20,7 @@ import {
   useModal,
 } from 'common'
 
-export const DeleteCardModal: React.FC<{ closeModal: () => void }> = () => {
+export const DeleteCardModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const idCard = useAppSelector(cardIdSettingSelector)

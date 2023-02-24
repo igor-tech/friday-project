@@ -21,7 +21,7 @@ import {
   useModal,
 } from 'common'
 
-export const EditCardPackModal: React.FC<{ closeModal: () => void }> = () => {
+export const EditCardPackModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const packId = useAppSelector(packIdSelector)

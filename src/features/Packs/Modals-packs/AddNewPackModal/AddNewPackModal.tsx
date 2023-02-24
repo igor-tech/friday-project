@@ -15,7 +15,7 @@ import {
   useModal,
 } from 'common'
 
-export const AddNewPackModal: React.FC<{ closeModal: () => void }> = ({}) => {
+export const AddNewPackModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const [privateStatus, setPrivateStatus] = useState(false)

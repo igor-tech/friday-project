@@ -20,7 +20,7 @@ import {
   useModal,
 } from 'common'
 
-export const DeletePackModal: React.FC<{ closeModal: () => void }> = ({}) => {
+export const DeletePackModal = () => {
   const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const idPack = useAppSelector(idPackSettingSelector)

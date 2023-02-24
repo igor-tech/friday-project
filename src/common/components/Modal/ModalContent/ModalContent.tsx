@@ -15,23 +15,19 @@ import {
   EditCardPackModal,
 } from 'features'
 
-export const ModalContent: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const ModalContent = () => {
   const typeModal = useAppSelector(modalTypeSelector)
 
   return (
     <>
-      {typeModal === MODAL_TYPE.addNewPack && <AddNewPackModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.editCurrentPack && <EditPackModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.deleteCurrentPack && <DeletePackModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.addNewCard && <AddNewCardModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.editCurrentCard && <EditCardModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.editCurrentPackCard && (
-        <EditCardPackModal closeModal={closeModal} />
-      )}
-      {typeModal === MODAL_TYPE.deleteCurrentCard && <DeleteCardModal closeModal={closeModal} />}
-      {typeModal === MODAL_TYPE.deleteCurrentPackCard && (
-        <DeleteCardPackModal closeModal={closeModal} />
-      )}
+      {typeModal === MODAL_TYPE.addNewPack && <AddNewPackModal />}
+      {typeModal === MODAL_TYPE.editCurrentPack && <EditPackModal />}
+      {typeModal === MODAL_TYPE.deleteCurrentPack && <DeletePackModal />}
+      {typeModal === MODAL_TYPE.addNewCard && <AddNewCardModal />}
+      {typeModal === MODAL_TYPE.editCurrentCard && <EditCardModal />}
+      {typeModal === MODAL_TYPE.editCurrentPackCard && <EditCardPackModal />}
+      {typeModal === MODAL_TYPE.deleteCurrentCard && <DeleteCardModal />}
+      {typeModal === MODAL_TYPE.deleteCurrentPackCard && <DeleteCardPackModal />}
     </>
   )
 }
