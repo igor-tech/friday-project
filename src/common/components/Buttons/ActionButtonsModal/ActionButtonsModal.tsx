@@ -9,11 +9,11 @@ import { cancelBtnSx, submitBtnSx } from './actionButtonsModal.muiSx'
 interface PropsType {
   cancelName: string
   submitName: string
+  error: string
   actionSubmit: () => void
   closeModal: () => void
   cancelStyleSx: React.CSSProperties
   submitStyleSx: React.CSSProperties
-  error: string
 }
 
 export const ActionButtonsModal: React.FC<Partial<PropsType>> = ({

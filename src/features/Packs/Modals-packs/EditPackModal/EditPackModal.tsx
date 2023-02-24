@@ -5,26 +5,26 @@ import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
 import { setSettingEditPackModal, updatePack } from '../../packs-slice'
 
 import {
-  cancelBtnSx,
   editPackBtnContainer,
   editPackContainerSx,
   editPackFormControlSx,
-  saveBtnSx,
 } from './editPackModal.muiSx'
 
 import {
-  privateStatusSettingSelector,
+  ActionButtonsModal,
   appStatusSelector,
-  GeneralButton,
+  idPackSettingSelector,
   packNameSettingSelector,
+  privateStatusSettingSelector,
   useAppDispatch,
   useAppSelector,
-  idPackSettingSelector,
+  useModal,
 } from 'common'
 
 export const EditPackModal: React.FC<{
   closeModal: () => void
-}> = ({ closeModal }) => {
+}> = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const currentNamePack = useAppSelector(packNameSettingSelector)
   const currentPrivateStatus = useAppSelector(privateStatusSettingSelector)
@@ -97,17 +97,10 @@ export const EditPackModal: React.FC<{
         label="Private pack"
       />
       <Box sx={editPackBtnContainer}>
-        <GeneralButton
-          name="Cancel"
-          sx={cancelBtnSx}
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-        />
-        <GeneralButton
-          name="Save"
-          sx={saveBtnSx}
-          onClick={updateCurrentPackHandler}
-          disabled={statusLoad === 'loading' || !!error}
+        <ActionButtonsModal
+          actionSubmit={updateCurrentPackHandler}
+          closeModal={closeModal}
+          error={error}
         />
       </Box>
     </Box>
