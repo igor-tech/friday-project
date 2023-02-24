@@ -9,9 +9,5 @@ export const ModalContent = () => {
 
   const Modal = MODALS[typeModal]
 
-  return (
-    <>
-      <Modal />
-    </>
-  )
+  return <Modal />
 }

@@ -16,7 +16,7 @@ import { BackToPackList, GeneralButton, MODAL_TYPE, PATH } from 'common'
 export const EmptyPackMenu: React.FC<{
   packName: string
   isMyPack: boolean
-  addNewCardHandler: (modalType: string) => void
+  addNewCardHandler: (modalType: MODAL_TYPE) => void
 }> = ({ packName, isMyPack, addNewCardHandler }) => {
   const navigate = useNavigate()
 

@@ -12,6 +12,7 @@ import {
   pageSelector,
   useAppDispatch,
   useAppSelector,
+  MODAL_TYPE,
 } from 'common'
 
 export const usePacksLogic = () => {
@@ -33,7 +34,7 @@ export const usePacksLogic = () => {
   }
 
   const { openModal } = useModal()
-  const addNewPackHandler = (typeModal: string) => {
+  const addNewPackHandler = (typeModal: MODAL_TYPE) => {
     openModal(typeModal, 'Add new pack')
   }
 

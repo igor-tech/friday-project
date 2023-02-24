@@ -3,6 +3,7 @@ import { setSettingDeleteCardModal, setSettingEditCardModal } from '../../cards-
 import {
   appStatusSelector,
   CardsSelector,
+  MODAL_TYPE,
   useAppDispatch,
   useAppSelector,
   useModal,
@@ -20,12 +21,12 @@ export const useTableCardsBody = () => {
     idCard: string,
     question: string,
     answer: string,
-    modalType: string
+    modalType: MODAL_TYPE
   ) => {
     openModal(modalType, 'Edit card')
     dispatch(setSettingEditCardModal({ cardId: idCard, answer, question }))
   }
-  const deleteCurrentCardHandler = (idCard: string, question: string, modalType: string) => {
+  const deleteCurrentCardHandler = (idCard: string, question: string, modalType: MODAL_TYPE) => {
     openModal(modalType, 'Delete card')
     dispatch(setSettingDeleteCardModal({ cardId: idCard, question }))
   }

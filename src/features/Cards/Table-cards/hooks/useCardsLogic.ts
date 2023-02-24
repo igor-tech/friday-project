@@ -6,6 +6,7 @@ import {
   emptyCardSelector,
   emptySearchCardSelector,
   isCardLoadingSelector,
+  MODAL_TYPE,
   myPackUserIdSelector,
   packNameCardSelector,
   pageCardSelector,
@@ -42,7 +43,7 @@ export const useCardsLogic = () => {
 
   const { openModal } = useModal()
 
-  const addNewCardHandler = (modalType: string) => {
+  const addNewCardHandler = (modalType: MODAL_TYPE) => {
     openModal(modalType, 'Add new card')
   }
 
