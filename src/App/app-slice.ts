@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { MODAL_TYPE } from '../common'
 import { authAPI } from '../features/Auth/auth-api'
 import { setStatusLogged } from '../features/Auth/auth-slice'
 import { setData } from '../features/Profile/profile-slice'
@@ -11,7 +12,7 @@ type InitialStateType = {
   message: null | string
   isInitialized: boolean
   modalTitle: string
-  modalType: null | string
+  modalType: MODAL_TYPE
 }
 
 const initialState: InitialStateType = {
@@ -19,7 +20,7 @@ const initialState: InitialStateType = {
   message: null,
   isInitialized: false,
   modalTitle: '',
-  modalType: null,
+  modalType: '' as MODAL_TYPE,
 }
 
 export const getMeAuthTC = createAsyncThunk('app/getMeAuth', async (_, { dispatch }) => {
@@ -56,7 +57,7 @@ export const appSlice = createSlice({
       state.modalTitle = ''
       state.modalType = action.payload
     },
-    setOpenModal: (state, action: PayloadAction<{ type: string; modalTitle: string }>) => {
+    setOpenModal: (state, action: PayloadAction<{ type: MODAL_TYPE; modalTitle: string }>) => {
       state.modalType = action.payload.type
       state.modalTitle = action.payload.modalTitle
     },

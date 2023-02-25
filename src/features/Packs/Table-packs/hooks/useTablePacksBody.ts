@@ -10,8 +10,9 @@ import {
   PATH,
   useAppDispatch,
   useAppSelector,
-  useModal,
   userIdSelector,
+  useModal,
+  MODAL_TYPE,
 } from 'common'
 
 export const useTablePacksBody = () => {
@@ -28,7 +29,7 @@ export const useTablePacksBody = () => {
     idPack: string,
     currentNamePack: string,
     currentPrivateStatus: boolean,
-    modalType: string
+    modalType: MODAL_TYPE
   ) => {
     openModal(modalType, 'Edit pack')
     dispatch(
@@ -40,7 +41,7 @@ export const useTablePacksBody = () => {
     )
   }
 
-  const deleteCurrentPack = (idPack: string, currentNamePack: string, modalType: string) => {
+  const deleteCurrentPack = (idPack: string, currentNamePack: string, modalType: MODAL_TYPE) => {
     openModal(modalType, 'Delete Pack')
     dispatch(setSettingDeletePackModal({ packId: idPack, packName: currentNamePack }))
   }
@@ -52,7 +53,6 @@ export const useTablePacksBody = () => {
 
   return {
     learnPack,
-    navigate,
     cardsPack_id,
     myProfileId,
     cardsPack,

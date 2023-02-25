@@ -1,43 +1,33 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 
-import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { updateCardPack } from '../../cards-slice'
 
-import {
-  cancelBtnSx,
-  editPackCardBtnContainer,
-  editPackCardContainerSx,
-  editPackCardFormControlSx,
-  saveBtnSx,
-} from './editCardPackModal.muiSx'
+import { editPackCardBtnContainer, editPackCardContainerSx } from './editCardPackModal.muiSx'
 
 import {
-  appStatusSelector,
-  GeneralButton,
+  ActionButtonsModal,
+  PackControlBlock,
   packIdSelector,
   packNameCardSelector,
   privateStatusSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
 } from 'common'
 
-export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const EditCardPackModal = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const packId = useAppSelector(packIdSelector)
   const cardPackName = useAppSelector(packNameCardSelector)
   const currentPrivateStatus = useAppSelector(privateStatusSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
   const [newPrivateStatus, setNewPrivateStatus] = useState(currentPrivateStatus)
   const [newNamePackCard, setNewNamePackCard] = useState(cardPackName)
   const [error, setError] = useState('')
 
   const updatePackCardHandler = () => {
-    if (newNamePackCard.trim() === cardPackName.trim()) {
-      setError("You didn't change your name")
-
-      return
-    }
     if (newNamePackCard.trim() !== '' && !error) {
       const updateCurrentCardPack = {
         _id: packId,
@@ -54,50 +44,22 @@ export const EditCardPackModal: React.FC<{ closeModal: () => void }> = ({ closeM
       setError('Name must not be empty')
     }
   }
-  const setNewNamePackCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const name = e.currentTarget.value
-
-    setNewNamePackCard(name)
+  const setNewNamePackCardHandler = (newName: string) => {
+    setNewNamePackCard(newName)
     setError('')
   }
 
   return (
     <Box sx={editPackCardContainerSx}>
-      <TextField
-        fullWidth
-        type="text"
-        variant="standard"
-        label="Name pack"
-        value={newNamePackCard}
-        error={!!error}
-        helperText={error}
-        onChange={setNewNamePackCardHandler}
-        disabled={statusLoad === 'loading'}
-      />
-      <FormControlLabel
-        sx={editPackCardFormControlSx}
-        disabled={statusLoad === 'loading'}
-        control={
-          <Checkbox
-            onChange={e => setNewPrivateStatus(e.currentTarget.checked)}
-            checked={newPrivateStatus}
-          />
-        }
-        label="Private pack"
+      <PackControlBlock
+        error={error}
+        newName={newNamePackCard}
+        checked={newPrivateStatus}
+        onChangeName={setNewNamePackCardHandler}
+        onChangePrivate={setNewPrivateStatus}
       />
       <Box sx={editPackCardBtnContainer}>
-        <GeneralButton
-          name="Cancel"
-          sx={cancelBtnSx}
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-        />
-        <GeneralButton
-          name="Save"
-          sx={saveBtnSx}
-          onClick={updatePackCardHandler}
-          disabled={statusLoad === 'loading' || !!error}
-        />
+        <ActionButtonsModal closeModal={closeModal} actionSubmit={updatePackCardHandler} />
       </Box>
     </Box>
   )

@@ -35,11 +35,11 @@ export const DropDownMenu = () => {
     setAnchorEl(null)
   }
 
-  const editCurrentPackCardHandler = (modalType: string) => {
+  const editCurrentPackCardHandler = (modalType: MODAL_TYPE) => {
     openModal(modalType, 'Edit Pack Card')
     setAnchorEl(null)
   }
-  const deleteCurrentPackCardHandler = (modalType: string) => {
+  const deleteCurrentPackCardHandler = (modalType: MODAL_TYPE) => {
     openModal(modalType, 'Delete Pack Card')
     setAnchorEl(null)
   }

@@ -13,5 +13,3 @@ export const editCardBtnContainerSx = {
   justifyContent: 'space-between',
   alignItems: 'center',
 }
-export const cancelBtn = { padding: '8px 28px', background: '#FCFCFC', color: '#000000' }
-export const saveBtn = { padding: '8px 44px' }

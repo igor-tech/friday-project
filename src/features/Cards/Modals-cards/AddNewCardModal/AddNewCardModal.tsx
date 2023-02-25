@@ -15,16 +15,21 @@ import { createNewCard } from '../../cards-slice'
 import {
   addNewCardBtnContainerSx,
   addNewCardContainerSx,
-  cancelBtn,
   chooseQuestionTextSx,
-  saveBtn,
   selectSx,
   textFieldSx,
 } from './addNewCardModal.muiSx'
 
-import { appStatusSelector, GeneralButton, useAppDispatch, useAppSelector } from 'common'
+import {
+  ActionButtonsModal,
+  appStatusSelector,
+  useAppDispatch,
+  useAppSelector,
+  useModal,
+} from 'common'
 
-export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const AddNewCardModal = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const statusLoad = useAppSelector(appStatusSelector)
   const [questionFormat, setQuestionFormat] = useState('Text')
@@ -120,8 +125,7 @@ export const AddNewCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
       />
 
       <Box sx={addNewCardBtnContainerSx}>
-        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} disabled={disabled} />
-        <GeneralButton name="Save" onClick={addNewCardHandler} sx={saveBtn} disabled={disabled} />
+        <ActionButtonsModal actionSubmit={addNewCardHandler} closeModal={closeModal} />
       </Box>
     </Box>
   )

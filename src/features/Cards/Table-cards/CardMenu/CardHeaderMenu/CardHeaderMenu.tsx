@@ -24,7 +24,7 @@ import {
 export const CardHeaderMenu: React.FC<{
   packName: string
   isMyPack: boolean
-  addNewCardHandler: (modalType: string) => void
+  addNewCardHandler: (modalType: MODAL_TYPE) => void
 }> = ({ packName, isMyPack, addNewCardHandler }) => {
   const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()

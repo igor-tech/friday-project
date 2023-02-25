@@ -1,31 +1,30 @@
 import React from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { deleteCard, setSettingDeleteCardModal } from '../../cards-slice'
 
 import {
-  cancelBtnSx,
   deleteBtnSx,
   deleteCardBtnContainerSx,
   deleteCardContainerSx,
-  warningMessageSx,
 } from './deleteCardModal.muiSx'
 
 import {
-  appStatusSelector,
+  ActionButtonsModal,
   cardIdSettingSelector,
-  GeneralButton,
+  MessageToDelete,
   questionSettingSelector,
   useAppDispatch,
   useAppSelector,
+  useModal,
 } from 'common'
 
-export const DeleteCardModal: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const DeleteCardModal = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const idCard = useAppSelector(cardIdSettingSelector)
   const question = useAppSelector(questionSettingSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
 
   const deleteCurrentCardHandler = () => {
     dispatch(deleteCard({ id: idCard }))
@@ -38,22 +37,16 @@ export const DeleteCardModal: React.FC<{ closeModal: () => void }> = ({ closeMod
 
   return (
     <Box sx={deleteCardContainerSx}>
-      <Typography component="p" sx={warningMessageSx}>
+      <MessageToDelete>
         Do you really want to remove <strong>{question}</strong> <br />
         Question will be deleted.
-      </Typography>
+      </MessageToDelete>
       <Box sx={deleteCardBtnContainerSx}>
-        <GeneralButton
-          name="Cancel"
-          onClick={closeModal}
-          disabled={statusLoad === 'loading'}
-          sx={cancelBtnSx}
-        />
-        <GeneralButton
-          sx={deleteBtnSx}
-          name="Delete"
-          onClick={deleteCurrentCardHandler}
-          disabled={statusLoad === 'loading'}
+        <ActionButtonsModal
+          actionSubmit={deleteCurrentCardHandler}
+          closeModal={closeModal}
+          submitStyleSx={deleteBtnSx}
+          submitName="Delete"
         />
       </Box>
     </Box>

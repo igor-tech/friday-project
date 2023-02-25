@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import {
   Box,
@@ -13,26 +13,26 @@ import {
 import { setSettingEditCardModal, updateCard } from '../../cards-slice'
 
 import {
-  cancelBtn,
   chooseQuestionTextSx,
   editCardBtnContainerSx,
   editCardContainerSx,
   editSelectSx,
-  saveBtn,
   textFieldSx,
 } from './editCardModal.muiSx'
 
 import {
+  ActionButtonsModal,
   answerSettingSelector,
   appStatusSelector,
-  GeneralButton,
+  cardIdSettingSelector,
   questionSettingSelector,
   useAppDispatch,
   useAppSelector,
-  cardIdSettingSelector,
+  useModal,
 } from 'common'
 
-export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) => {
+export const EditCardModal = () => {
+  const { closeModal } = useModal()
   const dispatch = useAppDispatch()
   const currentQuestion = useAppSelector(questionSettingSelector)
   const currentAnswer = useAppSelector(answerSettingSelector)
@@ -133,13 +133,7 @@ export const EditCardModal: FC<{ closeModal: () => void }> = ({ closeModal }) =>
       />
 
       <Box sx={editCardBtnContainerSx}>
-        <GeneralButton name="Cancel" onClick={closeModal} sx={cancelBtn} disabled={disabled} />
-        <GeneralButton
-          name="Save"
-          onClick={updateCurrentCardHandler}
-          sx={saveBtn}
-          disabled={disabled}
-        />
+        <ActionButtonsModal actionSubmit={updateCurrentCardHandler} closeModal={closeModal} />
       </Box>
     </Box>
   )

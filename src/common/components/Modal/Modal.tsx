@@ -10,7 +10,7 @@ export const Modal = () => {
 
   return (
     <ModalWrapper closeModal={closeModal} isOpen={!!isOpenType} title={modalTitle}>
-      <ModalContent closeModal={closeModal} />
+      <ModalContent />
     </ModalWrapper>
   )
 }

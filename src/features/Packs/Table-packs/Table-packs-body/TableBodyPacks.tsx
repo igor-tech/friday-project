@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { DeleteOutlined, DriveFileRenameOutlineOutlined, SchoolOutlined } from '@mui/icons-material'
-import { IconButton, Link, TableBody, TableCell, TableRow } from '@mui/material'
+import { IconButton, Link, TableBody, TableCell, TableRow, Tooltip } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 
 import { btnIconBlack } from '../../../Cards/Table-cards/Table-cards-body/tableCardsBody.muiSx'
@@ -40,39 +40,46 @@ export const TableBodyPacks = () => {
         <TableCell align="left">{redactorDataTime(cardsPack.updated)}</TableCell>
         <TableCell align="left">{cardsPack.user_name}</TableCell>
         <TableCell align="left" sx={actionsIconSx}>
-          <IconButton
-            disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
-            onClick={() => learnPack(cardsPack._id)}
-            sx={btnIconBlackSx}
-          >
-            <SchoolOutlined />
-          </IconButton>
+          <Tooltip arrow placement="top" title="learn pack">
+            <IconButton
+              disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
+              onClick={() => learnPack(cardsPack._id)}
+              sx={btnIconBlackSx}
+            >
+              <SchoolOutlined />
+            </IconButton>
+          </Tooltip>
 
           {isMyPack && (
             <>
-              <IconButton
-                onClick={() =>
-                  updateCurrentPackHandler(
-                    cardsPack._id,
-                    cardsPack.name,
-                    cardsPack.private,
-                    MODAL_TYPE.editCurrentPack
-                  )
-                }
-                disabled={statusLoad === 'loading'}
-                sx={btnIconBlack}
-              >
-                <DriveFileRenameOutlineOutlined />
-              </IconButton>
-              <IconButton
-                onClick={() =>
-                  deleteCurrentPack(cardsPack._id, cardsPack.name, MODAL_TYPE.deleteCurrentPack)
-                }
-                disabled={statusLoad === 'loading'}
-                sx={btnIconBlack}
-              >
-                <DeleteOutlined />
-              </IconButton>
+              <Tooltip arrow placement="top" title="edit pack">
+                <IconButton
+                  onClick={() =>
+                    updateCurrentPackHandler(
+                      cardsPack._id,
+                      cardsPack.name,
+                      cardsPack.private,
+                      MODAL_TYPE.editCurrentPack
+                    )
+                  }
+                  disabled={statusLoad === 'loading'}
+                  sx={btnIconBlack}
+                >
+                  <DriveFileRenameOutlineOutlined />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip arrow placement="top" title="delete pack">
+                <IconButton
+                  onClick={() =>
+                    deleteCurrentPack(cardsPack._id, cardsPack.name, MODAL_TYPE.deleteCurrentPack)
+                  }
+                  disabled={statusLoad === 'loading'}
+                  sx={btnIconBlack}
+                >
+                  <DeleteOutlined />
+                </IconButton>
+              </Tooltip>
             </>
           )}
         </TableCell>
