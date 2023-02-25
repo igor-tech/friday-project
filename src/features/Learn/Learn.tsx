@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Box, Container, Paper, Skeleton, Typography } from '@mui/material'
 
 import { BackToPackList, GeneralButton } from '../../common'
-import { getCards } from '../Cards/cards-slice'
+import { getCards, setPacksCardId } from '../Cards/cards-slice'
 import { packNameSx } from '../Cards/Table-cards/CardMenu/CardHeaderMenu/cardHeaderMenu.muiSx'
 
 import { useLearn } from './hooks/useLearn'
@@ -39,6 +39,7 @@ export function Learn() {
 
   useEffect(() => {
     if (first) {
+      dispatch(setPacksCardId(id))
       dispatch(getCards())
       setFirst(false)
     }

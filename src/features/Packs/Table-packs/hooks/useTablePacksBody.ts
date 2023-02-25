@@ -10,8 +10,8 @@ import {
   PATH,
   useAppDispatch,
   useAppSelector,
-  userIdSelector,
   useModal,
+  userIdSelector,
 } from 'common'
 
 export const useTablePacksBody = () => {
@@ -46,17 +46,17 @@ export const useTablePacksBody = () => {
   }
   const cardsPack_id = useAppSelector(packIdSelector)
 
-  const learnPack = () => {
-    navigate(`${PATH.LEARN}/${cardsPack_id}`)
+  const learnPack = (pathId: string) => {
+    navigate(`${PATH.LEARN}/${pathId}`)
   }
 
   return {
     learnPack,
+    navigate,
     cardsPack_id,
     myProfileId,
     cardsPack,
     statusLoad,
-    navigate,
     myPackUserId,
     deleteCurrentPack,
     updateCurrentPackHandler,

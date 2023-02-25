@@ -42,7 +42,7 @@ export const TableBodyPacks = () => {
         <TableCell align="left" sx={actionsIconSx}>
           <IconButton
             disabled={cardsPack.cardsCount === 0 || statusLoad === 'loading'}
-            onClick={learnPack}
+            onClick={() => learnPack(cardsPack._id)}
             sx={btnIconBlackSx}
           >
             <SchoolOutlined />
