@@ -1,18 +1,14 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 
-import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { updateCardPack } from '../../cards-slice'
 
-import {
-  editPackCardBtnContainer,
-  editPackCardContainerSx,
-  editPackCardFormControlSx,
-} from './editCardPackModal.muiSx'
+import { editPackCardBtnContainer, editPackCardContainerSx } from './editCardPackModal.muiSx'
 
 import {
   ActionButtonsModal,
-  appStatusSelector,
+  PackControlBlock,
   packIdSelector,
   packNameCardSelector,
   privateStatusSelector,
@@ -27,7 +23,6 @@ export const EditCardPackModal = () => {
   const packId = useAppSelector(packIdSelector)
   const cardPackName = useAppSelector(packNameCardSelector)
   const currentPrivateStatus = useAppSelector(privateStatusSelector)
-  const statusLoad = useAppSelector(appStatusSelector)
   const [newPrivateStatus, setNewPrivateStatus] = useState(currentPrivateStatus)
   const [newNamePackCard, setNewNamePackCard] = useState(cardPackName)
   const [error, setError] = useState('')
@@ -54,36 +49,19 @@ export const EditCardPackModal = () => {
       setError('Name must not be empty')
     }
   }
-  const setNewNamePackCardHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const name = e.currentTarget.value
-
-    setNewNamePackCard(name)
+  const setNewNamePackCardHandler = (newName: string) => {
+    setNewNamePackCard(newName)
     setError('')
   }
 
   return (
     <Box sx={editPackCardContainerSx}>
-      <TextField
-        fullWidth
-        type="text"
-        variant="standard"
-        label="Name pack"
-        value={newNamePackCard}
-        error={!!error}
-        helperText={error}
-        onChange={setNewNamePackCardHandler}
-        disabled={statusLoad === 'loading'}
-      />
-      <FormControlLabel
-        sx={editPackCardFormControlSx}
-        disabled={statusLoad === 'loading'}
-        control={
-          <Checkbox
-            onChange={e => setNewPrivateStatus(e.currentTarget.checked)}
-            checked={newPrivateStatus}
-          />
-        }
-        label="Private pack"
+      <PackControlBlock
+        error={error}
+        newName={newNamePackCard}
+        checked={newPrivateStatus}
+        onChangeName={setNewNamePackCardHandler}
+        onChangePrivate={setNewPrivateStatus}
       />
       <Box sx={editPackCardBtnContainer}>
         <ActionButtonsModal closeModal={closeModal} actionSubmit={updatePackCardHandler} />
