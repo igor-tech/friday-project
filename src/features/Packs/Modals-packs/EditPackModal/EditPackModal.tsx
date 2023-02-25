@@ -29,11 +29,6 @@ export const EditPackModal = () => {
   const [error, setError] = useState('')
 
   const updateCurrentPackHandler = () => {
-    if (newNamePack.trim() === currentNamePack.trim()) {
-      setError("You didn't change your name")
-
-      return
-    }
     if (newNamePack.trim() !== '' && !error) {
       const updateCurrentPack = {
         _id: idPack,

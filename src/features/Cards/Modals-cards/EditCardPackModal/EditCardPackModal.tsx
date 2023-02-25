@@ -28,11 +28,6 @@ export const EditCardPackModal = () => {
   const [error, setError] = useState('')
 
   const updatePackCardHandler = () => {
-    if (newNamePackCard.trim() === cardPackName.trim()) {
-      setError("You didn't change your name")
-
-      return
-    }
     if (newNamePackCard.trim() !== '' && !error) {
       const updateCurrentCardPack = {
         _id: packId,
