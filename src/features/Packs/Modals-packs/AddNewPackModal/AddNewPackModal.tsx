@@ -1,19 +1,13 @@
 import * as React from 'react'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
-import { Box, Checkbox, FormControlLabel, TextField } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { createNewPack } from '../../packs-slice'
 
-import { addPackBtnContainerSx, addPackContainerSx, formControlSx } from './addNewPackModal.muiSx'
+import { addPackBtnContainerSx, addPackContainerSx } from './addNewPackModal.muiSx'
 
-import {
-  ActionButtonsModal,
-  appStatusSelector,
-  useAppDispatch,
-  useAppSelector,
-  useModal,
-} from 'common'
+import { ActionButtonsModal, PackControlBlock, useAppDispatch, useModal } from 'common'
 
 export const AddNewPackModal = () => {
   const { closeModal } = useModal()
@@ -21,8 +15,6 @@ export const AddNewPackModal = () => {
   const [privateStatus, setPrivateStatus] = useState(false)
   const [namePack, setNamePack] = useState('')
   const [error, setError] = useState('')
-
-  const statusLoad = useAppSelector(appStatusSelector)
 
   const addNewPackHandler = () => {
     if (namePack.trim() !== '' && !error) {
@@ -42,36 +34,19 @@ export const AddNewPackModal = () => {
     }
   }
 
-  const setNamePackHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const name = e.currentTarget.value
-
-    setNamePack(name)
+  const setNamePackHandler = (newName: string) => {
+    setNamePack(newName)
     setError('')
   }
 
   return (
     <Box sx={addPackContainerSx}>
-      <TextField
-        fullWidth
-        type="text"
-        variant="standard"
-        label="Name pack"
-        value={namePack}
-        error={!!error}
-        helperText={error}
-        onChange={setNamePackHandler}
-        disabled={statusLoad === 'loading'}
-      />
-      <FormControlLabel
-        sx={formControlSx}
-        disabled={statusLoad === 'loading'}
-        control={
-          <Checkbox
-            onChange={e => setPrivateStatus(e.currentTarget.checked)}
-            checked={privateStatus}
-          />
-        }
-        label="Private pack"
+      <PackControlBlock
+        error={error}
+        checked={privateStatus}
+        onChangePrivate={setPrivateStatus}
+        newName={namePack}
+        onChangeName={setNamePackHandler}
       />
       <Box sx={addPackBtnContainerSx}>
         <ActionButtonsModal
