@@ -15,6 +15,7 @@ export const centerTextSx = {
 }
 export const questionSx = {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: '15px',
 }
 export const answerSx = {

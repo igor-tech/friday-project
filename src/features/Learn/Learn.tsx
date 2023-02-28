@@ -6,6 +6,7 @@ import { BackToPackList, GeneralButton } from '../../common'
 import { getCards, setPacksCardId } from '../Cards/cards-slice'
 import { packNameSx } from '../Cards/Table-cards/CardMenu/CardHeaderMenu/cardHeaderMenu.muiSx'
 
+import { CustomQuestion } from './CustomQuestion'
 import { useLearn } from './hooks/useLearn'
 import {
   centerTextSx,
@@ -14,7 +15,6 @@ import {
   learnContainerSx,
   paperLearnSx,
 } from './Learn.muiSx'
-import { QuestionAnswer } from './QuestionAnswer'
 import { RateLearn } from './RateLearn'
 
 export function Learn() {
@@ -65,7 +65,12 @@ export function Learn() {
         ) : (
           <Paper>
             <Container sx={learnContainerSx}>
-              <QuestionAnswer name={'Question:'} cardGist={card.question} cardId={card._id} />
+              <CustomQuestion
+                name={'Question:'}
+                cardGist={card.question}
+                cardId={card._id}
+                img={card.questionImg}
+              />
 
               <Typography sx={countAttemptSx}>
                 {`Количество попыток ответов на вопрос: ${card.shots}`}
@@ -79,7 +84,12 @@ export function Learn() {
                 />
               ) : (
                 <>
-                  <QuestionAnswer name={'Answer:'} cardGist={card.answer} cardId={card._id} />
+                  <CustomQuestion
+                    name={'Answer:'}
+                    cardGist={card.answer}
+                    cardId={card._id}
+                    img={card.answerImg}
+                  />
 
                   <RateLearn value={value} onChangeRadio={onChangeRadio} grades={grades} />
 
