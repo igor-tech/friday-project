@@ -54,4 +54,6 @@ export {
   privateStatusSelector,
   emptySearchCardSelector,
   emptyCardSelector,
+  questionImgSettingSelector,
+  answerImgSettingSelector,
 } from './cards-selectors'
