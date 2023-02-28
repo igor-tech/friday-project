@@ -100,6 +100,7 @@ const initialState = {
     packId: '',
     packName: '',
     privateStatus: false,
+    deckCover: '',
   },
 }
 
@@ -152,11 +153,13 @@ export const packsSlice = createSlice({
         packId: string
         packName: string
         privateStatus: boolean
+        deckCover: string
       }>
     ) => {
       state.packsSettingModal.packId = action.payload.packId
       state.packsSettingModal.packName = action.payload.packName
       state.packsSettingModal.privateStatus = action.payload.privateStatus
+      state.packsSettingModal.deckCover = action.payload.deckCover
     },
     setSettingDeletePackModal: (
       state,
