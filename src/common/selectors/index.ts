@@ -35,6 +35,7 @@ export {
   packNameSettingSelector,
   idPackSettingSelector,
   privateStatusSettingSelector,
+  currentDeckCoverSelector,
 } from './packs-selectors'
 
 export {

@@ -19,3 +19,5 @@ export const packNameSettingSelector = (state: RootState) => state.packs.packsSe
 export const privateStatusSettingSelector = (state: RootState) =>
   state.packs.packsSettingModal.privateStatus
 export const idPackSettingSelector = (state: RootState) => state.packs.packsSettingModal.packId
+export const currentDeckCoverSelector = (state: RootState) =>
+  state.packs.packsSettingModal.deckCover
