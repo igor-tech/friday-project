@@ -8,15 +8,19 @@ import { editCardBtnContainerSx, editCardContainerSx } from './editCardModal.mui
 
 import {
   ActionButtonsModal,
+  answerImgSettingSelector,
   answerSettingSelector,
   cardIdSettingSelector,
   QuestionAnswerCardBlock,
+  QuestionAnswerPictureCardBlock,
+  questionImgSettingSelector,
   questionSettingSelector,
   SelectControlCardBlock,
   useAppDispatch,
   useAppSelector,
   useModal,
   validateCardTextFormat,
+  validateCardPictureFormat,
 } from 'common'
 
 export const EditCardModal = () => {
@@ -25,8 +29,11 @@ export const EditCardModal = () => {
   const currentQuestion = useAppSelector(questionSettingSelector)
   const currentAnswer = useAppSelector(answerSettingSelector)
   const idCard = useAppSelector(cardIdSettingSelector)
+  const currentAnswerImg = useAppSelector(answerImgSettingSelector)
+  const currentQuestionImg = useAppSelector(questionImgSettingSelector)
 
-  const [questionFormat, setQuestionFormat] = useState('Text')
+  const format = currentAnswerImg !== '' && currentQuestionImg !== ''
+  const [questionFormat, setQuestionFormat] = useState(format ? 'Picture' : 'Text')
 
   const [dataCard, setDataCard] = useState({
     question: currentQuestion,
@@ -34,22 +41,46 @@ export const EditCardModal = () => {
     errorQuestion: '',
     errorAnswer: '',
   })
+  const [dataCardImage, setDataCardImage] = useState({
+    questionImg: currentQuestionImg,
+    answerImg: currentAnswerImg,
+    errorQuestionImg: '',
+    errorAnswerImg: '',
+    isQuestionBroken: false,
+    isAnswerBroken: false,
+  })
 
   const updateCurrentCardHandler = () => {
-    const isValidate = validateCardTextFormat(dataCard, setDataCard)
+    let isValidate = false
 
+    if (questionFormat === 'Text') {
+      isValidate = validateCardTextFormat(dataCard, setDataCard)!
+    }
+    if (questionFormat === 'Picture') {
+      isValidate = validateCardPictureFormat(dataCardImage, setDataCardImage)!
+    }
     if (isValidate) {
       const updateCurrentCard = {
         _id: idCard,
         question: dataCard.question.trim(),
         answer: dataCard.answer.trim(),
+        answerImg: dataCardImage.answerImg,
+        questionImg: dataCardImage.questionImg,
       }
 
       dispatch(updateCard(updateCurrentCard))
         .unwrap()
         .then(() => {
           closeModal()
-          dispatch(setSettingEditCardModal({ cardId: '', answer: '', question: '' }))
+          dispatch(
+            setSettingEditCardModal({
+              cardId: '',
+              answer: '',
+              question: '',
+              answerImg: '',
+              questionImg: '',
+            })
+          )
         })
     }
   }
@@ -60,7 +91,15 @@ export const EditCardModal = () => {
         setQuestionFormat={setQuestionFormat}
         questionFormat={questionFormat}
       />
-      <QuestionAnswerCardBlock dataCard={dataCard} setDataCard={setDataCard} />
+      {questionFormat === 'Text' && (
+        <QuestionAnswerCardBlock dataCard={dataCard} setDataCard={setDataCard} />
+      )}
+      {questionFormat === 'Picture' && (
+        <QuestionAnswerPictureCardBlock
+          dataCardImage={dataCardImage}
+          setDataCardImage={setDataCardImage}
+        />
+      )}
       <Box sx={editCardBtnContainerSx}>
         <ActionButtonsModal actionSubmit={updateCurrentCardHandler} closeModal={closeModal} />
       </Box>

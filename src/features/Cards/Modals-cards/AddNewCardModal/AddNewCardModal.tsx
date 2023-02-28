@@ -13,6 +13,8 @@ import {
   useModal,
   validateCardTextFormat,
   SelectControlCardBlock,
+  QuestionAnswerPictureCardBlock,
+  validateCardPictureFormat,
 } from 'common'
 
 export const AddNewCardModal = () => {
@@ -25,15 +27,34 @@ export const AddNewCardModal = () => {
     errorQuestion: '',
     errorAnswer: '',
   })
+
+  const [dataCardImage, setDataCardImage] = useState({
+    questionImg: '',
+    answerImg: '',
+    errorQuestionImg: '',
+    errorAnswerImg: '',
+    isQuestionBroken: false,
+    isAnswerBroken: false,
+  })
+
   const [questionFormat, setQuestionFormat] = useState('Text')
 
   const addNewCardHandler = () => {
-    const isValidate = validateCardTextFormat(dataCard, setDataCard)
+    let isValidate = false
+
+    if (questionFormat === 'Text') {
+      isValidate = validateCardTextFormat(dataCard, setDataCard)!
+    }
+    if (questionFormat === 'Picture') {
+      isValidate = validateCardPictureFormat(dataCardImage, setDataCardImage)!
+    }
 
     if (isValidate) {
       const dataParam = {
         question: dataCard.question.trim(),
         answer: dataCard.answer.trim(),
+        answerImg: dataCardImage.answerImg,
+        questionImg: dataCardImage.questionImg,
       }
 
       dispatch(createNewCard(dataParam))
@@ -50,8 +71,15 @@ export const AddNewCardModal = () => {
         questionFormat={questionFormat}
         setQuestionFormat={setQuestionFormat}
       />
-
-      <QuestionAnswerCardBlock dataCard={dataCard} setDataCard={setDataCard} />
+      {questionFormat === 'Text' && (
+        <QuestionAnswerCardBlock dataCard={dataCard} setDataCard={setDataCard} />
+      )}
+      {questionFormat === 'Picture' && (
+        <QuestionAnswerPictureCardBlock
+          dataCardImage={dataCardImage}
+          setDataCardImage={setDataCardImage}
+        />
+      )}
 
       <Box sx={addNewCardBtnContainerSx}>
         <ActionButtonsModal actionSubmit={addNewCardHandler} closeModal={closeModal} />

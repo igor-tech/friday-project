@@ -1,7 +1,16 @@
 import React from 'react'
 
-import { DriveFileRenameOutlineOutlined, DeleteOutlined } from '@mui/icons-material'
-import { TableRow, TableCell, TableBody, Box, IconButton, Rating, Tooltip } from '@mui/material'
+import { DeleteOutlined, DriveFileRenameOutlineOutlined } from '@mui/icons-material'
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Rating,
+  TableBody,
+  TableCell,
+  TableRow,
+  Tooltip,
+} from '@mui/material'
 
 import { useTableCardsBody } from '../hooks/useTableCardsBody'
 
@@ -16,14 +25,24 @@ export const TableCardsBody = () => {
   const cardsLayout = cards.map((cards, index) => {
     const labelId = `enhanced-table-checkbox-${index}`
     const isMyPack = myProfileId === cards.user_id
+    const question =
+      cards.questionImg && cards.questionImg !== '' ? (
+        <Avatar src={cards.questionImg} alt="question" variant="square" />
+      ) : (
+        cards.question
+      )
+    const answer =
+      cards.answerImg && cards.answerImg !== '' ? (
+        <Avatar src={cards.answerImg} alt="answer" variant="square" />
+      ) : (
+        cards.answer
+      )
 
     return (
       <TableRow hover key={cards._id}>
-        <TableCell id={labelId} padding="normal">
-          {cards.question}
-        </TableCell>
+        <TableCell id={labelId}>{question}</TableCell>
 
-        <TableCell align="left">{cards.answer}</TableCell>
+        <TableCell align="left">{answer}</TableCell>
         <TableCell align="left">{redactorDataTime(cards.updated)}</TableCell>
         <TableCell align="left" sx={grade}>
           <Rating name="read-only" value={cards.grade} readOnly />
@@ -36,6 +55,8 @@ export const TableCardsBody = () => {
                       cards._id,
                       cards.question,
                       cards.answer,
+                      cards.answerImg,
+                      cards.questionImg,
                       MODAL_TYPE.editCurrentCard
                     )
                   }

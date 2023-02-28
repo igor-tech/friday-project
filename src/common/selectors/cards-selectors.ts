@@ -19,3 +19,7 @@ export const isCardLoadingSelector = (state: RootState) => state.cards.isCardLoa
 export const questionSettingSelector = (state: RootState) => state.cards.cardsSettingModal.question
 export const cardIdSettingSelector = (state: RootState) => state.cards.cardsSettingModal.cardId
 export const answerSettingSelector = (state: RootState) => state.cards.cardsSettingModal.answer
+export const answerImgSettingSelector = (state: RootState) =>
+  state.cards.cardsSettingModal.answerImg
+export const questionImgSettingSelector = (state: RootState) =>
+  state.cards.cardsSettingModal.questionImg
