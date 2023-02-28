@@ -6,7 +6,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
 import defaultCover from '../../../../assets/img/defaultCover.jpg'
 import { useAppDispatch } from '../../../hooks'
-import { convertFileToBase64 } from '../../../utils/convertFileToBase64'
+import { convertFileToBase64 } from '../../../utils'
 
 import { containerCoverSx, imgCoverSx, textCoverBlockSx } from './coverBlock.muiSx'
 
