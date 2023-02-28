@@ -5,14 +5,14 @@ import { setSettingDeletePackModal, setSettingEditPackModal } from '../../packs-
 import {
   appStatusSelector,
   cardPacksSelector,
+  MODAL_TYPE,
   myPackUserIdSelector,
   packIdSelector,
   PATH,
   useAppDispatch,
   useAppSelector,
-  userIdSelector,
   useModal,
-  MODAL_TYPE,
+  userIdSelector,
 } from 'common'
 
 export const useTablePacksBody = () => {
@@ -29,7 +29,8 @@ export const useTablePacksBody = () => {
     idPack: string,
     currentNamePack: string,
     currentPrivateStatus: boolean,
-    modalType: MODAL_TYPE
+    modalType: MODAL_TYPE,
+    deckCover: string
   ) => {
     openModal(modalType, 'Edit pack')
     dispatch(
@@ -37,6 +38,7 @@ export const useTablePacksBody = () => {
         packId: idPack,
         packName: currentNamePack,
         privateStatus: currentPrivateStatus,
+        deckCover: deckCover,
       })
     )
   }

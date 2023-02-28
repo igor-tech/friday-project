@@ -26,3 +26,9 @@ export const btnIconBlackSx = {
 export const tableHeadSx = {
   background: '#EFEFEF',
 }
+
+export const firstColumnSx = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+}
