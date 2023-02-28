@@ -36,6 +36,8 @@ const initialState = {
     cardId: '',
     question: '',
     answer: '',
+    answerImg: '',
+    questionImg: '',
   },
   isCardLoading: false,
 }
@@ -127,6 +129,7 @@ export const updateCard = createAsyncThunk(
   'card/update',
   async (updateData: RequestUpdateCard, { dispatch }) => {
     dispatch(setAppStatus('loading'))
+    console.log(updateData)
     try {
       await tableAPI.updateCard(updateData)
       dispatch(setAppStatus('success'))
@@ -201,11 +204,19 @@ export const cardsSlice = createSlice({
     },
     setSettingEditCardModal: (
       state,
-      action: PayloadAction<{ cardId: string; answer: string; question: string }>
+      action: PayloadAction<{
+        cardId: string
+        answer: string
+        question: string
+        answerImg: string
+        questionImg: string
+      }>
     ) => {
       state.cardsSettingModal.cardId = action.payload.cardId
       state.cardsSettingModal.answer = action.payload.answer
       state.cardsSettingModal.question = action.payload.question
+      state.cardsSettingModal.questionImg = action.payload.questionImg
+      state.cardsSettingModal.answerImg = action.payload.answerImg
     },
     setSettingDeleteCardModal: (
       state,
