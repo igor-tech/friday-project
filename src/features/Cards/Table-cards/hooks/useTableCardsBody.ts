@@ -21,10 +21,12 @@ export const useTableCardsBody = () => {
     idCard: string,
     question: string,
     answer: string,
+    answerImg: string,
+    questionImg: string,
     modalType: MODAL_TYPE
   ) => {
     openModal(modalType, 'Edit card')
-    dispatch(setSettingEditCardModal({ cardId: idCard, answer, question }))
+    dispatch(setSettingEditCardModal({ cardId: idCard, answer, question, answerImg, questionImg }))
   }
   const deleteCurrentCardHandler = (idCard: string, question: string, modalType: MODAL_TYPE) => {
     openModal(modalType, 'Delete card')
