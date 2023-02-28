@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { Box } from '@mui/material'
 
+import { CoverBlock } from '../../../../common/components/Modal/CoverBlock/CoverBlock'
 import { createNewPack } from '../../packs-slice'
 
 import { addPackBtnContainerSx, addPackContainerSx } from './addNewPackModal.muiSx'
@@ -15,12 +16,13 @@ export const AddNewPackModal = () => {
   const [privateStatus, setPrivateStatus] = useState(false)
   const [namePack, setNamePack] = useState('')
   const [error, setError] = useState('')
+  const [cover, setCover] = useState('')
 
   const addNewPackHandler = () => {
     if (namePack.trim() !== '' && !error) {
       const dataParams = {
         name: namePack.trim(),
-        deckCover: '',
+        deckCover: cover,
         private: privateStatus,
       }
 
@@ -41,6 +43,7 @@ export const AddNewPackModal = () => {
 
   return (
     <Box sx={addPackContainerSx}>
+      <CoverBlock name={'Cover'} cover={cover} onChangeCover={setCover} />
       <PackControlBlock
         error={error}
         checked={privateStatus}
