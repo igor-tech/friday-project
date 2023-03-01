@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
-import { Avatar, Container, Paper, Typography, Box } from '@mui/material'
+import { Box, Container, Paper, Typography } from '@mui/material'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import {
@@ -11,16 +11,15 @@ import {
   PATH,
   useAppDispatch,
   useAppSelector,
-  userAvatarSelector,
   userEmailSelector,
   userNameSelector,
 } from '../../common'
 import { LogoutAT } from '../Auth/auth-slice'
 
+import { AvatarComponent } from './AvatarComponents/AvatarComponents'
 import { UpdateProfileName } from './EditableSpanProfileName/EditableSpanProfileName'
-import { upDateNameTC } from './profile-slice'
+import { upDateProfileTC } from './profile-slice'
 import {
-  avatarSx,
   backBlockSx,
   BtnLogOutSubmitSx,
   contentContainerSx,
@@ -34,13 +33,7 @@ export const Profile = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const userName = useAppSelector(userNameSelector)
   const userEmail = useAppSelector(userEmailSelector)
-  const userAvatar = useAppSelector(userAvatarSelector)
   const statusLoad = useAppSelector(appStatusSelector)
-
-  const avatarUser =
-    userAvatar !== null
-      ? userAvatar
-      : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -60,7 +53,7 @@ export const Profile = () => {
   }
   const updateUserName = () => {
     if (newName.trim() !== '') {
-      dispatch(upDateNameTC(newName))
+      dispatch(upDateProfileTC({ newName }))
     }
   }
 
@@ -82,7 +75,7 @@ export const Profile = () => {
             <Typography component="h1" variant="h5" sx={describeTitleSx}>
               Personal Information
             </Typography>
-            <Avatar alt="Remy Sharp" src={avatarUser} sx={avatarSx} />
+            <AvatarComponent />
             <UpdateProfileName
               value={newName}
               onEnter={updateUserName}

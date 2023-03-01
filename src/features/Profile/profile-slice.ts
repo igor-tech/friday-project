@@ -10,14 +10,19 @@ export type InitialStateAuthType = {
   user: UserType
 }
 
-export const upDateNameTC = createAsyncThunk(
+export type upDateProfileType = {
+  newName?: string
+  newPhoto?: string
+}
+
+export const upDateProfileTC = createAsyncThunk(
   'profile/setNewName',
-  async (newName: string, { dispatch }) => {
+  async (newData: upDateProfileType, { dispatch }) => {
     dispatch(setAppStatus('loading'))
     try {
       const { data } = await profileAPI.updateUserInfo({
-        name: newName,
-        avatar: 'https//avatar-url.img',
+        name: newData.newName,
+        avatar: newData.newPhoto,
       })
 
       dispatch(upDateNameAC(data.updatedUser))
