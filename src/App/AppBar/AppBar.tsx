@@ -13,7 +13,14 @@ import {
   userNameSelector,
 } from '../../common'
 
-import { appBarSx, appSx, iconItSx } from './appBar.muiSx'
+import {
+  appBarLeftSx,
+  appBarRightSx,
+  appBarSx,
+  defaultBoxSx,
+  iconItSx,
+  useStylesAppbar,
+} from './appBar.muiSx'
 import { DropDownNavigate } from './DropDownNavigate'
 
 export const AppBar = () => {
@@ -22,16 +29,23 @@ export const AppBar = () => {
   const statusLoad = useAppSelector(appStatusSelector)
   const navigate = useNavigate()
 
+  const classes = useStylesAppbar()
+
   return (
-    <div>
-      <Toolbar color="inherit" sx={appBarSx}>
-        <Box sx={appSx}>
-          <Icon sx={iconItSx}>
-            <Typography component="img" src={incubatorIcon} alt="IT INCUBATOR" />
+    <Box sx={defaultBoxSx}>
+      <Toolbar color="inherit" sx={appBarSx} className={classes.AppBarSx}>
+        <Box sx={appBarLeftSx} className={classes.appBarLeftSx}>
+          <Icon sx={iconItSx} className={classes.appBarIconItSx}>
+            <Typography
+              component="img"
+              src={incubatorIcon}
+              alt="IT INCUBATOR"
+              className={classes.appBarIconItSx}
+            />
           </Icon>
         </Box>
 
-        <Box sx={appSx}>
+        <Box sx={appBarRightSx} className={classes.appBarRightSx}>
           <Typography variant="h6" component="div" sx={{ lineHeight: ' 40px' }}>
             {userName}
           </Typography>
@@ -47,6 +61,6 @@ export const AppBar = () => {
           )}
         </Box>
       </Toolbar>
-    </div>
+    </Box>
   )
 }

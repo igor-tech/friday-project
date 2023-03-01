@@ -1,16 +1,67 @@
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles'
+
+export const useStylesAppbar = makeStyles((theme: Theme) =>
+  createStyles({
+    AppBarSx: {
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'space-around',
+        /*        backgroundColor: theme.palette.primary.main,*/
+      },
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'center',
+      },
+    },
+    appBarLeftSx: {
+      [theme.breakpoints.down('sm')]: {
+        margin: '0px 0px 0px 0px!important',
+      },
+      [theme.breakpoints.down('xs')]: {
+        margin: '0px 0px 0px 40px!important',
+      },
+    },
+    appBarRightSx: {
+      [theme.breakpoints.down('sm')]: {
+        margin: '0px 0px 0px 0px!important',
+      },
+      [theme.breakpoints.down('xs')]: {
+        margin: '0px 25px 0px 0px!important',
+      },
+    },
+    appBarIconItSx: {
+      [theme.breakpoints.down('xs')]: {
+        width: 155,
+        height: 40,
+        margin: '0!important',
+      },
+    },
+  })
+)
+
+export const defaultBoxSx = {
+  width: '100%',
+}
+
 export const appBarSx = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   boxShadow: '1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1)',
   borderRadius: '2px',
-  minHeight: '360px',
+  width: '100%',
   '& > :not(style)': {
     m: 1,
     margin: '0px 100px 0px 100px',
   },
 }
-export const appSx = {
+
+export const appBarLeftSx = {
+  display: 'flex',
+  '& > :not(style)': {
+    margin: '0px 10px',
+  },
+}
+
+export const appBarRightSx = {
   display: 'flex',
   '& > :not(style)': {
     margin: '0px 10px',
