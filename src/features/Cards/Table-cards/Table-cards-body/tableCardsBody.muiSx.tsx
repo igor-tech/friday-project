@@ -1,9 +1,6 @@
-export const grade = {
-  display: 'flex',
-  alignItems: 'center',
-}
 export const btnIcon = {
   marginLeft: '40px',
+  display: 'inline-flex',
 }
 export const btnIconBlack = {
   color: 'black',

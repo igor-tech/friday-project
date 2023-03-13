@@ -14,7 +14,7 @@ import {
 
 import { useTableCardsBody } from '../hooks/useTableCardsBody'
 
-import { btnIcon, btnIconBlack, grade } from './tableCardsBody.muiSx'
+import { btnIcon, btnIconBlack } from './tableCardsBody.muiSx'
 
 import { MODAL_TYPE, redactorDataTime } from 'common'
 
@@ -48,7 +48,7 @@ export const TableCardsBody = () => {
           {answer}
         </TableCell>
         <TableCell align="left">{redactorDataTime(cards.updated)}</TableCell>
-        <TableCell align="left" sx={grade}>
+        <TableCell align="left">
           <Rating name="read-only" value={cards.grade} readOnly />
           {isMyPack && (
             <Box sx={btnIcon}>
