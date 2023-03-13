@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
-import { requestEmailMessage, handleServerNetworkError } from '../../../../common'
 import { AUTH_RESET } from '../../auth-api'
+
+import { requestEmailMessage, handleServerNetworkError } from 'common'
 
 interface initialStateType {
   email: string
@@ -50,7 +51,7 @@ export const recoveryPasswordSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(resetPassword.fulfilled, (state, action) => {
-      state.email = action.payload!
+      if (action.payload) state.email = action.payload
     })
   },
 })

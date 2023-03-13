@@ -40,9 +40,13 @@ export const TableCardsBody = () => {
 
     return (
       <TableRow hover key={cards._id}>
-        <TableCell id={labelId}>{question}</TableCell>
+        <TableCell id={labelId} sx={{ wordBreak: 'break-all' }}>
+          {question}
+        </TableCell>
 
-        <TableCell align="left">{answer}</TableCell>
+        <TableCell align="left" sx={{ wordBreak: 'break-all' }}>
+          {answer}
+        </TableCell>
         <TableCell align="left">{redactorDataTime(cards.updated)}</TableCell>
         <TableCell align="left" sx={grade}>
           <Rating name="read-only" value={cards.grade} readOnly />

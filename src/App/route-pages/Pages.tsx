@@ -2,8 +2,6 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
-import { Learn } from '../../features/Learn/Learn'
-
 import { PrivatePages } from './PrivatePages'
 
 import { PATH } from 'common'
@@ -16,6 +14,7 @@ import {
   Profile,
   Register,
   Packs,
+  Learn,
 } from 'features'
 
 export const Pages = () => {

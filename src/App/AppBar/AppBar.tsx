@@ -4,14 +4,6 @@ import { Box, Icon, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import incubatorIcon from '../../assets/img/It-incubator.png'
-import {
-  appStatusSelector,
-  GeneralButton,
-  isLoggedInSelector,
-  PATH,
-  useAppSelector,
-  userNameSelector,
-} from '../../common'
 
 import {
   appBarLeftSx,
@@ -22,6 +14,15 @@ import {
   useStylesAppbar,
 } from './appBar.muiSx'
 import { DropDownNavigate } from './DropDownNavigate'
+
+import {
+  appStatusSelector,
+  GeneralButton,
+  isLoggedInSelector,
+  PATH,
+  useAppSelector,
+  userNameSelector,
+} from 'common'
 
 export const AppBar = () => {
   const userName = useAppSelector(userNameSelector)

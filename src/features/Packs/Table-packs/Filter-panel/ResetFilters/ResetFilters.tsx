@@ -13,6 +13,7 @@ export const ResetFilters = () => {
   const dispatch = useAppDispatch()
   const statusLoad = useAppSelector(appStatusSelector)
   const isFilterReset = useAppSelector(isFilterResetSelector)
+
   const onClickHandler = () => {
     dispatch(
       remove({

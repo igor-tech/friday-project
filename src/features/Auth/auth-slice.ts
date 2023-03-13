@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { handleServerNetworkError } from '../../common'
 import { setData, UserType } from '../Profile/profile-slice'
 
 import { authAPI, LoginType, RegisterType } from './auth-api'
 
 import { setAppMessage, setAppStatus } from 'App/app-slice'
+import { handleServerNetworkError } from 'common'
 
 export type InitialStateAuthType = {
   isRegistered: boolean

@@ -4,14 +4,10 @@ import { Badge, IconButton, styled, Avatar } from '@mui/material'
 
 import { setAppMessage, setAppStatus } from '../../../App/app-slice'
 import changeAvatarIcon from '../../../assets/img/changePhoto.png'
-import {
-  convertFileToBase64,
-  useAppDispatch,
-  useAppSelector,
-  userAvatarSelector,
-} from '../../../common'
 import { upDateProfileTC } from '../profile-slice'
 import { avatarSx } from '../profile.muiSx'
+
+import { convertFileToBase64, useAppDispatch, useAppSelector, userAvatarSelector } from 'common'
 
 export const AvatarComponent = () => {
   const userAvatar = useAppSelector(userAvatarSelector)

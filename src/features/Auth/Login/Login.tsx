@@ -9,11 +9,10 @@ import {
   Link,
   Paper,
   Typography,
+  TextField,
 } from '@mui/material'
-import TextField from '@mui/material/TextField'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
 import {
   cardContainerSx,
   contentContainerSx,
@@ -25,10 +24,11 @@ import {
 import { useLoginForm } from './hooks/useLoginForm'
 import { Left, rightLink, text } from './Login.muiSx'
 
+import { GeneralButton, PATH, ShowPasswordInput } from 'common'
+
 export const Login = () => {
-  const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit, appStatus } =
+  const { getFieldProps, errors, touched, isLoggedIn, values, handleSubmit, disabled } =
     useLoginForm()
-  const disabled = appStatus === 'loading'
 
   if (isLoggedIn) {
     return <Navigate to={PATH.PACKS} />

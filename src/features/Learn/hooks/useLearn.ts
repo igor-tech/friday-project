@@ -2,15 +2,16 @@ import { useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
+import { updateGrade } from '../../Cards/cards-slice'
+import { Cards } from '../../Packs/table-api'
+
 import {
   appStatusSelector,
   cardsSelectors,
   packNameCardSelector,
   useAppDispatch,
   useAppSelector,
-} from '../../../common'
-import { updateGrade } from '../../Cards/cards-slice'
-import { Cards } from '../../Packs/table-api'
+} from 'common'
 
 const getNumberCard = (cards: Cards[]) => {
   const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0)
@@ -40,10 +41,13 @@ export const useLearn = () => {
   const status = useAppSelector(appStatusSelector)
   const cards = useAppSelector(cardsSelectors)
   const packName = useAppSelector(packNameCardSelector)
+
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [first, setFirst] = useState<boolean>(true)
   const [value, setValue] = useState(5)
+
   const { id } = useParams()
+
   const [card, setCard] = useState<Cards>({
     _id: 'fake',
     cardsPack_id: '',
@@ -68,9 +72,8 @@ export const useLearn = () => {
     user_id: '',
   })
 
-  const onChangeRadio = (value: number) => {
-    setValue(value)
-  }
+  const onChangeRadio = (value: number) => setValue(value)
+
   const onNext = () => {
     dispatch(updateGrade({ grade: value, card_id: card._id }))
     setIsChecked(false)

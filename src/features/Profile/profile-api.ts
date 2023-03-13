@@ -1,4 +1,4 @@
-import { instance } from '../../common'
+import { instance } from 'common'
 
 export const profileAPI = {
   updateUserInfo: (updatedUserData: updatedUserDataType) => {

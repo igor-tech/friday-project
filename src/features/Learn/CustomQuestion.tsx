@@ -14,9 +14,9 @@ type Props = {
 }
 export const CustomQuestion = ({ img, name, cardId, cardGist }: Props) => {
   const [isCoverBroken, setIsCoverBroken] = useState(false)
-  const errorHandler = () => {
-    setIsCoverBroken(true)
-  }
+
+  const errorHandler = () => setIsCoverBroken(true)
+
   const deckCover = img ? img : defaultCover
 
   return (

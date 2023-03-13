@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../App/app-slice'
-import { handleServerNetworkError } from '../../common'
 
 import { profileAPI } from './profile-api'
+
+import { handleServerNetworkError } from 'common'
 
 export type InitialStateAuthType = {
   userId: string

@@ -3,7 +3,6 @@ import React from 'react'
 import { Box, Container, Paper, Typography } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
-import { GeneralButton, PATH, ShowPasswordInput } from '../../../../common'
 import {
   BtnSubmitNpSx,
   cardContainerSx,
@@ -16,10 +15,11 @@ import {
 import { useNewPasswordForm } from './hooks/useNewPasswordForm'
 import { isSetNewPassword } from './newPassword-slice'
 
+import { GeneralButton, PATH, ShowPasswordInput } from 'common'
+
 export const NewPassword = () => {
-  const { handleSubmit, isNewPassword, dispatch, errors, getFieldProps, touched, appStatus } =
+  const { handleSubmit, isNewPassword, dispatch, errors, getFieldProps, touched, disabled } =
     useNewPasswordForm()
-  const disabled = appStatus === 'loading'
 
   if (isNewPassword) {
     dispatch(isSetNewPassword(false))

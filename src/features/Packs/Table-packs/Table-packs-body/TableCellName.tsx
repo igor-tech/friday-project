@@ -14,9 +14,9 @@ type PropsType = {
 }
 export const TableCellName: FC<PropsType> = ({ labelId, cardsPack }) => {
   const [isCoverBroken, setIsCoverBroken] = useState(false)
-  const errorHandler = () => {
-    setIsCoverBroken(true)
-  }
+
+  const errorHandler = () => setIsCoverBroken(true)
+
   const deckCover = cardsPack.deckCover ? cardsPack.deckCover : defaultCover
 
   return (

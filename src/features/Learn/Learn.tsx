@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 import { Box, Container, Paper, Skeleton, Typography } from '@mui/material'
 
-import { BackToPackList, GeneralButton } from '../../common'
 import { getCards, setPacksCardId } from '../Cards/cards-slice'
 import { packNameSx } from '../Cards/Table-cards/CardMenu/CardHeaderMenu/cardHeaderMenu.muiSx'
 
@@ -12,10 +11,13 @@ import {
   centerTextSx,
   countAttemptSx,
   generalBtn,
+  learnBlockSx,
   learnContainerSx,
   paperLearnSx,
 } from './Learn.muiSx'
 import { RateLearn } from './RateLearn'
+
+import { BackToPackList, GeneralButton } from 'common'
 
 export function Learn() {
   const {
@@ -48,7 +50,7 @@ export function Learn() {
   }, [dispatch, id, cards, first])
 
   return (
-    <Box sx={{ margin: '24px 136px' }}>
+    <Box sx={learnBlockSx}>
       <BackToPackList />
 
       <Box sx={centerTextSx}>

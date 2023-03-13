@@ -11,15 +11,17 @@ import {
 } from 'redux-persist'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { authReducer } from '../features/Auth/auth-slice'
-import { setNewPasswordReducer } from '../features/Auth/RecoveryPasswordForms/NewPassword/newPassword-slice'
-import { recoveryPasswordReducer } from '../features/Auth/RecoveryPasswordForms/RecoveryPassword/recovery-password-slice'
-import { CardsReducer } from '../features/Cards/cards-slice'
-import { packsReducer } from '../features/Packs/packs-slice'
-import { profileReducer } from '../features/Profile/profile-slice'
-
 import { appReducer } from './app-slice'
 import { cardsPersistConfig, packsPersistConfig, persistConfig } from './persist-config'
+
+import {
+  authReducer,
+  setNewPasswordReducer,
+  recoveryPasswordReducer,
+  CardsReducer,
+  packsReducer,
+  profileReducer,
+} from 'features'
 
 const rootReducer = combineReducers({
   auth: authReducer,

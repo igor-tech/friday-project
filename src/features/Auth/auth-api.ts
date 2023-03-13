@@ -1,12 +1,20 @@
-import { instance, instanceHeroku } from '../../common'
+import { instance, instanceHeroku } from 'common'
 
 export const authAPI = {
-  login: (data: LoginType) => instance.post<ResponseLoginType>(`/auth/login`, data),
-  logout: () => instance.delete<ResponseLogoutType>('/auth/me'),
-  register: (data: RegisterType) =>
-    instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data),
-  me: () => instance.post<ResponseLoginType>(`auth/me`, {}),
+  login(data: LoginType) {
+    return instance.post<ResponseLoginType>(`/auth/login`, data)
+  },
+  logout() {
+    return instance.delete<ResponseLogoutType>('/auth/me')
+  },
+  register(data: RegisterType) {
+    instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data)
+  },
+  me() {
+    return instance.post<ResponseLoginType>(`auth/me`, {})
+  },
 }
+
 export const AUTH_RESET = {
   forgotPassword(data: ForgotPasswordReqType) {
     return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', data)
@@ -16,7 +24,6 @@ export const AUTH_RESET = {
   },
 }
 
-//types
 export type LoginType = RegisterType & {
   rememberMe: boolean
 }
@@ -29,11 +36,11 @@ export type ResponseLoginType = {
   email: string
   name: string
   avatar?: string
-  publicCardPacksCount: number // количество колод
+  publicCardPacksCount: number
   created: Date
   updated: Date
   isAdmin: boolean
-  verified: boolean // подтвердил ли почту
+  verified: boolean
   rememberMe: boolean
   error?: string
 }
@@ -47,11 +54,11 @@ export type ResponseRegisterType = {
     email: string
     name: string
     avatar?: string
-    publicCardPacksCount: number // количество колод
+    publicCardPacksCount: number
     created: Date
     updated: Date
     isAdmin: boolean
-    verified: boolean // подтвердил ли почту
+    verified: boolean
     rememberMe: boolean
     error?: string
   }

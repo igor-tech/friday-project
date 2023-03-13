@@ -38,9 +38,7 @@ export const UpdateProfileName: React.FC<SuperEditableSpanType> = ({
     setEditMode(false)
     onClick?.()
   }
-  const EditMode = () => {
-    setEditMode(true)
-  }
+  const EditMode = () => setEditMode(true)
 
   return (
     <>

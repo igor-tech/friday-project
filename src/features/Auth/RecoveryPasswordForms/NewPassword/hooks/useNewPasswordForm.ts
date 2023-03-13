@@ -16,6 +16,7 @@ export const useNewPasswordForm = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
+  const disabled = appStatus === 'loading'
 
   const { handleSubmit, errors, getFieldProps, touched } = useFormik({
     initialValues: {
@@ -43,5 +44,6 @@ export const useNewPasswordForm = () => {
     getFieldProps,
     touched,
     appStatus,
+    disabled,
   }
 }

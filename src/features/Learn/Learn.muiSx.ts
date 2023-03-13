@@ -1,3 +1,4 @@
+export const learnBlockSx = { margin: '24px 136px' }
 export const paperLearnSx = {
   display: 'flex',
   flexWrap: 'wrap',

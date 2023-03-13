@@ -16,19 +16,15 @@ import {
 import { MODAL_TYPE, packIdSelector, PATH, useAppSelector, useModal } from 'common'
 
 export const DropDownMenu = () => {
+  const { openModal } = useModal()
   const navigate = useNavigate()
   const cardsPack_id = useAppSelector(packIdSelector)
-  const { openModal } = useModal()
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const handleClick = (event: any) => setAnchorEl(event.currentTarget)
+  const handleClose = () => setAnchorEl(null)
 
   const learnPack = () => {
     navigate(`${PATH.LEARN}/${cardsPack_id}`)

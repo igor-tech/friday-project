@@ -3,12 +3,13 @@ import React from 'react'
 import { DeleteOutlined, DriveFileRenameOutlineOutlined, SchoolOutlined } from '@mui/icons-material'
 import { IconButton, TableBody, TableCell, TableRow, Tooltip } from '@mui/material'
 
-import { MODAL_TYPE, redactorDataTime } from '../../../../common'
 import { btnIconBlack } from '../../../Cards/Table-cards/Table-cards-body/tableCardsBody.muiSx'
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
 import { actionsIconSx, btnIconBlackSx } from '../TablePacks.muiSx'
 
 import { TableCellName } from './TableCellName'
+
+import { MODAL_TYPE, redactorDataTime } from 'common'
 
 export const TableBodyPacks = () => {
   const {

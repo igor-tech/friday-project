@@ -14,18 +14,7 @@ import {
 import { handleServerNetworkError } from 'common'
 
 export const getPacks = createAsyncThunk('packs/getPacks', async (_, { dispatch, getState }) => {
-  const { pageCount, page, packName, sortPacks, max, min, user_id } = (getState() as RootState)
-    .packs.packsQueryParams
-
-  const queryParams = {
-    pageCount,
-    page,
-    packName,
-    sortPacks,
-    max,
-    min,
-    user_id,
-  }
+  const queryParams = (getState() as RootState).packs.packsQueryParams
 
   dispatch(setAppStatus('loading'))
   try {
@@ -80,6 +69,7 @@ export const updatePack = createAsyncThunk(
   }
 )
 
+type InitialStatePacksType = typeof initialState
 const initialState = {
   cardPacks: [] as CardsPack[],
   cardPacksTotalCount: 0,
@@ -103,8 +93,6 @@ const initialState = {
     deckCover: '',
   },
 }
-
-type InitialStatePacksType = typeof initialState
 
 export const packsSlice = createSlice({
   name: 'packs',
@@ -170,6 +158,7 @@ export const packsSlice = createSlice({
     },
   },
 })
+
 export const {
   setDataPack,
   setSortPacks,

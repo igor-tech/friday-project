@@ -4,17 +4,7 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import { Box, Container, Paper, Typography } from '@mui/material'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import {
-  appStatusSelector,
-  GeneralButton,
-  isLoggedInSelector,
-  PATH,
-  useAppDispatch,
-  useAppSelector,
-  userEmailSelector,
-  userNameSelector,
-} from '../../common'
-import { LogoutAT } from '../Auth/auth-slice'
+import { LogoutAT } from '../Auth'
 
 import { AvatarComponent } from './AvatarComponents/AvatarComponents'
 import { UpdateProfileName } from './EditableSpanProfileName/EditableSpanProfileName'
@@ -28,6 +18,17 @@ import {
   profileContainerSx,
   titleSx,
 } from './profile.muiSx'
+
+import {
+  appStatusSelector,
+  GeneralButton,
+  isLoggedInSelector,
+  PATH,
+  useAppDispatch,
+  useAppSelector,
+  userEmailSelector,
+  userNameSelector,
+} from 'common'
 
 export const Profile = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)

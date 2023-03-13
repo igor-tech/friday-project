@@ -3,7 +3,6 @@ import React from 'react'
 import { Box, Container, Link, Paper, TextField, Typography } from '@mui/material'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { GeneralButton, PATH } from '../../../../common'
 import {
   BtnSubmitSx,
   cardContainerSx,
@@ -18,6 +17,8 @@ import {
 
 import { useRecoveryForm } from './hooks/useRecoveryForm'
 import { isRecoveryPassword } from './recovery-password-slice'
+
+import { GeneralButton, PATH } from 'common'
 
 export const PasswordRecoveryForm = () => {
   const { isRecoveryPass, errors, touched, handleSubmit, getFieldProps, dispatch, appStatus } =

@@ -4,7 +4,6 @@ import { Box, Container, Link, Paper, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { GeneralButton, PATH, ShowPasswordInput } from '../../../common'
 import { setRegistered } from '../auth-slice'
 import { maxWidth, text } from '../Login/Login.muiSx'
 import {
@@ -17,10 +16,11 @@ import {
 
 import { useRegisterForm } from './hooks/useRegisterForm'
 
+import { GeneralButton, PATH, ShowPasswordInput } from 'common'
+
 export const Register = () => {
-  const { isRegistered, handleSubmit, getFieldProps, errors, touched, dispatch, appStatus } =
+  const { isRegistered, handleSubmit, getFieldProps, errors, touched, dispatch, disabled } =
     useRegisterForm()
-  const disabled = appStatus === 'loading'
 
   if (isRegistered) {
     dispatch(setRegistered(false))

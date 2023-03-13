@@ -2,9 +2,10 @@ import React from 'react'
 
 import { Box, Typography } from '@mui/material'
 
-import { SuperRadio } from '../../common'
-
 import { rateYouSelfSx } from './Learn.muiSx'
+
+import { SuperRadio } from 'common'
+
 type Props = {
   grades: Array<{ id: number; value: string }>
   onChangeRadio: (value: number) => void

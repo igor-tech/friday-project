@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { setAppMessage, setAppStatus } from '../../../../App/app-slice'
-import { handleServerNetworkError } from '../../../../common/utils'
 import { AUTH_RESET, SetNewPasswordReqType } from '../../auth-api'
+
+import { handleServerNetworkError } from 'common'
 
 interface initialStateType {
   isSetNewPassword: boolean

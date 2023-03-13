@@ -30,6 +30,7 @@ export const Packs = () => {
     changePageCallback,
     addNewPackHandler,
   } = usePacksLogic()
+
   const [, setPacksQueryParam] = useSearchParams()
 
   useEffect(() => {

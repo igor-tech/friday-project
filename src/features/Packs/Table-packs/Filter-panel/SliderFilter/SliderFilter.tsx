@@ -29,10 +29,10 @@ export const SliderFilter = () => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
   const isFilterReset = useAppSelector(isFilterResetSelector)
 
-  const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount])
+  const [value, setValue] = useState<[number, number]>([minCardsCount, maxCardsCount])
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[])
+    setValue(newValue as [number, number])
   }
 
   const handleChangeCommitted = () => {

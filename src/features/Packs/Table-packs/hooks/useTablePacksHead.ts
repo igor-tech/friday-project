@@ -16,28 +16,29 @@ type HeadCell = {
   label: string
 }
 
+const headCells: HeadCell[] = [
+  {
+    id: 'name',
+    label: 'Name',
+  },
+  {
+    id: 'cardsCount',
+    label: 'Cards',
+  },
+  {
+    id: 'updated',
+    label: 'Last Updated',
+  },
+  {
+    id: 'created',
+    label: 'Created by',
+  },
+]
+
 export const useTablePacksHead = () => {
   const dispatch = useAppDispatch()
   const [order, setOrder] = useState<OrderSortType>('desc')
   const [orderBy, setOrderBy] = useState<keyof TitlePacksType>('updated')
-  const headCells: HeadCell[] = [
-    {
-      id: 'name',
-      label: 'Name',
-    },
-    {
-      id: 'cardsCount',
-      label: 'Cards',
-    },
-    {
-      id: 'updated',
-      label: 'Last Updated',
-    },
-    {
-      id: 'created',
-      label: 'Created by',
-    },
-  ]
 
   const setSortHandler = (property: keyof TitlePacksType) => {
     const isAsc = orderBy === property && order === 'asc'

@@ -15,6 +15,7 @@ export const useRegisterForm = () => {
   const isRegistered = useAppSelector(isRegisteredSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
+  const disabled = appStatus === 'loading'
 
   const { handleSubmit, errors, getFieldProps, touched, values } = useFormik({
     initialValues: {
@@ -52,5 +53,6 @@ export const useRegisterForm = () => {
     handleSubmit,
     values,
     appStatus,
+    disabled,
   }
 }

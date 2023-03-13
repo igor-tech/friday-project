@@ -1,18 +1,15 @@
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 
-import {
-  appStatusSelector,
-  isLoggedInSelector,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../../common'
 import { loginAT } from '../../auth-slice'
+
+import { appStatusSelector, isLoggedInSelector, useAppDispatch, useAppSelector } from 'common'
 
 export const useLoginForm = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const dispatch = useAppDispatch()
+  const disabled = appStatus === 'loading'
 
   const { handleSubmit, errors, getFieldProps, touched, values } = useFormik({
     initialValues: {
@@ -38,5 +35,6 @@ export const useLoginForm = () => {
     handleSubmit,
     values,
     appStatus,
+    disabled,
   }
 }

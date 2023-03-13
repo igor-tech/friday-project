@@ -43,23 +43,14 @@ const initialState = {
 }
 
 export const getCards = createAsyncThunk('get/cards', async (_, { dispatch, getState }) => {
-  const { cardsPack_id, cardQuestion, sortCards, page, pageCount } = (getState() as RootState).cards
-    .cardsQueryParams
-
-  const queryParams = {
-    cardsPack_id,
-    cardQuestion,
-    sortCards,
-    page,
-    pageCount,
-  }
+  const queryParams = (getState() as RootState).cards.cardsQueryParams
 
   dispatch(setAppStatus('loading'))
   try {
     const { data } = await tableAPI.getCards(queryParams)
 
     if (data.cards.length === 0) {
-      if (cardQuestion === '') {
+      if (queryParams.cardQuestion === '') {
         dispatch(setEmptyCard(true))
       } else {
         dispatch(setEmptySearchCard(true))

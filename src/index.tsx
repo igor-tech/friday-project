@@ -9,7 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App/App'
 import { persistor, store } from './App/store'
-import { theme } from './common/constants/font-theme'
+
+import { theme } from 'common'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
