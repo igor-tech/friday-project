@@ -9,6 +9,11 @@ import { avatarSx } from '../profile.muiSx'
 
 import { convertFileToBase64, useAppDispatch, useAppSelector, userAvatarSelector } from 'common'
 
+const SmallAvatar = styled(Avatar)(() => ({
+  width: 32,
+  height: 32,
+}))
+
 export const AvatarComponent = () => {
   const userAvatar = useAppSelector(userAvatarSelector)
   const dispatch = useAppDispatch()
@@ -17,11 +22,6 @@ export const AvatarComponent = () => {
     userAvatar !== null
       ? userAvatar
       : 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg'
-
-  const SmallAvatar = styled(Avatar)(({ theme }) => ({
-    width: 32,
-    height: 32,
-  }))
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
