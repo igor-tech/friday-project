@@ -6,7 +6,12 @@ import { NavLink } from 'react-router-dom'
 import defaultCover from '../../../../assets/img/defaultCover.jpg'
 import { PATH } from '../../../../common'
 import { CardsPack } from '../../table-api'
-import { firstColumnSx, userLinkSx } from '../TablePacks.muiSx'
+import {
+  firstColumnSx,
+  TableTdContainerSx,
+  tableTdNameWrapSx,
+  userLinkSx,
+} from '../TablePacks.muiSx'
 
 type PropsType = {
   labelId: string
@@ -20,7 +25,7 @@ export const TableCellName: FC<PropsType> = ({ labelId, cardsPack }) => {
   const deckCover = cardsPack.deckCover ? cardsPack.deckCover : defaultCover
 
   return (
-    <TableCell id={labelId}>
+    <TableCell id={labelId} sx={TableTdContainerSx}>
       <Box sx={firstColumnSx}>
         <img
           style={{ height: '36px', borderRadius: '2px', mixBlendMode: 'normal' }}
@@ -33,7 +38,7 @@ export const TableCellName: FC<PropsType> = ({ labelId, cardsPack }) => {
           to={`${PATH.PACKS}${PATH.CARDS}?cardsPackId=${cardsPack._id}`}
           sx={userLinkSx}
         >
-          {cardsPack.name}
+          <Box sx={tableTdNameWrapSx}>{cardsPack.name}</Box>
         </Link>
       </Box>
     </TableCell>

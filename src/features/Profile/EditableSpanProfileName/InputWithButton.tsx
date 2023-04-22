@@ -59,6 +59,9 @@ export const InputWithButton: React.FC<InputWithButtonType> = ({
           </InputAdornment>
         ),
       }}
+      inputProps={{
+        maxlength: 35,
+      }}
     />
   )
 }

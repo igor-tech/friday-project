@@ -59,6 +59,7 @@ export const describeNameSx = {
   marginTop: '17px',
   width: '100%',
   color: '#000000',
+  wordBreak: 'break-all',
 }
 export const iconNameSx = {
   fontSize: '20px',

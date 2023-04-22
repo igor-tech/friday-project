@@ -41,26 +41,24 @@ export const Profile = () => {
 
   let [newName, setNewName] = useState(userName)
 
-  const backHandler = () => {
-    navigate(PATH.PACKS)
-  }
+  const backHandler = () => navigate(PATH.PACKS)
 
   const logOut = () => {
     dispatch(LogoutAT())
-    navigate(PATH.LOGIN)
+      .unwrap()
+      .then(() => {
+        navigate(PATH.LOGIN)
+      })
   }
-  const onChangeName = (newName: string) => {
-    setNewName(newName)
-  }
+  const onChangeName = (newName: string) => setNewName(newName)
+
   const updateUserName = () => {
     if (newName.trim() !== '') {
       dispatch(upDateProfileTC({ newName }))
     }
   }
 
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
-  }
+  if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
 
   return (
     <>

@@ -32,3 +32,16 @@ export const firstColumnSx = {
   alignItems: 'center',
   gap: '10px',
 }
+export const TableTdSx = {
+  width: '25%',
+}
+export const TableTdContainerSx = {
+  width: '25%',
+}
+export const tableTdNameWrapSx = {
+  wordBreak: 'break-all',
+  width: '250px',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+}

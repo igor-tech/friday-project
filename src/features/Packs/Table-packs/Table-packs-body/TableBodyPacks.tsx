@@ -5,7 +5,7 @@ import { IconButton, TableBody, TableCell, TableRow, Tooltip } from '@mui/materi
 
 import { btnIconBlack } from '../../../Cards/Table-cards/Table-cards-body/tableCardsBody.muiSx'
 import { useTablePacksBody } from '../hooks/useTablePacksBody'
-import { actionsIconSx, btnIconBlackSx } from '../TablePacks.muiSx'
+import { actionsIconSx, btnIconBlackSx, TableTdSx } from '../TablePacks.muiSx'
 
 import { TableCellName } from './TableCellName'
 
@@ -28,9 +28,15 @@ export const TableBodyPacks = () => {
     return (
       <TableRow hover key={cardsPack._id}>
         <TableCellName cardsPack={cardsPack} labelId={labelId} />
-        <TableCell align="left">{cardsPack.cardsCount}</TableCell>
-        <TableCell align="left">{redactorDataTime(cardsPack.updated)}</TableCell>
-        <TableCell align="left">{cardsPack.user_name}</TableCell>
+        <TableCell align="left" sx={TableTdSx}>
+          {cardsPack.cardsCount}
+        </TableCell>
+        <TableCell align="left" sx={TableTdSx}>
+          {redactorDataTime(cardsPack.updated)}
+        </TableCell>
+        <TableCell align="left" sx={TableTdSx}>
+          {cardsPack.user_name}
+        </TableCell>
         <TableCell align="left" sx={actionsIconSx}>
           <Tooltip arrow placement="top" title="learn pack">
             <span>

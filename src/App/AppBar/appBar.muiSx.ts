@@ -29,8 +29,8 @@ export const useStylesAppbar = makeStyles((theme: Theme) =>
     },
     appBarIconItSx: {
       [theme.breakpoints.down('xs')]: {
-        width: 155,
-        height: 40,
+        width: 100,
+        height: 100,
         margin: '0!important',
       },
     },
@@ -111,5 +111,8 @@ export const menuPaperPropsSx = {
     },
   },
 }
-
+export const imgSx = {
+  width: '100px',
+  cursor: 'pointer',
+}
 export const containerPackMenuSx = { display: 'flex', alignItems: 'center', textAlign: 'center' }

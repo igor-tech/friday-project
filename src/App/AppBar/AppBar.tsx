@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, Icon, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import incubatorIcon from '../../assets/img/It-incubator.png'
+import questionAnswerIcon from '../../assets/img/question-answer.png'
 
 import {
   appBarLeftSx,
@@ -11,6 +11,7 @@ import {
   appBarSx,
   defaultBoxSx,
   iconItSx,
+  imgSx,
   useStylesAppbar,
 } from './appBar.muiSx'
 import { DropDownNavigate } from './DropDownNavigate'
@@ -38,10 +39,12 @@ export const AppBar = () => {
         <Box sx={appBarLeftSx} className={classes.appBarLeftSx}>
           <Icon sx={iconItSx} className={classes.appBarIconItSx}>
             <Typography
+              onClick={() => navigate(PATH.PROFILE)}
               component="img"
-              src={incubatorIcon}
-              alt="IT INCUBATOR"
+              src={questionAnswerIcon}
+              alt="Cards"
               className={classes.appBarIconItSx}
+              sx={imgSx}
             />
           </Icon>
         </Box>

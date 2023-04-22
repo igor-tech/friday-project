@@ -14,7 +14,7 @@ import {
 
 import { useTableCardsBody } from '../hooks/useTableCardsBody'
 
-import { btnIcon, btnIconBlack } from './tableCardsBody.muiSx'
+import { btnIcon, btnIconBlack, tableCardNameContainerSx } from './tableCardsBody.muiSx'
 
 import { MODAL_TYPE, redactorDataTime } from 'common'
 
@@ -40,12 +40,12 @@ export const TableCardsBody = () => {
 
     return (
       <TableRow hover key={cards._id}>
-        <TableCell id={labelId} sx={{ wordBreak: 'break-all' }}>
-          {question}
+        <TableCell id={labelId}>
+          <Box sx={tableCardNameContainerSx}>{question}</Box>
         </TableCell>
 
-        <TableCell align="left" sx={{ wordBreak: 'break-all' }}>
-          {answer}
+        <TableCell align="left">
+          <Box sx={tableCardNameContainerSx}>{answer}</Box>
         </TableCell>
         <TableCell align="left">{redactorDataTime(cards.updated)}</TableCell>
         <TableCell align="left">
