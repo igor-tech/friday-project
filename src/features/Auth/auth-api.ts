@@ -2,13 +2,13 @@ import { instance, instanceHeroku } from 'common'
 
 export const authAPI = {
   login(data: LoginType) {
-    return instance.post<ResponseLoginType>(`/auth/login`, data)
+    return instance.post<ResponseLoginType>(`auth/login`, data)
   },
   logout() {
-    return instance.delete<ResponseLogoutType>('/auth/me')
+    return instance.delete<ResponseLogoutType>('auth/me')
   },
   register(data: RegisterType) {
-    instanceHeroku.post<ResponseRegisterType>(`/auth/register`, data)
+    return instanceHeroku.post<ResponseRegisterType>(`auth/register`, data)
   },
   me() {
     return instance.post<ResponseLoginType>(`auth/me`, {})
@@ -17,10 +17,10 @@ export const authAPI = {
 
 export const AUTH_RESET = {
   forgotPassword(data: ForgotPasswordReqType) {
-    return instanceHeroku.post<ForgotPasswordResType>('/auth/forgot', data)
+    return instanceHeroku.post<ForgotPasswordResType>('auth/forgot', data)
   },
   setNewPassword(data: SetNewPasswordReqType) {
-    return instanceHeroku.post<SetNewPasswordResType>('/auth/set-new-password', data)
+    return instanceHeroku.post<SetNewPasswordResType>('auth/set-new-password', data)
   },
 }
 
