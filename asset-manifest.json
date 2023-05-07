@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/friday-project-cards/static/css/main.bd59680c.css",
-    "main.js": "/friday-project-cards/static/js/main.5e49acf1.js",
+    "main.js": "/friday-project-cards/static/js/main.a26ecc7b.js",
     "static/media/question-answer.png": "/friday-project-cards/static/media/question-answer.78efeb6ea3137026770c.png",
     "static/media/IEmail.svg": "/friday-project-cards/static/media/IEmail.cdfba66fde5a43fa07de20848a33be02.svg",
     "static/media/chevron-down.svg": "/friday-project-cards/static/media/chevron-down.70da4d4f01beb7ae2174.svg",
     "index.html": "/friday-project-cards/index.html",
     "static/media/moreVert.svg": "/friday-project-cards/static/media/moreVert.af4e27d9520864ff108afeaca18c97a9.svg",
     "main.bd59680c.css.map": "/friday-project-cards/static/css/main.bd59680c.css.map",
-    "main.5e49acf1.js.map": "/friday-project-cards/static/js/main.5e49acf1.js.map"
+    "main.a26ecc7b.js.map": "/friday-project-cards/static/js/main.a26ecc7b.js.map"
   },
   "entrypoints": [
     "static/css/main.bd59680c.css",
-    "static/js/main.5e49acf1.js"
+    "static/js/main.a26ecc7b.js"
   ]
 }
